@@ -1,22 +1,37 @@
 
 @keyframes shadow-aniamtion {
     0% {
-        box-shadow: 0 0 10px #ff0000;
+        box-shadow: 0 0 6px white;
     }
-    20% {
-        box-shadow: 0 0 10px #0000ff;
+    10%{
+        box-shadow: 0 0 7px white;
     }
-    40% {
-        box-shadow: 0 0 10px #ffffff;
+    20%{
+        box-shadow: 0 0 8px white;
     }
-    60% {
-        box-shadow: 0 0 10px #0000ff;
+    30%{
+        box-shadow: 0 0 9px white;
     }
-    80% {
-        box-shadow: 0 0 10px #ff0000;
+    40%{
+        box-shadow: 0 0 10px white;
     }
-    100% {
-        box-shadow: 0 0 10px #ff0000;
+    50%{
+        box-shadow: 0 0 11px white;
+    }
+    60%{
+        box-shadow: 0 0 10px white;
+    }
+    70%{
+        box-shadow: 0 0 9px white;
+    }
+    80%{
+        box-shadow: 0 0 8px white;
+    }
+    90%{
+        box-shadow: 0 0 7px white;
+    }
+    100%{
+        box-shadow: 0 0 6px white;
     }
 }
 
@@ -32,14 +47,18 @@
         @include navigation-item-wrap-css();
 
         .User-Name-Insert{
-            font-size: 1.2em;
-            margin-left: 10px;
+            font-size: 1.1em;
+            margin-left: 5px;
             color: $text-bright-color;
         }
     }
 
     .Middle-menu{
         @include navigation-item-wrap-css();
+
+        .navigation-item{
+        &:hover {animation: shadow-aniamtion 3s ease-in-out infinite;}
+        }
 
     }
 

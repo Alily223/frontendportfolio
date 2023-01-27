@@ -22,7 +22,7 @@ import Nomatch from './Components/Pages/nomatch';
 
 function App() {
   const [userLogInStatus, setUserLogInStatus] = useState("LOGGED_IN")
-  const [adminLogInStatus, setAdminLogInStatus] = useState("LOGGED_IN")
+  const [adminLogInStatus, setAdminLogInStatus] = useState("NOT_LOGGED_IN")
   const [message, setMessage] = useState("")
   const [username, setUsername] = useState("")
 

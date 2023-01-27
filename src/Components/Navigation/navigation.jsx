@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import PowerIconImg from '../../assests/PowerIcon.png'
+import { menuItems } from '../../menuItems';
+import MenuItems from './MenuItems';
+import PowerIconImg from '../../assests/PowerIcon.png';
 
 const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, setAdminLogInStatus, username, setUsername}) => {
     const navigate = useNavigate();
@@ -130,21 +132,14 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                                 Testimonials
                             </Link>
                         </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/createtestimonial">
-                                Create Testimonial
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/hireforwork">
-                                Hire For Work
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/contact">
-                                Contact
-                            </Link>
-                        </div>
+                        
+                        <ul className="user-menu">
+                            {menuItems.map((menu, index) => {
+                                return (
+                                    <MenuItems items={menu} key={index} />
+                                )
+                            }) }
+                        </ul>
                     
                     </div>
                     ): (

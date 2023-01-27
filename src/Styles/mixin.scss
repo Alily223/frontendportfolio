@@ -15,9 +15,6 @@
         border-radius: 0px 10px 10px 10px;
         box-shadow: 0 0 5px white;
         transition: 1s ease-in-out;
-        &:hover{
-            box-shadow: 0 0 10px $text-bright-color;
-        }
         a {
             text-decoration: none;
             color: $text-bright-color;
