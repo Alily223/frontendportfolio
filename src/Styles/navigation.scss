@@ -1,0 +1,73 @@
+
+@keyframes shadow-aniamtion {
+    0% {
+        box-shadow: 0 0 10px #ff0000;
+    }
+    20% {
+        box-shadow: 0 0 10px #0000ff;
+    }
+    40% {
+        box-shadow: 0 0 10px #ffffff;
+    }
+    60% {
+        box-shadow: 0 0 10px #0000ff;
+    }
+    80% {
+        box-shadow: 0 0 10px #ff0000;
+    }
+    100% {
+        box-shadow: 0 0 10px #ff0000;
+    }
+}
+
+.Navigation-Wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    height: 84px;
+    background-color: black;
+
+    .Left-side-menu{
+        @include navigation-item-wrap-css();
+
+        .User-Name-Insert{
+            font-size: 1.2em;
+            margin-left: 10px;
+            color: $text-bright-color;
+        }
+    }
+
+    .Middle-menu{
+        @include navigation-item-wrap-css();
+
+    }
+
+    .Right-side-menu{
+        @include navigation-item-wrap-css();
+        align-self: flex-end;
+        .Sign-out-wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .Power-Icon{
+                height: 50px;
+                width: 50px;
+                background-size: contain;
+                filter:brightness(130%);
+                filter:contrast(100%);
+                border-radius: 200px;
+                box-shadow: 0 0 5px white;
+                transition: 1s ease-in-out;
+                &:hover {
+                    box-shadow: 0 0 10px red;
+                    filter:contrast(130%);
+                }
+            }
+            .Text-for-power{
+                font-size: 1.2em;
+                color: $text-bright-color;
+            }
+        }
+    }
+}
