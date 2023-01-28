@@ -4,31 +4,31 @@
         box-shadow: 0 0 6px white;
     }
     10%{
-        box-shadow: 0 0 7px white;
+        box-shadow: 0 1px 7px white;
     }
     20%{
-        box-shadow: 0 0 8px white;
+        box-shadow: 1px 1px 8px white;
     }
     30%{
-        box-shadow: 0 0 9px white;
+        box-shadow: 0 -1px 9px white;
     }
     40%{
-        box-shadow: 0 0 10px white;
+        box-shadow: -1px -1px 10px white;
     }
     50%{
-        box-shadow: 0 0 11px white;
+        box-shadow: 0 1px 11px white;
     }
     60%{
-        box-shadow: 0 0 10px white;
+        box-shadow: 1px 1px 10px white;
     }
     70%{
-        box-shadow: 0 0 9px white;
+        box-shadow: 0 -1px 9px white;
     }
     80%{
-        box-shadow: 0 0 8px white;
+        box-shadow: -1px -1px 8px white;
     }
     90%{
-        box-shadow: 0 0 7px white;
+        box-shadow: 0 1px 7px white;
     }
     100%{
         box-shadow: 0 0 6px white;
@@ -57,7 +57,7 @@
         @include navigation-item-wrap-css();
 
         .navigation-item{
-        &:hover {animation: shadow-aniamtion 3s ease-in-out infinite;}
+        &:hover {animation: shadow-aniamtion 5s ease-in-out infinite;}
         }
 
     }

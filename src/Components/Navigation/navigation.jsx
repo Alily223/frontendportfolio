@@ -2,6 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { menuItems } from '../../menuItems';
 import MenuItems from './MenuItems';
+import { menuadminItems } from '../../menuadminitem';
+import MenuAdminItems from './MenuAdminItems';
 import PowerIconImg from '../../assests/PowerIcon.png';
 
 const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, setAdminLogInStatus, username, setUsername}) => {
@@ -73,31 +75,20 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                                 Testimonials
                             </Link>
                         </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/createtestimonial">
-                                Create Testimonial
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/hireforwork">
-                                Hire For Work
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/contact">
-                                Contact
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/manager">
-                                Manager
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/usermanager">
-                                User Manager
-                            </Link>
-                        </div>
+                        <ul className="user-menu">
+                            {menuItems.map((menu, index) => {
+                                return (
+                                    <MenuItems items={menu} key={index} />
+                                )
+                            }) }
+                        </ul>
+                        <ul className="admin-user-menu">
+                            {menuadminItems.map((menu, index) => {
+                                return (
+                                    <MenuAdminItems items={menu} key={index} />
+                                )
+                            }) }
+                        </ul>
                     
                     </div>
                     ): userLogInStatus === "LOGGED_IN" ? (

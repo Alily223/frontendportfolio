@@ -21,7 +21,7 @@ import Nomatch from './Components/Pages/nomatch';
 
 
 function App() {
-  const [userLogInStatus, setUserLogInStatus] = useState("LOGGED_IN")
+  const [userLogInStatus, setUserLogInStatus] = useState("NOT_LOGGED_IN")
   const [adminLogInStatus, setAdminLogInStatus] = useState("NOT_LOGGED_IN")
   const [message, setMessage] = useState("")
   const [username, setUsername] = useState("")
@@ -33,7 +33,7 @@ function App() {
         { userLogInStatus === "NOT_LOGGED_IN" ? (
           <Routes>
             <Route exact path="/" element={<Home userLogInStatus={userLogInStatus} setUserLogInStatus={setUserLogInStatus} adminLogInStatus={adminLogInStatus} setAdminLogInStatus={setAdminLogInStatus} username={username} setUsername={setUsername}/>}/>
-            <Route path="/authentication" element={<Authentication setUserLogInStatus={setUserLogInStatus} setAdminLogInStatus={setAdminLogInStatus} setUsername={setUsername} message={message} setMessage={setMessage}/>}/>
+            <Route path="/authentication" element={<Authentication setUserLogInStatus={setUserLogInStatus} setAdminLogInStatus={setAdminLogInStatus} setUsername={setUsername} username={username} message={message} setMessage={setMessage}/>}/>
             <Route path="/blog" element={<Blog />} />
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/hackerrank" element={<Hackerrank />} />
