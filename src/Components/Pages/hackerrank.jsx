@@ -2,7 +2,9 @@ import React from 'react'
 
 const Hackerrank = () => {
   return (
-    <div>Hackerrank</div>
+    <div className="Page-Wrapper">
+      Hackerrank
+    </div>
   )
 }
 

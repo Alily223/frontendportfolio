@@ -1,6 +1,7 @@
-.Home-Page-Wrapper{
-    height: calc(100vh - 84px);
+.Page-Wrapper{
+    height: calc(97.8vh - 84px);
     background-color: $background-page-color;
+    color: $text-bright-color;
     position: relative;
     overflow-y: scroll;
 }

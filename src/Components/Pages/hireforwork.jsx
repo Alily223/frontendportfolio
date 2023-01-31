@@ -2,7 +2,9 @@ import React from 'react'
 
 const Hireforwork = () => {
   return (
-    <div>Hireforwork</div>
+    <div className="Page-Wrapper">
+      Hireforwork
+    </div>
   )
 }
 

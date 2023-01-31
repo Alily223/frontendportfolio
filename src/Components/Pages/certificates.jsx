@@ -2,7 +2,9 @@ import React from 'react'
 
 const Certificates = () => {
   return (
-    <div>Certificates</div>
+    <div className="Page-Wrapper">
+      Certificates
+    </div>
   )
 }
 

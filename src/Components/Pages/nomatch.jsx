@@ -2,7 +2,9 @@ import React from 'react'
 
 const Nomatch = () => {
   return (
-    <div>Nomatch</div>
+    <div className="Page-Wrapper">
+      NO MATCH
+    </div>
   )
 }
 

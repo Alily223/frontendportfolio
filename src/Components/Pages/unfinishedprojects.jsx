@@ -2,7 +2,9 @@ import React from 'react'
 
 const Unfinishedprojects = () => {
   return (
-    <div>Unfinishedprojects</div>
+    <div className="Page-Wrapper">
+      In-Progress Works
+    </div>
   )
 }
 

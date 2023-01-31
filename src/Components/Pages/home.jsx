@@ -6,13 +6,14 @@ import MoreFacts from '../HomeFeatures/MoreFacts';
 
 const Home = () => {
   return (
-    <>
-        <div className="Home-Page-Wrapper">
-            <Aboutme />
-            <MoreFacts/>
-            <HomeDashboard />
-        </div>
-    </>
+    <div className="Page-Wrapper">
+      <div className="Home-Page-Wrapper">
+          <Aboutme />
+          <MoreFacts/>
+          <HomeDashboard />
+      </div>
+    </div>
+    
   )
 }
 

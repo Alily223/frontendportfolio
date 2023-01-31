@@ -2,7 +2,9 @@ import React from 'react'
 
 const Usermanager = () => {
   return (
-    <div>Usermanager</div>
+    <div className="Page-Wrapper">
+      User manager
+    </div>
   )
 }
 
