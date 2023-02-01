@@ -1,10 +1,103 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const Manager = () => {
   const [adminFormState , setAdminFormState] = useState("EMPTY")
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  const [message, setMessage] = useState("")
+
+  //blogs start
+  const editorRef = useRef(null);
+  const [blogTitle , setBlogTitle] = useState("")
+  const [editorContentOne, setEditorContentOne] = useState("")
+
+  const handleEditorChangeOne = (e, editor) => {
+    setEditorContentOne(editor.getData());
+  }
 
   const toBlogAdd = () => {
     setAdminFormState("BLOG_ADD")
+  }
+
+
+  const handleBlogAdd = (e) => {
+    e.preventDefault();
+
+    const editorData = editorRef.current.editor;
+    const content = editorData.getData();
+    const data = {
+      name: blogTitle,
+      description: content
+    }
+
+    if (blogTitle === "" || content === "") {
+      setError(true);
+      setErrorMessage("can not post empty blogs try again");
+    } else {
+      fetch('http://127.0.0.1:5000/blog/postblog', {
+        method: "POST",
+        headers: {"content-type": "application/json"},
+        body: JSON.stringify(data)
+      })
+        .then ((res) => res.json())
+        .then((res) => {
+          if(res === "Blog already exists"){
+            setError(true)
+            setErrorMessage(`This blog already exists try adding part one or part two or go to edit and find ${blogTitle}, ${error}`)
+          }else {
+            setError(false);
+            setErrorMessage("");
+            setMessage(`succesfully created blog titled ${blogTitle}`)
+          }
+        })
+        .catch((error) => {
+          console.log("Error with adding blog", error);
+          setError(true);
+          setErrorMessage("Error with adding blog, please try again")
+        })
+    }
+  }
+
+  const formForBlogAdd = () => {
+    return [
+      <React.Fragment key="Blog_Add">
+        <div className="Form">
+          <div className="Form-Title">
+            <h1>BLOG ADD</h1>
+          </div>
+          
+          <div className="Form-Wrapper">
+            <form className="Form-Box" onSubmit={(e) => handleBlogAdd(e)}>
+
+              <label htmlFor="blogtitle">Title of Blog:</label>
+              <input
+              type="text"
+              placeholder="Title"
+              className="Title"
+              value={blogTitle}
+              name="blogtitle"
+              onChange={(e) => setBlogTitle(e.target.value)}
+              />
+              
+              <label>Text:</label>
+              <CKEditor
+                ref={editorRef}
+                name="descriptionone"
+                editor={ClassicEditor}
+                data={editorContentOne}
+                onChange={handleEditorChangeOne}
+              />
+
+              <button type="submit" className="Add-Button">
+                Add Blog
+              </button>
+            </form>
+          </div>
+        </div>
+      </React.Fragment>
+    ]
   }
 
   const toBlogDelete = () => {
@@ -14,6 +107,10 @@ const Manager = () => {
   const toBlogEdit = () => {
     setAdminFormState("BLOG_EDIT")
   }
+
+  //Blogs End
+
+  //Projects Start
 
   const toProjectAdd = () => {
     setAdminFormState("PROJECT_ADD")
@@ -27,6 +124,10 @@ const Manager = () => {
     setAdminFormState("PROJECT_EDIT")
   }
 
+  //Projects End
+
+  //In-Progress Start
+
   const toInProgressAdd = () => {
     setAdminFormState("IN_PROJRESS_ADD")
   }
@@ -38,6 +139,10 @@ const Manager = () => {
   const toInProgressEdit = () => {
     setAdminFormState("IN_PROJRESS_EDIT")
   }
+
+  //In-Progress End
+
+  //Certificates Start
 
   const toCertificatesAdd = () => {
     setAdminFormState("CERTIFICATES_ADD")
@@ -51,6 +156,10 @@ const Manager = () => {
     setAdminFormState("CERTIFICATES_EDIT")
   }
 
+  //Cerificates End
+
+  //Hacker Ranks Start
+
   const toHackerRanksAdd = () => {
     setAdminFormState("HACKER_RANKS_ADD")
   }
@@ -62,6 +171,10 @@ const Manager = () => {
   const toHackerRanksEdit = () => {
     setAdminFormState("HACKER_RANKS_EDIT")
   }
+
+  //Hacker Ranks End
+
+  //Testimonials Start
 
   const toTestimonialsAdd = () => {
     setAdminFormState("TESTIMONIALS_ADD")
@@ -78,13 +191,15 @@ const Manager = () => {
   const toTestimonialsUserKeyAdd = () => {
     setAdminFormState("TESTIMONIALS_USER_KEY_ADD")
   }
+
+  //Testimonials End
   
   return (
     <div className="Page-Wrapper">
       <div className="Manager-Container">
 
         <div className="Form-Wrapper">
-          {adminFormState}
+          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : null}
         </div>
 
         <div className="Manager-Buttons-Wrapper">

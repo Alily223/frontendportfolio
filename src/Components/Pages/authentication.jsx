@@ -19,7 +19,7 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
     } else {
       fetch("http://127.0.0.1:5000/users/login", {
         method: "POST",
-        headers: {"content-type": "application/json"},
+        headers: {"content-type": "application/json", "Authorization": `Bearer ${document.cookie.split('-')[1]}`},
         body: JSON.stringify({
           username:username,
           password: password
