@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './Styles/main.scss';
 
@@ -23,13 +23,48 @@ import Nomatch from './Components/Pages/nomatch';
 function App() {
   const [userLogInStatus, setUserLogInStatus] = useState("NOT_LOGGED_IN")
   const [adminLogInStatus, setAdminLogInStatus] = useState("NOT_LOGGED_IN")
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
   const [message, setMessage] = useState("")
   const [username, setUsername] = useState("")
+
+  useEffect(() => {
+  const token = document.cookie.split('token=')[1];
+
+  if (token) {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const password = payload.password;
+
+    if (password) {
+      fetch('http://127.0.0.1:5000/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password })
+      })
+        .then(res => res.json())
+        .then(res => {
+          if (res.error) {
+            setError(true);
+            setErrorMessage(res.error);
+          } else {
+            setUsername(res.username);
+          }
+        })
+        .catch(error => {
+          setError(true);
+          setErrorMessage(error.message);
+        });
+      }
+    }
+  }, []);
 
   return (
     <div class="Container">
       <BrowserRouter>
         <Navigation userLogInStatus={userLogInStatus} setUserLogInStatus={setUserLogInStatus} adminLogInStatus={adminLogInStatus} setAdminLogInStatus={setAdminLogInStatus} username={username} setUsername={setUsername}/>
+        {error === true ? <p>{errorMessage}</p> : null}
         { userLogInStatus === "NOT_LOGGED_IN" ? (
           <Routes>
             <Route exact path="/" element={<Home userLogInStatus={userLogInStatus} setUserLogInStatus={setUserLogInStatus} adminLogInStatus={adminLogInStatus} setAdminLogInStatus={setAdminLogInStatus} username={username} setUsername={setUsername}/>}/>

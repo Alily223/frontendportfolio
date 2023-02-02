@@ -12,24 +12,27 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (username === "" || password === ""){
+  
+    if (username === "" || password === "") {
       setError(true);
-      setErrorMessage("Error: All fields must be completed")
+      setErrorMessage("Error: All fields must be completed");
     } else {
       fetch("http://127.0.0.1:5000/users/login", {
         method: "POST",
-        headers: {"content-type": "application/json", "Authorization": `Bearer ${document.cookie.split('-')[1]}`},
+        headers: {
+          "content-type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify({
-          username:username,
-          password: password
+          username: username,
+          password: password,
         }),
       })
         .then((res) => res.json())
         .then((res) => {
-          if(res === "user NONE EXISTENT"){
+          if(res.error){
             setError(true);
-            setErrorMessage("Error: Account could not be verified");
+            setErrorMessage(res.error);
           }else if(res.admin_logged_in === true && res.user_found === true){
             setError(false);
             setErrorMessage("");
@@ -37,7 +40,8 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
             setAdminLogInStatus("LOGGED_IN");
             setUsername(username)
             setPassword(password)
-            setMessage(`Succesfully logged in as ${username}`)
+            setMessage(`Successfully logged in as ${username}`)
+            localStorage.setItem("token", res.token)
             navigate("/");
           } else if (res.user_found === true) {
             setError(false);
@@ -45,7 +49,8 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
             setUserLogInStatus("LOGGED_IN");
             setUsername(username)
             setPassword(password)
-            setMessage(`Succesfully logged in as ${username}`)
+            setMessage(`Successfully logged in as ${username}`)
+            localStorage.setItem("token", res.token)
             navigate("/");
           } else {
             setError(true);
@@ -54,17 +59,16 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
             setUserLogInStatus("NOT_LOGGED_IN");
             setUsername("guest")
             setPassword(password)
-            setMessage(`UnSuccesfully logged in try again`)
+            setMessage("Unsuccessful login, try again")
             navigate("/");
           }
-        })
-        .catch((error) => {
-          console.log("Error with logging in, please try again.", error);
+        }).catch((error) => {
           setError(true);
-          setErrorMessage("Error with logging in, please try again.")
-        })
+          setErrorMessage(`Error: network request failed ${error}`);
+      });
     }
   }
+  
 
   const toSignUp = () => {
     setFormState("SIGN_UP")
@@ -246,5 +250,6 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
     
   )
 }
+
 
 export default Authentication
