@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
   const token = localStorage.getItem("token");
-  //console.log(token)
+  console.log(token)
 
   //console.log(localStorage.getItem("token"))
 
@@ -76,10 +76,10 @@ function App() {
   }}, []);
 
   return (
-    <div class="Container">
+    <div className="Container">
       <BrowserRouter>
         <Navigation userLogInStatus={userLogInStatus} setUserLogInStatus={setUserLogInStatus} adminLogInStatus={adminLogInStatus} setAdminLogInStatus={setAdminLogInStatus} username={username} setUsername={setUsername}/>
-        {error === true ? <p>{errorMessage}</p> : null}
+        {error === true ? <p className='ErrorMessage'>{errorMessage}</p> : null}
         { userLogInStatus === "NOT_LOGGED_IN" ? (
           <Routes>
             <Route exact path="/" element={<Home userLogInStatus={userLogInStatus} setUserLogInStatus={setUserLogInStatus} adminLogInStatus={adminLogInStatus} setAdminLogInStatus={setAdminLogInStatus} username={username} setUsername={setUsername}/>}/>

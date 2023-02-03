@@ -242,7 +242,7 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
 
 
   return (
-    <div classname="Page-Wrapper">
+    <div className="Page-Wrapper">
       <div className="Forms-Wrapper">
         {formState === "LOG_IN" ? loginForm() : formState === "SIGN_UP" ? signupForm() : loginForm()}
       </div>
