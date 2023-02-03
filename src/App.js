@@ -29,36 +29,51 @@ function App() {
   const [username, setUsername] = useState("")
 
   useEffect(() => {
-  const token = document.cookie.split('token=')[1];
+  const token = localStorage.getItem("token");
+  //console.log(token)
+
+  //console.log(localStorage.getItem("token"))
 
   if (token) {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const password = payload.password;
-
-    if (password) {
-      fetch('http://127.0.0.1:5000/users/login', {
-        method: 'POST',
+    fetch("http://127.0.0.1:5000/users/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "content-type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
         },
-        body: JSON.stringify({ password })
+        body: JSON.stringify({
+          username: username
+        }),
       })
-        .then(res => res.json())
-        .then(res => {
-          if (res.error) {
-            setError(true);
-            setErrorMessage(res.error);
-          } else {
-            setUsername(res.username);
-          }
-        })
-        .catch(error => {
+      .then((res)=> res.json())
+      .then((res) => {
+        //console.log(res.data.username)
+        if (res.data.username === "AustinLily"){
+          setError(false);
+          setErrorMessage("");
+          setUserLogInStatus("LOGGED_IN");
+          setAdminLogInStatus("LOGGED_IN");
+          setUsername(res.data.username)
+          setMessage(`Successfully logged in as ${username}`)
+        } else if (res.user_found === true) {
+          setError(false);
+          setErrorMessage("");
+          setUserLogInStatus("LOGGED_IN");
+          setUsername(res.data.username);
+          setMessage(`Successfully logged in as ${username}`);
+        } else {
           setError(true);
-          setErrorMessage(error.message);
-        });
-      }
-    }
-  }, []);
+          setErrorMessage("Error: not a user");
+          setAdminLogInStatus("NOT_LOGGED_IN")
+          setUserLogInStatus("NOT_LOGGED_IN");
+          setUsername("guest")
+          setMessage("Unsuccessful login, try again")
+        }
+      }).catch((error) => {
+        setError(true);
+        setErrorMessage(`Error: network request failed ${error}`);
+      });
+  }}, []);
 
   return (
     <div class="Container">

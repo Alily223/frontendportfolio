@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { json, Link, useNavigate } from 'react-router-dom';
 import { menuItems } from '../../menuItems';
 import MenuItems from './MenuItems';
 import { menuadminItems } from '../../menuadminitem';
@@ -13,6 +13,7 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
         setUserLogInStatus("NOT_LOGGED_IN")
         setAdminLogInStatus("NOT_LOGGED_IN")
         setUsername("")
+        localStorage.setItem("token", null);
         navigate("/")
     }
 
