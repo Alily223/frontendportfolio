@@ -1,17 +1,20 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import HtmlReactParser from 'html-react-parser';
 
 const Manager = () => {
   const [adminFormState , setAdminFormState] = useState("EMPTY")
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const [message, setMessage] = useState("")
+  const [isLoading, setIsloading]= useState(true)
 
   //blogs start
   const editorRef = useRef(null);
   const [blogTitle , setBlogTitle] = useState("")
   const [editorContentOne, setEditorContentOne] = useState("")
+  const [blogs, setBlogs] = useState([])
 
   const handleEditorChangeOne = (e, editor) => {
     setEditorContentOne(editor.getData());
@@ -27,14 +30,17 @@ const Manager = () => {
 
     const editorData = editorRef.current.editor;
     const content = editorData.getData();
+    const option = document.getElementById("category").value;
     const data = {
       name: blogTitle,
-      description: content
+      description: content,
+      category: option
     }
 
-    if (blogTitle === "" || content === "") {
+    //console.log(option)
+    if (blogTitle === "" || content === "" || option === "") {
       setError(true);
-      setErrorMessage("can not post empty blogs try again");
+      setErrorMessage("can not post empty blogs try again, check the blog title, content, and category");
     } else {
       fetch('http://127.0.0.1:5000/blog/postblog', {
         method: "POST",
@@ -80,6 +86,19 @@ const Manager = () => {
               name="blogtitle"
               onChange={(e) => setBlogTitle(e.target.value)}
               />
+
+              <label htmlFor="category">Category of Blog:</label>
+              <select id="category">
+                <option value="Normal Blog">Normal Blog</option>
+                <option value="Code Blog">Code Blog</option>
+                <option value="Update Blog">Update Blog</option>
+                <option value="News Blog">News Blog</option>
+                <option value="Opinon Blog">Opinon Blog</option>
+                <option value="Error Blog">Error Blog</option>
+                <option value="Job Blog">Job Blog</option>
+                <option value="Personal Blog">Personal Blog</option>
+                <option value="Test Blog">Test Blog</option>
+              </select>
               
               <label>Text:</label>
               <CKEditor
@@ -100,8 +119,156 @@ const Manager = () => {
     ]
   }
 
+  const getAllBlogsForDelete = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
+        const data = await response.json();
+        setBlogs(data);
+        setIsloading(false)
+      } catch (error) {
+        console.error(error);
+      }
+  }
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
+        const data = await response.json();
+        setBlogs(data);
+        setIsloading(false)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  const deleteBlog = async (blogId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/blog/${blogId}`, {
+        method: 'DELETE',
+      });
+      const data= await response.json();
+      console.log(data);
+      setBlogs(blogs.filter(blog => blog.id !== blogId));
+    }catch (error){
+      console.error(error)
+    }
+  }
+
   const toBlogDelete = () => {
     setAdminFormState("BLOG_DELETE")
+  }
+
+  const handleBlogSearch = (e) => {
+    e.preventDefault();
+
+    const category = document.getElementById("category-delete").value;
+    const filteredBlogs = blogs.filter(blog => {
+      return (
+        blog.title.toLowerCase().includes(blogTitle.toLowerCase()) &&
+        blog.category === category
+      );
+    });
+    setBlogs(filteredBlogs);
+  }
+
+  const blogRecords = blogs.map(blog => {
+    let parsedDescription = HtmlReactParser(blog.description.replace('&lt;/p&gt;', '').replace('&lt;p&gt;', ""));
+    return (
+      <div key={blog.id}>
+        <div className="title-and-category-wrapper">
+          <div className="title">
+            <h2>{blog.title}</h2>
+          </div>
+        
+          <div className="category-name">
+            <p>{blog.category}</p>
+          </div>
+        </div>
+        <div className="description-wrapper" >
+          {parsedDescription}
+        </div>
+
+        <div className="delete-button">
+          <button onClick={() => deleteBlog(blog.id)}>Delete</button>
+        </div>
+      </div>
+    )
+  })
+
+  const dataRenderForBlogDelete = () => {
+    return (
+      <React.Fragment key="Delete-the-blogs">
+        <div>
+          {isLoading ? <p>Loading...</p> : blogRecords}
+        </div>
+      </React.Fragment>
+    )
+  }
+
+  const blogDeleteSortForm = () => {
+    return [
+      <React.Fragment key="Delete-Sort-Form">
+        <div className="Form">
+          <div className="Form-Title">
+            <h1>BLOG DELETE</h1>
+          </div>
+
+          <div className="Form-Wrapper">
+            <form className="Form-Box" onSubmit={(e) => handleBlogSearch(e)}>
+              <label htmlFor="blogtitle">Title of Blog:</label>
+              
+              <input
+              type="text"
+              placeholder="Title"
+              className="Title"
+              value={blogTitle}
+              name="blogtitle"
+              onChange={(e) => setBlogTitle(e.target.value)}
+              />
+
+              <label htmlFor="category">Category of Blog:</label>
+              <select id="category-delete">
+                <option value="Normal Blog">Normal Blog</option>
+                <option value="Code Blog">Code Blog</option>
+                <option value="Update Blog">Update Blog</option>
+                <option value="News Blog">News Blog</option>
+                <option value="Opinon Blog">Opinon Blog</option>
+                <option value="Error Blog">Error Blog</option>
+                <option value="Job Blog">Job Blog</option>
+                <option value="Personal Blog">Personal Blog</option>
+                <option value="Test Blog">Test Blog</option>
+              </select>
+
+              <button type="submit">Search</button>
+            </form>
+
+            <button type="button" onClick={(e) => getAllBlogsForDelete(e)}>Revert to all</button>
+          </div>
+        </div>
+      </React.Fragment>
+    ]
+  }
+
+  const deleteBlogComp = () => {
+    return [
+      <React.Fragment key="DeleteBlogComp">
+        <div className="delete-wrapper">
+          <div className="delete-form-wrapper">
+            {blogDeleteSortForm()}
+          </div>
+
+          <div className="delete-wrapper">
+            {dataRenderForBlogDelete()}
+          </div>
+        </div>
+        
+
+      </React.Fragment>
+    ]
   }
 
   const toBlogEdit = () => {
@@ -199,7 +366,7 @@ const Manager = () => {
       <div className="Manager-Container">
 
         <div className="Form-Wrapper">
-          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : null}
+          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : adminFormState === "BLOG_DELETE" ? deleteBlogComp() : null}
         </div>
 
         <div className="Manager-Buttons-Wrapper">
