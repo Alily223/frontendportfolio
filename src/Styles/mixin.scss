@@ -26,3 +26,12 @@
     
 }
 
+@mixin percent-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background: repeating-linear-gradient(45deg, $bar-for-skillscolorone , $bar-for-skillscolortwo 2px);
+    border-radius: 0px 20px 20px 0px;
+    align-self: center;
+    height: 100%;
+}

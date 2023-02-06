@@ -1,6 +1,32 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 const MoreFacts = () => {
+    const [htmlPercent, setHtmlPercent] = useState("")
+    const [pythonPercent, setPythonPercent] = useState("")
+    const [mongoDBPercent, setMongoDBPercent] = useState("")
+    const [scssPercent, setScssPercent] = useState("")
+    const [flaskPercent, setFlaskPercent] = useState("")
+    const [umlPercent, setUMLPercent] = useState("")
+    const [uiUxPercent, setUiUxPercent] = useState("")
+    const [javascriptPercent, setJavascriptPercent] = useState("")
+    const [gitPercent, setGitPercent] = useState("")
+    const [reactJSPercent, setReactJSPercent] = useState("")
+    const [mySQLPercent, setMySQLPercent] = useState("")
+
+    useEffect(() => {
+        setHtmlPercent(document.getElementById('Percent-Tag-HTML').innerText.slice(0, -1))
+        setPythonPercent(document.getElementById('Percent-Tag-Python').innerText.slice(0, -1))
+        setMongoDBPercent(document.getElementById('Percent-Tag-MongoDB').innerText.slice(0, -1))
+        setScssPercent(document.getElementById('Percent-Tag-Scss').innerText.slice(0, -1))
+        setFlaskPercent(document.getElementById('Percent-Tag-Flask').innerText.slice(0, -1))
+        setUMLPercent(document.getElementById('Percent-Tag-UML').innerText.slice(0, -1))
+        setUiUxPercent(document.getElementById('Percent-Tag-UIUX').innerText.slice(0, -1))
+        setJavascriptPercent(document.getElementById('Percent-Tag-Javascript').innerText.slice(0, -1))
+        setGitPercent(document.getElementById('Percent-Tag-GIT').innerText.slice(0, -1))
+        setReactJSPercent(document.getElementById('Percent-Tag-ReactJS').innerText.slice(0, -1))
+        setMySQLPercent(document.getElementById('Percent-Tag-SQL').innerText.slice(0, -1))
+    }, [])
+    
   return (
     <div className='More-Facts-About-Me-Grid-Wrapper'>
         <div className='Skills-Wrapper'>
@@ -16,8 +42,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-HTML">
-                            <p>95%</p>
+                        <div className="Skill-Percent-HTML" style={{width: `${htmlPercent}%`}}>
+                            <p id='Percent-Tag-HTML'>95%</p>
                         </div>
                     </div>
 
@@ -30,8 +56,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-CSS">
-                            <p>95%</p>
+                        <div className="Skill-Percent-CSS" style={{width: `${scssPercent}%`}}>
+                            <p id='Percent-Tag-Scss'>95%</p>
                         </div>
                     </div>
 
@@ -44,8 +70,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-Python">
-                            <p>75%</p>
+                        <div className="Skill-Percent-Python" style={{width: `${pythonPercent}%`}}>
+                            <p id='Percent-Tag-Python'>75%</p>
                         </div>
                     </div>
 
@@ -58,8 +84,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-Flask">
-                            <p>55%</p>
+                        <div className="Skill-Percent-Flask" style={{width: `${flaskPercent}%`}}>
+                            <p id='Percent-Tag-Flask'>55%</p>
                         </div>
                     </div>
 
@@ -72,22 +98,22 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-MongoDB">
-                            <p>65%</p>
+                        <div className="Skill-Percent-MongoDB" style={{width: `${mongoDBPercent}%`}}>
+                            <p id='Percent-Tag-MongoDB'>65%</p>
                         </div>
                     </div>
 
                 </div>
 
-                <div className='Skill-Item-wrapper'>
+                <div className='Skill-Item-wrapper' >
                 
                     <div className="Skill-Name">
                         <p>UML</p>
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-UML">
-                            <p>90%</p>
+                        <div className="Skill-Percent-UML" style={{width: `${umlPercent}%`}}>
+                            <p id='Percent-Tag-UML'>90%</p>
                         </div>
                     </div>
 
@@ -100,8 +126,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-UIUX">
-                            <p>100%</p>
+                        <div className="Skill-Percent-UIUX" style={{width: `${uiUxPercent}%`}}>
+                            <p id='Percent-Tag-UIUX'>100%</p>
                         </div>
                     </div>
 
@@ -114,8 +140,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-Javascript">
-                            <p>85%</p>
+                        <div className="Skill-Percent-Javascript" style={{width: `${javascriptPercent}%`}}>
+                            <p id='Percent-Tag-Javascript'>85%</p>
                         </div>
                     </div>
 
@@ -128,8 +154,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-GIT">
-                            <p>85%</p>
+                        <div className="Skill-Percent-GIT" style={{width: `${gitPercent}%`}}>
+                            <p id='Percent-Tag-GIT'>85%</p>
                         </div>
                     </div>
 
@@ -142,8 +168,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-ReactJS">
-                            <p>75%</p>
+                        <div className="Skill-Percent-ReactJS" style={{width: `${reactJSPercent}%`}}>
+                            <p id='Percent-Tag-ReactJS'>75%</p>
                         </div>
                     </div>
 
@@ -156,8 +182,8 @@ const MoreFacts = () => {
                     </div>
 
                     <div className='Skill-Bar'>
-                        <div className="Skill-Percent-SQL">
-                            <p>90%</p>
+                        <div className="Skill-Percent-SQL" style={{width: `${mySQLPercent}%`}}>
+                            <p id='Percent-Tag-SQL'>90%</p>
                         </div>
                     </div>
 
@@ -172,12 +198,18 @@ const MoreFacts = () => {
 
             <div className='Hobbies-list-wrapper'>
                 <ul>
-                    <li className='List-item'>Gaming</li>
-                    <li className='List-item'>Writing</li>
-                    <li className='List-item'>Coding</li>
-                    <li className='List-item'>Photography</li>
-                    <li className='List-item'>Digitial Arts</li>
-                    <li className='List-item'>Science</li>
+                    <li className='List-item'><b>Gaming</b></li>
+                    <div><p>Project Zomboid, No Mans Sky, Fallout 4, Skyrim</p></div>
+                    <li className='List-item'><b>Writing</b></li>
+                    <div><p>World Building, Character Building, Story Creation</p></div>
+                    <li className='List-item'><b>Coding</b></li>
+                    <div><p>Hacker Ranks, Problem Solving, Random Code Creation</p></div>
+                    <li className='List-item'><b>Photography</b></li>
+                    <div><p>Lively Portraits, Landscape Photos, Abstract Photos</p></div>
+                    <li className='List-item'><b>Digitial Arts</b></li>
+                    <div><p>Abstract Art, Portrait Art, Fantasy Art</p></div>
+                    <li className='List-item'><b>Science</b></li>
+                    <div><p>Space Exploration, Human Health, Theories</p></div>
                 </ul>
             </div>
         </div>

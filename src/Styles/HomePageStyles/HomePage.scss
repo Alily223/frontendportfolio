@@ -1,7 +1,182 @@
+
 .Page-Wrapper{
     height: calc(97.8vh - 84px);
     background-color: $background-page-color;
     color: $text-bright-color;
     position: relative;
     overflow-y: scroll;
+
+    .Home-Page-Wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        .About-Me-Wrapper{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            justify-content: center;
+            align-items: center;
+
+            .Image-Wrapper{
+                margin: 20px;
+                padding: 20px;
+                background-color: black;
+                border-radius: 20px;
+            }
+
+            .About-Me-Wrapper-Info{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 800px;
+                margin: 20px;
+                padding: 20px;
+                background-color: black;
+                border-radius: 20px;
+            }
+
+            .Logo{
+                height: 150px;
+                width: 150px;
+                align-self: center;
+                margin: 20px;
+                padding: 20px;
+                background-color: black;
+                border-radius: 20px;
+
+                img{
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    align-self: center;
+                }
+            }
+        }
+
+        .More-Facts-About-Me-Grid-Wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            justify-content: center;
+            align-items: center;
+
+            .Skills-Wrapper{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: black;
+                border-radius: 20px;
+                margin: 10px;
+
+                .Skill-bar-confidence-wrapper{
+                    display: grid;
+                    grid-template-columns: repeat(2 , 1fr);
+
+                    .Skill-Item-wrapper{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        width: 300px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        margin-right: 8px;
+                        margin-left: 8px;
+
+
+                        .Skill-Name{
+                            background-color: $background-page-color;
+                            border-radius: 20px 0px 0px 20px;
+                            width: 82px;
+                            padding: 5px;
+                        }
+
+                        .Skill-Bar{
+                            display: flex;
+                            flex-direction: row;
+                            background-color: $background-page-color;
+                            border: 1px solid black;
+                            border-radius: 0px 20px 20px 0px;
+                            width: 250px;
+                            height: 60px;
+
+                            .Skill-Percent-HTML{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-CSS{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-Python{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-Flask{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-MongoDB{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-UML{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-UIUX{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-Javascript{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-GIT{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-ReactJS{
+                                @include percent-bar();
+                            }
+
+                            .Skill-Percent-SQL{
+                                @include percent-bar();
+                            }
+                        }
+                    }
+                }
+            }
+
+            .Hobbies-Wrapper{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: black;
+                border-radius: 20px;
+                margin: 10px;
+                height: 560px;
+
+                .Hobbies-list-wrapper{
+                    text-align: left;
+                    .List-item{
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+
+            .Currently-Learning-Wrapper{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: black;
+                border-radius: 20px;
+                margin: 10px;
+                height: 560px;
+            }
+        }
+    }
 }
