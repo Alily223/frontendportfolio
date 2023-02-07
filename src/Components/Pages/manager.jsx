@@ -15,6 +15,7 @@ const Manager = () => {
   const [blogTitle , setBlogTitle] = useState("")
   const [editorContentOne, setEditorContentOne] = useState("")
   const [blogs, setBlogs] = useState([])
+  const [singleBlog, setSingleBlog] = useState([])
 
   const handleEditorChangeOne = (e, editor) => {
     setEditorContentOne(editor.getData());
@@ -119,6 +120,87 @@ const Manager = () => {
     ]
   }
 
+  const editBlog = (blog) => {
+    fetch(`/blog/edit/${blog}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+    })
+    .then(res => {
+      console.log(res)
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (data.error) {
+        console.error(data.error);
+      } else {
+      toBlogEdit();
+      setSingleBlog(data.blog);
+      console.log(data.blog);
+    }
+    })
+      .catch(error => console.error(error));
+    };
+
+  const handleBlogPatch = (e) => {
+    e.preventDefault();
+  }
+
+  const blogEditForm = () => {
+    return [
+      <React.Fragment key="Blog_Edit">
+        <div className="Form">
+          <div className="Form-Title">
+            <h1>BLOG EDIT</h1>
+          </div>
+          
+          <div className="Form-Wrapper">
+            <form className="Form-Box" onSubmit={(e) => handleBlogPatch(e)}>
+
+              <label htmlFor="blogtitle">Title of Blog:</label>
+              <input
+              type="text"
+              placeholder="Title"
+              className="Title"
+              value={blogTitle}
+              name="blogtitle"
+              onChange={(e) => setBlogTitle(e.target.value)}
+              />
+
+              <label htmlFor="category">Category of Blog:</label>
+              <select id="category">
+                <option value="Normal Blog">Normal Blog</option>
+                <option value="Code Blog">Code Blog</option>
+                <option value="Update Blog">Update Blog</option>
+                <option value="News Blog">News Blog</option>
+                <option value="Opinon Blog">Opinon Blog</option>
+                <option value="Error Blog">Error Blog</option>
+                <option value="Job Blog">Job Blog</option>
+                <option value="Personal Blog">Personal Blog</option>
+                <option value="Test Blog">Test Blog</option>
+              </select>
+              
+              <label>Text:</label>
+              <CKEditor
+                ref={editorRef}
+                name="descriptionone"
+                editor={ClassicEditor}
+                data={editorContentOne}
+                onChange={handleEditorChangeOne}
+              />
+
+              <button type="submit" className="Add-Button">
+                Edit Blog
+              </button>
+            </form>
+          </div>
+        </div>
+      </React.Fragment>
+    ]
+  }
+
   const getAllBlogsForDelete = async (e) => {
     e.preventDefault();
     try {
@@ -137,7 +219,7 @@ const Manager = () => {
         const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
         const data = await response.json();
         setBlogs(data);
-        setIsloading(false)
+        setIsloading(false);
       } catch (error) {
         console.error(error);
       }
@@ -162,7 +244,7 @@ const Manager = () => {
     setAdminFormState("BLOG_DELETE")
   }
 
-  const handleBlogSearch = (e) => {
+  const handleBlogSearchTBCB = (e) => {
     e.preventDefault();
 
     const category = document.getElementById("category-delete").value;
@@ -175,10 +257,22 @@ const Manager = () => {
     setBlogs(filteredBlogs);
   }
 
+  const getAllBlogsWithCertainCategory = (e) => {
+    e.preventDefault();
+   
+    const category = document.getElementById("category-delete").value;
+    const filteredBlogs = blogs.filter(blog => {
+      return(
+        blog.category === category
+      );
+    });
+    setBlogs(filteredBlogs);
+  }
+
   const blogRecords = blogs.map(blog => {
     let parsedDescription = HtmlReactParser(blog.description.replace('&lt;/p&gt;', '').replace('&lt;p&gt;', ""));
     return (
-      <div key={blog.id}>
+      <div key={blog.id} className="Blog-Item">
         <div className="title-and-category-wrapper">
           <div className="title">
             <h2>{blog.title}</h2>
@@ -192,8 +286,9 @@ const Manager = () => {
           {parsedDescription}
         </div>
 
-        <div className="delete-button">
+        <div className="buttons">
           <button onClick={() => deleteBlog(blog.id)}>Delete</button>
+          <button className="editbutton" onClick={() => editBlog(blog.id)}>Edit</button>
         </div>
       </div>
     )
@@ -202,7 +297,7 @@ const Manager = () => {
   const dataRenderForBlogDelete = () => {
     return (
       <React.Fragment key="Delete-the-blogs">
-        <div>
+        <div className="grid-wrapper-for-blogs">
           {isLoading ? <p>Loading...</p> : blogRecords}
         </div>
       </React.Fragment>
@@ -218,7 +313,7 @@ const Manager = () => {
           </div>
 
           <div className="Form-Wrapper">
-            <form className="Form-Box" onSubmit={(e) => handleBlogSearch(e)}>
+            <form className="Form-Box" onSubmit={(e) => handleBlogSearchTBCB(e)}>
               <label htmlFor="blogtitle">Title of Blog:</label>
               
               <input
@@ -246,7 +341,9 @@ const Manager = () => {
               <button type="submit">Search</button>
             </form>
 
-            <button type="button" onClick={(e) => getAllBlogsForDelete(e)}>Revert to all</button>
+            <button type="button" id="Reverse" onClick={(e) => getAllBlogsForDelete(e)}>Revert to all</button>
+
+            <button type="button" onClick={(e) => getAllBlogsWithCertainCategory(e)}>Get By Category</button>
           </div>
         </div>
       </React.Fragment>
@@ -261,12 +358,15 @@ const Manager = () => {
             {blogDeleteSortForm()}
           </div>
 
-          <div className="delete-wrapper">
+          <div className="delete-blog-wrapper">
             {dataRenderForBlogDelete()}
+          </div>
+
+          <div className="edit-form-wrapper">
+            {adminFormState === "BLOG_EDIT"? blogEditForm(): null}
           </div>
         </div>
         
-
       </React.Fragment>
     ]
   }
@@ -463,6 +563,9 @@ const Manager = () => {
             </div>
           </div>
           
+        </div>
+        <div className="messageloader">
+          <p>{error ? errorMessage : message}</p>
         </div>
       </div>
     </div>

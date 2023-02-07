@@ -221,32 +221,56 @@ const MoreFacts = () => {
 
             <div className='Currently-Learning-Wrapper-List'>
                 <div className="Currently-learning-item">
-                    <div className="Item-Learning-Title">
-                        <h3>Next.Js -</h3>
+                    <div className="C-L-I-TOP">
+                        <div className="Item-Learning-Title">
+                            <h3>Next.Js -</h3>
+                        </div>
+                        
+                        <div className="Stage-Of-Learning">
+                            <p>&nbsp;&nbsp;Module One</p>
+                        </div>
                     </div>
-                    
-                    <div className="Stage-Of-Learning">
-                        <p>&nbsp;&nbsp;Module One</p>
+
+                    <div className="C-L-I-BOTTOM">
+                        <div className="Description-For-C-L-I">
+                            <p>Next.js is a JavaScript framework for building fast and scalable server-side rendered web applications with React.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div className="Currently-learning-item">
-                    <div className="Item-Learning-Title">
-                        <h3>Three.Js -</h3>
+                    <div className="C-L-I-TOP">
+                        <div className="Item-Learning-Title">
+                            <h3>Three.Js -</h3>
+                        </div>
+                        
+                        <div className="Stage-Of-Learning">
+                            <p>&nbsp;&nbsp;Foundations</p>
+                        </div>
                     </div>
-                    
-                    <div className="Stage-Of-Learning">
-                        <p>&nbsp;&nbsp;Foundations</p>
+
+                    <div className="C-L-I-BOTTOM">
+                        <div className="Description-For-C-L-I">
+                            <p>Three.js is a JavaScript library for creating interactive 3D graphics in web browsers.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div className="Currently-learning-item">
-                    <div className="Item-Learning-Title">
-                        <h3>Lua Scripting -</h3>
+                    <div className="C-L-I-TOP">
+                        <div className="Item-Learning-Title">
+                            <h3>Lua Scripting -</h3>
+                        </div>
+                        
+                        <div className="Stage-Of-Learning">
+                            <p>&nbsp;&nbsp;Foundations</p>
+                        </div>
                     </div>
-                    
-                    <div className="Stage-Of-Learning">
-                        <p>&nbsp;&nbsp;Foundations</p>
+
+                    <div className="C-L-I-BOTTOM">
+                        <div className="Description-For-C-L-I">
+                            <p>Lua is a lightweight, high-level, multi-paradigm programming language used for scripting and extension in various applications.</p>
+                        </div>
                     </div>
                 </div>
             </div>

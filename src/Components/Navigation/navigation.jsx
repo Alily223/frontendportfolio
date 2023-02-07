@@ -1,5 +1,5 @@
 import React from 'react'
-import { json, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { menuItems } from '../../menuItems';
 import MenuItems from './MenuItems';
 import { menuadminItems } from '../../menuadminitem';
@@ -37,7 +37,7 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                     </div>
 
                     <div className="User-Name-Insert">
-                        {username !== "" ? (
+                        {username !== "" && userLogInStatus === "LOGGED_IN" ? (
                             <div className="User-Name">{username}</div>
                         ): <div className="User-Name">GUEST</div>}
                     </div>
