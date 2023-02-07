@@ -5,6 +5,7 @@ import HtmlReactParser from 'html-react-parser';
 
 const Manager = () => {
   const [adminFormState , setAdminFormState] = useState("EMPTY")
+  const [adminDualFormState, setAdminDualFormState] = useState("EMPTY")
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const [message, setMessage] = useState("")
@@ -15,7 +16,8 @@ const Manager = () => {
   const [blogTitle , setBlogTitle] = useState("")
   const [editorContentOne, setEditorContentOne] = useState("")
   const [blogs, setBlogs] = useState([])
-  const [singleBlog, setSingleBlog] = useState([])
+  const [selectedOption, setSelectedOption] = useState("")
+  const [blogId, setblogId]= useState("")
 
   const handleEditorChangeOne = (e, editor) => {
     setEditorContentOne(editor.getData());
@@ -120,32 +122,48 @@ const Manager = () => {
     ]
   }
 
-  const editBlog = (blog) => {
-    fetch(`/blog/edit/${blog}`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
-    })
-    .then(res => {
-      console.log(res)
-      if (!res.ok) {
-        throw new Error(res.statusText);
-      }
-      return res.json();
-    })
-    .then(data => {
-      if (data.error) {
-        console.error(data.error);
-      } else {
-      toBlogEdit();
-      setSingleBlog(data.blog);
-      console.log(data.blog);
-    }
-    })
-      .catch(error => console.error(error));
-    };
+  const toBlogEdit = () => {
+    setAdminDualFormState("BLOG_EDIT")
+  }
 
-  const handleBlogPatch = (e) => {
+  const editBlog = (Id, title, category, parsedDescription) => {
+    toBlogEdit();
+    setblogId(Id)
+    setBlogTitle(title)
+    setSelectedOption(category)
+    setTimeout(() => {
+      editorRef.current.editor.setData(parsedDescription);
+    }, 1000);
+    
+  };
+
+  const handleBlogEdit = (e) => {
     e.preventDefault();
+
+    const editorData = editorRef.current.editor;
+    const content = editorData.getData();
+    const option = document.getElementById("category").value;
+    const data = {
+      name: blogTitle,
+      description: content,
+      category: option
+    }
+
+    console.log(blogTitle)
+    console.log(content)
+    console.log(option)
+
+    fetch(`http://127.0.0.1:5000/updateblog/${blogId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({data})
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+
   }
 
   const blogEditForm = () => {
@@ -157,7 +175,16 @@ const Manager = () => {
           </div>
           
           <div className="Form-Wrapper">
-            <form className="Form-Box" onSubmit={(e) => handleBlogPatch(e)}>
+            <form className="Form-Box" onSubmit={(e) => handleBlogEdit(e)}>
+
+              <label htmlFor="blogid">Blog Id:</label>
+              <input
+              type="text"
+              className='Blog-Id-holder'
+              value={blogId}
+              name="blogId"
+              disabled={true}
+              />
 
               <label htmlFor="blogtitle">Title of Blog:</label>
               <input
@@ -165,12 +192,13 @@ const Manager = () => {
               placeholder="Title"
               className="Title"
               value={blogTitle}
-              name="blogtitle"
+              name="blogTitle"
               onChange={(e) => setBlogTitle(e.target.value)}
+              disabled={true}
               />
 
               <label htmlFor="category">Category of Blog:</label>
-              <select id="category">
+              <select id="category" value={selectedOption} disabled={true}>
                 <option value="Normal Blog">Normal Blog</option>
                 <option value="Code Blog">Code Blog</option>
                 <option value="Update Blog">Update Blog</option>
@@ -288,7 +316,7 @@ const Manager = () => {
 
         <div className="buttons">
           <button onClick={() => deleteBlog(blog.id)}>Delete</button>
-          <button className="editbutton" onClick={() => editBlog(blog.id)}>Edit</button>
+          <button className="editbutton" onClick={() => editBlog(blog.id, blog.title, blog.category, parsedDescription)}>Edit</button>
         </div>
       </div>
     )
@@ -363,7 +391,7 @@ const Manager = () => {
           </div>
 
           <div className="edit-form-wrapper">
-            {adminFormState === "BLOG_EDIT"? blogEditForm(): null}
+            {adminDualFormState === "BLOG_EDIT"? blogEditForm(): null}
           </div>
         </div>
         
@@ -371,9 +399,7 @@ const Manager = () => {
     ]
   }
 
-  const toBlogEdit = () => {
-    setAdminFormState("BLOG_EDIT")
-  }
+  
 
   //Blogs End
 

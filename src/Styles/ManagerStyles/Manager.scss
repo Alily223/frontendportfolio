@@ -108,7 +108,7 @@
                         transition: 2s;
 
                         &:hover {
-                            background-color: red;
+                            box-shadow: 0 0 5px red;
                             height: 55px;
                             width: 85px;
                             font-size: 1.1em;
@@ -127,7 +127,7 @@
                         transition: 2s;
 
                         &:hover {
-                            background-color: green;
+                            box-shadow: 0 0 5px green;
                             height: 55px;
                             width: 85px;
                             font-size: 1.1em;
