@@ -21,19 +21,37 @@
                 justify-content: center;
 
                 .button-item{
-                    margin-top: 5px;
-                    margin-bottom: 5px;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    color: $text-bright-color;
+                    background-color: black;
+
+                    button{
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        border-radius: 20px;
+                    }
                 }
             }
         }
     }
 }
 
+
+
 .delete-wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    .blog-edit-delete-wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
     .delete-form-wrapper{
         .Form{
             display: flex;
@@ -61,15 +79,51 @@
 
                     input{
                         margin-right: 50px;
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                            
                     }
 
                     select{
                         margin-right: 50px;
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        
+                        .Option{
+                            &:hover{
+                                background-color: black;
+                            }
+                        }
+                        
+                    }
+
+                    .search-button{
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        border-radius: 20px;
                     }
                 }
             }
+
+            button{
+                color: $text-bright-color;
+                background-color: black;
+                box-shadow: 0 0 5px white;
+                border-radius: 20px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
         }
     }
+
+    
     .delete-blog-wrapper{
         .grid-wrapper-for-blogs{
             overflow-y: scroll;
@@ -139,4 +193,82 @@
 
         }
     }
+
+    .edit-form-wrapper{
+        .Form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .Form-Wrapper{
+                .Form-Box{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .Inputs-Wrapper-WS{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        .Blog-Id-holder{
+                            width: 40px;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+
+                        .Title{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+
+                        #category{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+                    }
+
+                    .RTE-WRAPPER{
+                        .Editor-Wrapper{
+                            margin: 5px;
+                            .ck-editor__editable_inline {
+                                background-color: black !important;
+                                color: $text-bright-color !important;
+                            }
+                            
+                            .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+                                background-color: black !important;
+                            }
+                        }
+                    }
+
+                    .Add-Button{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+    
 }

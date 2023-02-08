@@ -13,14 +13,21 @@ const Manager = () => {
 
   //blogs start
   const editorRef = useRef(null);
+  const editorRefTwo = useRef(null);
   const [blogTitle , setBlogTitle] = useState("")
   const [editorContentOne, setEditorContentOne] = useState("")
+  const [editorContentTwo, setEditorContentTwo] = useState("")
   const [blogs, setBlogs] = useState([])
   const [selectedOption, setSelectedOption] = useState("")
   const [blogId, setblogId]= useState("")
+  const [editBlogStateChange, setEditBlogStateChange]= useState("")
 
   const handleEditorChangeOne = (e, editor) => {
     setEditorContentOne(editor.getData());
+  }
+
+  const handleEditorChangeTwo = (e, editor) => {
+    setEditorContentTwo(editor.getData());
   }
 
   const toBlogAdd = () => {
@@ -128,19 +135,17 @@ const Manager = () => {
 
   const editBlog = (Id, title, category, parsedDescription) => {
     toBlogEdit();
-    setblogId(Id)
-    setBlogTitle(title)
-    setSelectedOption(category)
-    setTimeout(() => {
-      editorRef.current.editor.setData(parsedDescription);
-    }, 1000);
-    
+    setblogId(Id);
+    setBlogTitle(title);
+    setSelectedOption(category);
+
+    setTimeout(() => {editorRefTwo.current.editor.setData(parsedDescription);}, 500)
   };
 
   const handleBlogEdit = (e) => {
     e.preventDefault();
 
-    const editorData = editorRef.current.editor;
+    const editorData = editorRefTwo.current.editor;
     const content = editorData.getData();
     const option = document.getElementById("category").value;
     const data = {
@@ -154,14 +159,18 @@ const Manager = () => {
     console.log(option)
 
     fetch(`http://127.0.0.1:5000/updateblog/${blogId}`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({data})
+      body: JSON.stringify(data)
     })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        setEditBlogStateChange("CHANGE");
+        setTimeout(() => {setEditBlogStateChange("")}, 500)
+        })
       .catch(error => console.error(error));
 
   }
@@ -177,47 +186,52 @@ const Manager = () => {
           <div className="Form-Wrapper">
             <form className="Form-Box" onSubmit={(e) => handleBlogEdit(e)}>
 
-              <label htmlFor="blogid">Blog Id:</label>
-              <input
-              type="text"
-              className='Blog-Id-holder'
-              value={blogId}
-              name="blogId"
-              disabled={true}
-              />
+              <div className="Inputs-Wrapper-WS">
+                <label htmlFor="blogid">Blog Id:</label>
+                <input
+                type="text"
+                className='Blog-Id-holder'
+                value={blogId}
+                name="blogId"
+                disabled={true}
+                />
 
-              <label htmlFor="blogtitle">Title of Blog:</label>
-              <input
-              type="text"
-              placeholder="Title"
-              className="Title"
-              value={blogTitle}
-              name="blogTitle"
-              onChange={(e) => setBlogTitle(e.target.value)}
-              disabled={true}
-              />
+                <label htmlFor="blogtitle">Title of Blog:</label>
+                <input
+                type="text"
+                placeholder="Title"
+                className="Title"
+                value={blogTitle}
+                name="blogTitle"
+                onChange={(e) => setBlogTitle(e.target.value)}
+                disabled={true}
+                />
+                
 
-              <label htmlFor="category">Category of Blog:</label>
-              <select id="category" value={selectedOption} disabled={true}>
-                <option value="Normal Blog">Normal Blog</option>
-                <option value="Code Blog">Code Blog</option>
-                <option value="Update Blog">Update Blog</option>
-                <option value="News Blog">News Blog</option>
-                <option value="Opinon Blog">Opinon Blog</option>
-                <option value="Error Blog">Error Blog</option>
-                <option value="Job Blog">Job Blog</option>
-                <option value="Personal Blog">Personal Blog</option>
-                <option value="Test Blog">Test Blog</option>
-              </select>
-              
-              <label>Text:</label>
-              <CKEditor
-                ref={editorRef}
-                name="descriptionone"
-                editor={ClassicEditor}
-                data={editorContentOne}
-                onChange={handleEditorChangeOne}
-              />
+                <label htmlFor="category">Category of Blog:</label>
+                <select id="category" value={selectedOption} disabled={true}>
+                  <option value="Normal Blog">Normal Blog</option>
+                  <option value="Code Blog">Code Blog</option>
+                  <option value="Update Blog">Update Blog</option>
+                  <option value="News Blog">News Blog</option>
+                  <option value="Opinon Blog">Opinon Blog</option>
+                  <option value="Error Blog">Error Blog</option>
+                  <option value="Job Blog">Job Blog</option>
+                  <option value="Personal Blog">Personal Blog</option>
+                  <option value="Test Blog">Test Blog</option>
+                </select>
+              </div>
+              <div className="RTE-WRAPPER">
+                <div className="Editor-Wrapper">
+                  <CKEditor
+                    ref={editorRefTwo}
+                    name="descriptionone"
+                    editor={ClassicEditor}
+                    data={editorContentTwo}
+                    onChange={handleEditorChangeTwo}
+                  />
+                </div>
+              </div>
 
               <button type="submit" className="Add-Button">
                 Edit Blog
@@ -255,7 +269,22 @@ const Manager = () => {
     fetchBlogs();
   }, []);
 
-  const deleteBlog = async (blogId) => {
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
+        const data = await response.json();
+        setBlogs(data);
+        setIsloading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchBlogs();
+  }, [editBlogStateChange, setEditBlogStateChange]);
+
+  const deleteBlog = async (e, blogId) => {
+    e.preventDefault();
     try {
       const response = await fetch(`http://127.0.0.1:5000/blog/${blogId}`, {
         method: 'DELETE',
@@ -315,7 +344,7 @@ const Manager = () => {
         </div>
 
         <div className="buttons">
-          <button onClick={() => deleteBlog(blog.id)}>Delete</button>
+          <button onClick={(e) => deleteBlog(e, blog.id)}>Delete</button>
           <button className="editbutton" onClick={() => editBlog(blog.id, blog.title, blog.category, parsedDescription)}>Edit</button>
         </div>
       </div>
@@ -355,18 +384,18 @@ const Manager = () => {
 
               <label htmlFor="category">Category of Blog:</label>
               <select id="category-delete">
-                <option value="Normal Blog">Normal Blog</option>
-                <option value="Code Blog">Code Blog</option>
-                <option value="Update Blog">Update Blog</option>
-                <option value="News Blog">News Blog</option>
-                <option value="Opinon Blog">Opinon Blog</option>
-                <option value="Error Blog">Error Blog</option>
-                <option value="Job Blog">Job Blog</option>
-                <option value="Personal Blog">Personal Blog</option>
-                <option value="Test Blog">Test Blog</option>
+                <option className="Option" value="Normal Blog">Normal Blog</option>
+                <option className="Option" value="Code Blog">Code Blog</option>
+                <option className="Option" value="Update Blog">Update Blog</option>
+                <option className="Option" value="News Blog">News Blog</option>
+                <option className="Option" value="Opinon Blog">Opinon Blog</option>
+                <option className="Option" value="Error Blog">Error Blog</option>
+                <option className="Option" value="Job Blog">Job Blog</option>
+                <option className="Option" value="Personal Blog">Personal Blog</option>
+                <option className="Option" value="Test Blog">Test Blog</option>
               </select>
 
-              <button type="submit">Search</button>
+              <button className="search-button" type="submit">Search</button>
             </form>
 
             <button type="button" id="Reverse" onClick={(e) => getAllBlogsForDelete(e)}>Revert to all</button>
@@ -386,13 +415,18 @@ const Manager = () => {
             {blogDeleteSortForm()}
           </div>
 
-          <div className="delete-blog-wrapper">
-            {dataRenderForBlogDelete()}
-          </div>
+          <div className="blog-edit-delete-wrapper">
 
-          <div className="edit-form-wrapper">
-            {adminDualFormState === "BLOG_EDIT"? blogEditForm(): null}
+            <div className="delete-blog-wrapper">
+              {dataRenderForBlogDelete()}
+            </div>
+
+            <div className="edit-form-wrapper">
+              {adminDualFormState === "BLOG_EDIT"? blogEditForm(): null}
+            </div>
+
           </div>
+          
         </div>
         
       </React.Fragment>
@@ -503,11 +537,9 @@ const Manager = () => {
                 <button type="button" onClick={() => toBlogAdd()}>Blog Add</button>
               </div>
               <div className="button-item">
-                <button type="button" onClick={() => toBlogDelete()}>Blog Delete</button>
+                <button type="button" onClick={() => toBlogDelete()}>Blog Edits</button>
               </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toBlogEdit()}>Blog Edit</button>
-              </div>
+
             </div>
           </div>
 
