@@ -272,3 +272,71 @@
     }
     
 }
+
+.Form-Wrapper{
+    .Form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .Form-Wrapper{
+            .Form-Box{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .Inputs-Wrapper-WS{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    .Title{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                    }
+
+                    #category{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                    }
+                }
+
+                .RTE-WRAPPER{
+                    .Editor-Wrapper{
+                        margin: 5px;
+                        .ck-editor__editable_inline {
+                            background-color: black !important;
+                            color: $text-bright-color !important;
+                        }
+                        
+                        .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+                            background-color: black !important;
+                        }
+                    }
+                }
+
+                .Add-Button{
+                    width: fit-content;
+                    text-align: center;
+                    color: $text-bright-color;
+                    background-color: black;
+                    box-shadow: 0 0 5px white;
+                    margin-right: 10px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}

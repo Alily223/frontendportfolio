@@ -87,37 +87,43 @@ const Manager = () => {
           <div className="Form-Wrapper">
             <form className="Form-Box" onSubmit={(e) => handleBlogAdd(e)}>
 
-              <label htmlFor="blogtitle">Title of Blog:</label>
-              <input
-              type="text"
-              placeholder="Title"
-              className="Title"
-              value={blogTitle}
-              name="blogtitle"
-              onChange={(e) => setBlogTitle(e.target.value)}
-              />
+              <div className="Inputs-Wrapper-WS">
+                <label htmlFor="blogtitle">Title of Blog:</label>
+                <input
+                type="text"
+                placeholder="Title"
+                className="Title"
+                value={blogTitle}
+                name="blogtitle"
+                onChange={(e) => setBlogTitle(e.target.value)}
+                />
 
-              <label htmlFor="category">Category of Blog:</label>
-              <select id="category">
-                <option value="Normal Blog">Normal Blog</option>
-                <option value="Code Blog">Code Blog</option>
-                <option value="Update Blog">Update Blog</option>
-                <option value="News Blog">News Blog</option>
-                <option value="Opinon Blog">Opinon Blog</option>
-                <option value="Error Blog">Error Blog</option>
-                <option value="Job Blog">Job Blog</option>
-                <option value="Personal Blog">Personal Blog</option>
-                <option value="Test Blog">Test Blog</option>
-              </select>
+                <label htmlFor="category">Category of Blog:</label>
+                <select id="category">
+                  <option value="Normal Blog">Normal Blog</option>
+                  <option value="Code Blog">Code Blog</option>
+                  <option value="Update Blog">Update Blog</option>
+                  <option value="News Blog">News Blog</option>
+                  <option value="Opinon Blog">Opinon Blog</option>
+                  <option value="Error Blog">Error Blog</option>
+                  <option value="Job Blog">Job Blog</option>
+                  <option value="Personal Blog">Personal Blog</option>
+                  <option value="Test Blog">Test Blog</option>
+                </select>
+              </div>
+
               
-              <label>Text:</label>
-              <CKEditor
-                ref={editorRef}
-                name="descriptionone"
-                editor={ClassicEditor}
-                data={editorContentOne}
-                onChange={handleEditorChangeOne}
-              />
+              <div className="RTE-WRAPPER">
+                <div className="Editor-Wrapper">
+                  <CKEditor
+                    ref={editorRef}
+                    name="descriptionone"
+                    editor={ClassicEditor}
+                    data={editorContentOne}
+                    onChange={handleEditorChangeOne}
+                  />
+                </div>
+              </div>
 
               <button type="submit" className="Add-Button">
                 Add Blog
@@ -133,13 +139,24 @@ const Manager = () => {
     setAdminDualFormState("BLOG_EDIT")
   }
 
-  const editBlog = (Id, title, category, parsedDescription) => {
+  const editBlog = (Id, title, category, description) => {
     toBlogEdit();
     setblogId(Id);
     setBlogTitle(title);
     setSelectedOption(category);
 
-    setTimeout(() => {editorRefTwo.current.editor.setData(parsedDescription);}, 500)
+    //console.log(parsedDescription)
+
+    const eek = JSON.stringify(description)
+
+    //console.log(JSON.stringify(description))
+
+    const looasa= JSON.parse(eek)
+
+    //console.log(looasa)
+
+    setTimeout(() => {editorRefTwo.current.editor.setData(looasa.replaceAll('&lt;/p&gt;', '</p>').replaceAll('&lt;p&gt;','<p>').replaceAll('&lt;h4&gt;',"<h3>").replaceAll('&lt;/h4&gt;',"</h3>").replaceAll('&lt;figure class="table"&gt;', "<figure class='table'>").replaceAll('&lt;/figure&gt;', '</figure>').replaceAll('&lt;table&gt;', '<table>').replaceAll('&lt;/table&gt;', '</table>').replaceAll('&lt;tbody&gt;', '<tbody>').replaceAll('&lt;/tbody&gt;', '</tbody>').replaceAll('&lt;tr&gt;', '<tr>').replaceAll('&lt;/tr&gt;', '</tr>').replaceAll('&lt;td&gt;', '<td>').replaceAll('&lt;/td&gt;', '</td>'));}, 500)
+
   };
 
   const handleBlogEdit = (e) => {
@@ -176,6 +193,10 @@ const Manager = () => {
   }
 
   const blogEditForm = () => {
+    const customConfig = {
+      extraAllowedContent: 'h1 h2 h3 p strong em'
+    };
+    
     return [
       <React.Fragment key="Blog_Edit">
         <div className="Form">
@@ -229,6 +250,7 @@ const Manager = () => {
                     editor={ClassicEditor}
                     data={editorContentTwo}
                     onChange={handleEditorChangeTwo}
+                    config={customConfig}
                   />
                 </div>
               </div>
@@ -327,7 +349,7 @@ const Manager = () => {
   }
 
   const blogRecords = blogs.map(blog => {
-    let parsedDescription = HtmlReactParser(blog.description.replace('&lt;/p&gt;', '').replace('&lt;p&gt;', ""));
+    let parsedDescription = HtmlReactParser(blog.description.replaceAll('&lt;/p&gt;', '</p>').replaceAll('&lt;p&gt;','<p>').replaceAll('&lt;h4&gt;',"<h3>").replaceAll('&lt;/h4&gt;',"</h3>").replaceAll('&lt;figure class="table"&gt;', "<figure class='table'>").replaceAll('&lt;/figure&gt;', '</figure>').replaceAll('&lt;table&gt;', '<table>').replaceAll('&lt;/table&gt;', '</table>').replaceAll('&lt;tbody&gt;', '<tbody>').replaceAll('&lt;/tbody&gt;', '</tbody>').replaceAll('&lt;tr&gt;', '<tr>').replaceAll('&lt;/tr&gt;', '</tr>').replaceAll('&lt;td&gt;', '<td>').replaceAll('&lt;/td&gt;', '</td>'));
     return (
       <div key={blog.id} className="Blog-Item">
         <div className="title-and-category-wrapper">
@@ -343,9 +365,13 @@ const Manager = () => {
           {parsedDescription}
         </div>
 
+        <div className="invisible-text" style={{display : "None"}}>
+          {blog.description}
+        </div>
+
         <div className="buttons">
           <button onClick={(e) => deleteBlog(e, blog.id)}>Delete</button>
-          <button className="editbutton" onClick={() => editBlog(blog.id, blog.title, blog.category, parsedDescription)}>Edit</button>
+          <button className="editbutton" onClick={() => editBlog(blog.id, blog.title, blog.category, blog.description)}>Edit</button>
         </div>
       </div>
     )
@@ -366,7 +392,7 @@ const Manager = () => {
       <React.Fragment key="Delete-Sort-Form">
         <div className="Form">
           <div className="Form-Title">
-            <h1>BLOG DELETE</h1>
+            <h1>BLOG EDITS</h1>
           </div>
 
           <div className="Form-Wrapper">
