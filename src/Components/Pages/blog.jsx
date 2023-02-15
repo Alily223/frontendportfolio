@@ -181,7 +181,7 @@ const Blog = () => {
           {dataRenderForBlogs()}
         </div>
         <div className="Page-Load-Buttons">
-          <button type="button" className="Load-Button" id="Load-More-Button-Blogs" onClick={() => setOffset(offset + 9)}>Load More</button>
+          {blogs.length === offset + 9 ? <button type="button" className="Load-Button" id="Load-More-Button-Blogs" onClick={() => setOffset(offset - 9)}>Load Less</button>: <button type="button" className="Load-Button" id="Load-More-Button-Blogs" onClick={() => setOffset(offset + 9)}>Load More</button>}
         </div>
       </div>
     </div>
