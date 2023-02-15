@@ -28,6 +28,19 @@ const Blog = () => {
 
     //console.log(identity)
 
+    const filterButtonNameArray = ["Normal", "Code", "Update", "News", "Opinon","Error","Job","Personal","Test","All"]
+
+    filterButtonNameArray.forEach(item => {
+      console.log(item);
+      const elementId = item + "-Blog";
+      const element = document.getElementById(elementId);
+      if(element.className.includes(" Unfocused-Filter-Button")){
+        element.className = element.className.replace(" Unfocused-Filter-Button", "")
+      }else {
+        element.className += " Unfocused-Filter-Button"
+      }
+    })
+
     const blogIdArray = blogs.filter(blog => blog.id !== identity).slice(0, 9 + offset).map(blog => blog.id)
 
     //console.log(blogIdArray)
@@ -41,7 +54,7 @@ const Blog = () => {
     blogIdArray.forEach(id => {
       const elementId = "B-I-" + id;
       const element = document.getElementById(elementId);
-      if (element.className.includes(" UnFocused-Item")){
+      if(element.className.includes(" UnFocused-Item")){
         element.className = element.className.replace(" UnFocused-Item", "")
       }else {
         element.className += " UnFocused-Item"
@@ -56,6 +69,7 @@ const Blog = () => {
     }else {
       elementlbb.className += " Unfocused-Button"
     }
+    
     
   }
 
@@ -161,13 +175,12 @@ const Blog = () => {
           <button className="Filter-Button" id="Job-Blog" onClick={() => filterForBlogs("Job Blog")}>Job</button>
           <button className="Filter-Button" id="Personal-Blog" onClick={() => filterForBlogs("Personal Blog")}>Personal</button>
           <button className="Filter-Button" id="Test-Blog" onClick={() => filterForBlogs("Test Blog")}>Test</button>
-          <button className="Filter-Button" id="All-Blogs" onClick={() => filterForBlogs("All")}>All</button>
+          <button className="Filter-Button" id="All-Blog" onClick={() => filterForBlogs("All")}>All</button>
         </div>
         <div className="Blogs-Here" id="Blogs-Here">
           {dataRenderForBlogs()}
         </div>
         <div className="Page-Load-Buttons">
-          {blogs.length < offset ? <p>This is less</p>: <p>This is more</p>}
           <button type="button" className="Load-Button" id="Load-More-Button-Blogs" onClick={() => setOffset(offset + 9)}>Load More</button>
         </div>
       </div>

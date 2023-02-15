@@ -53,8 +53,8 @@ function App() {
           setErrorMessage("");
           setUserLogInStatus("LOGGED_IN");
           setAdminLogInStatus("LOGGED_IN");
-          setUsername(res.data.username)
-          setMessage(`Successfully logged in as ${username}`)
+          setUsername(res.data.username);
+          setMessage(`Successfully logged in as ${username}`);
         } else if (res.user_found === true) {
           setError(false);
           setErrorMessage("");
