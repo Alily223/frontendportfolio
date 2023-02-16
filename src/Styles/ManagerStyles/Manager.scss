@@ -241,6 +241,21 @@
                             margin-right: 10px;
                             margin-left: 10px;
                         }
+
+                        select{
+                            margin-right: 50px;
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                        
+                        .Option{
+                            &:hover{
+                                background-color: black;
+                            }
+                        }
+                        }
                     }
 
                     .RTE-WRAPPER{
@@ -302,6 +317,16 @@
                         margin-left: 10px;
                     }
 
+                    .Link{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                    }
+
                     #category{
                         width: fit-content;
                         text-align: center;
@@ -310,6 +335,28 @@
                         box-shadow: 0 0 5px white;
                         margin-right: 10px;
                         margin-left: 10px;
+                    }
+
+                    #project-category-add{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                    }
+                }
+
+                .dropzone-wrapper{
+                    background-color: black;
+                    border-radius: 20px;
+                    margin: 10px;
+                    padding: 10px;
+
+                    img{
+                        width: 100%;
+                        max-width: 100%;
                     }
                 }
 

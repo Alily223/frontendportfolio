@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import HtmlReactParser from 'html-react-parser';
+import Dropzone from 'react-dropzone';
 
 const Manager = () => {
   const [adminFormState , setAdminFormState] = useState("EMPTY")
@@ -11,7 +12,13 @@ const Manager = () => {
   const [message, setMessage] = useState("")
   const [isLoading, setIsloading]= useState(true)
 
-  //blogs start
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Blogs Code Starts Here
+  -----------------------------------------------------------------------------------
+  
+  */
   const editorRef = useRef(null);
   const editorRefTwo = useRef(null);
   const [blogTitle , setBlogTitle] = useState("")
@@ -477,28 +484,193 @@ const Manager = () => {
       </React.Fragment>
     ]
   }
-
+  /*
   
+  -----------------------------------------------------------------------------------
+  Blogs Code End Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
-  //Blogs End
 
-  //Projects Start
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Projects Code Starts Here
+  -----------------------------------------------------------------------------------
+  
+  */
+  const editorRefThree = useRef(null);
+  const [projectTitle, setProjectTitle] = useState("");
+  //const [projectCategory, setProjectCategory] = useState("");
+  const [projectLink, setProjectLink] = useState("");
+  //const [files, setFiles] = useState([]);
+  const [droppedFile, setDroppedFile] = useState(null);
+  const [editorContentThree, setEditorContentThree] = useState("")
+  const { FileReaderSync } = window;
 
   const toProjectAdd = () => {
     setAdminFormState("PROJECT_ADD")
   }
 
-  const toProjectDelete = () => {
-    setAdminFormState("PROJECT_DELETE")
+  const handleEditorChangeThree = (e, editor) => {
+    setEditorContentThree(editor.getData());
   }
 
-  const toProjectEdit = () => {
+  const handleDrop = (acceptedFiles) => {
+    //setFiles([...files, ...acceptedFiles]);
+    setDroppedFile(acceptedFiles[0])
+    console.log(URL.createObjectURL(acceptedFiles[0]))
+  }
+
+  const handleProjectAdd = (e) => {
+    e.preventDefault();
+
+    const editorData = editorRefThree.current.editor;
+    const content = editorData.getData();
+    const option = document.getElementById("project-category-add").value;
+    const reader = new FileReaderSync();
+    const data = {
+      name: projectTitle,
+      link: projectLink,
+      category: option,
+      image: reader.readAsDataURL(droppedFile),
+      description: content
+    }
+
+    console.log(data.image)
+
+    if (projectTitle === "" || content === ""){
+      console.log("Null data failure to run")
+    } else {
+      fetch(`http://127.0.0.1:5000/project/Add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  }
+
+  const projectAddForm = () => {
+    const customConfig = {
+      extraAllowedContent: 'h1 h2 h3 p strong em'
+    };
+
+    return [
+      <React.Fragment key="project-add-form">
+        <div className="Form">
+          <div className="Form-Title">
+            <h1>Project Add Form</h1>
+          </div>
+
+          <div className="Form-Wrapper">
+            <form className='Form-Box' onSubmit={(e) => handleProjectAdd(e)}>
+
+              <div className="Inputs-Wrapper-WS">
+                <input
+                  type="text"
+                  placeholder="Title"
+                  className="Title"
+                  value={projectTitle}
+                  name="projecttitle"
+                  onChange={(e) => setProjectTitle(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Link"
+                  className="Link"
+                  value={projectLink}
+                  name="projectlink"
+                  onChange={(e) => setProjectLink(e.target.value)}
+                />
+
+                <select id="project-category-add">
+                  <option className="Option" value="Blog Website">Blog Website</option>
+                  <option className="Option" value="Buisness Website">Buisness Website</option>
+                  <option className="Option" value="E-commerce Website">E-commerce Website</option>
+                  <option className="Option" value="Portfolio Website">Portfolio Website</option>
+                  <option className="Option" value="Educational Website">Educational Website</option>
+                  <option className="Option" value="Social Network Website">Social Network Website</option>
+                  <option className="Option" value="News Website">News Website</option>
+                  <option className="Option" value="Magazine Website">Magazine Website</option>
+                  <option className="Option" value="Forum Website">Forum Website</option>
+                  <option className="Option" value="Community Website">Community Website</option>
+                  <option className="Option" value="Gaming Website">Gaming Website</option>
+                  <option className="Option" value="Humor Website">Humor Website</option>
+                  <option className="Option" value="Music Website">Music Website</option>
+                  <option className="Option" value="Art Website">Art Website</option>
+                  <option className="Option" value="Photography Website">Photography Website</option>
+                  <option className="Option" value="Travel Website">Travel Website</option>
+                  <option className="Option" value="Food Website">Food Website</option>
+                </select>
+              </div>
+
+              <div className="dropzone-wrapper">
+                <Dropzone onDrop={handleDrop}>
+                  {({getRootProps, getInputProps}) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()}/>
+                      {droppedFile ? (
+                        <img src={URL.createObjectURL(droppedFile)} alt="" />
+                      ) : (
+                        <p>Add Image Here</p>
+                      )}
+                    </div>
+                  )}
+                </Dropzone>
+              </div>
+
+              <div className="RTE-WRAPPER">
+                <div className="Editor-Wrapper">
+                  <CKEditor
+                    ref={editorRefThree}
+                    name="descriptionone"
+                    editor={ClassicEditor}
+                    data={editorContentThree}
+                    onChange={handleEditorChangeThree}
+                    config={customConfig}
+                  />
+                </div>
+              </div>
+
+              <button type="submit" className='Add-Button'>Add Project</button>
+            </form>
+          </div>
+        </div>
+      </React.Fragment>
+    ]
+  }
+
+  const toProjectEdits = () => {
+    setAdminFormState("PROJECT_DELETE")
     setAdminFormState("PROJECT_EDIT")
   }
 
-  //Projects End
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Projects Code Ends Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
-  //In-Progress Start
+  /*
+  
+  -----------------------------------------------------------------------------------
+  In-Progress Projects Code Starts Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
   const toInProgressAdd = () => {
     setAdminFormState("IN_PROJRESS_ADD")
@@ -512,9 +684,21 @@ const Manager = () => {
     setAdminFormState("IN_PROJRESS_EDIT")
   }
 
-  //In-Progress End
+  /*
+  
+  -----------------------------------------------------------------------------------
+  In-Progress Projects Code Ends Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
-  //Certificates Start
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Certificates Code Starts Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
   const toCertificatesAdd = () => {
     setAdminFormState("CERTIFICATES_ADD")
@@ -528,9 +712,21 @@ const Manager = () => {
     setAdminFormState("CERTIFICATES_EDIT")
   }
 
-  //Cerificates End
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Certificates Code Ends Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
-  //Hacker Ranks Start
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Hacker Ranks Code Starts Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
   const toHackerRanksAdd = () => {
     setAdminFormState("HACKER_RANKS_ADD")
@@ -544,9 +740,21 @@ const Manager = () => {
     setAdminFormState("HACKER_RANKS_EDIT")
   }
 
-  //Hacker Ranks End
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Hacker Ranks Code Ends Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
-  //Testimonials Start
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Testimonials Code Starts Here
+  -----------------------------------------------------------------------------------
+  
+  */
 
   const toTestimonialsAdd = () => {
     setAdminFormState("TESTIMONIALS_ADD")
@@ -564,14 +772,20 @@ const Manager = () => {
     setAdminFormState("TESTIMONIALS_USER_KEY_ADD")
   }
 
-  //Testimonials End
+  /*
+  
+  -----------------------------------------------------------------------------------
+  Testimonials Code Ends Here
+  -----------------------------------------------------------------------------------
+  
+  */
   
   return (
     <div className="Page-Wrapper">
       <div className="Manager-Container">
 
         <div className="Form-Wrapper">
-          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : adminFormState === "BLOG_DELETE" ? deleteBlogComp() : null}
+          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : adminFormState === "BLOG_DELETE" ? deleteBlogComp() : adminFormState === "PROJECT_ADD" ? projectAddForm(): null}
         </div>
 
         <div className="Manager-Buttons-Wrapper">
@@ -595,10 +809,7 @@ const Manager = () => {
                 <button type="button" onClick={() => toProjectAdd()}>Project Add</button>
               </div>
               <div className="button-item">
-                <button type="button" onClick={() => toProjectDelete()}>Project Delete</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toProjectEdit()}>Project Edit</button>
+                <button type="button" onClick={() => toProjectEdits()}>Project Edits</button>
               </div>
             </div>
           </div>

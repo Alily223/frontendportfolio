@@ -73,7 +73,7 @@ function App() {
         setError(true);
         setErrorMessage(`Error: network request failed ${error}`);
       });
-  }}, []);
+  }}, [username]);
 
   return (
     <div className="Container">
