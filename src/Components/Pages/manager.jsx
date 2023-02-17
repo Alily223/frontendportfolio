@@ -3,6 +3,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import HtmlReactParser from 'html-react-parser';
 import Dropzone from 'react-dropzone';
+import { Buffer } from 'buffer';
 
 const Manager = () => {
   const [adminFormState , setAdminFormState] = useState("EMPTY")
@@ -506,8 +507,12 @@ const Manager = () => {
   const [projectLink, setProjectLink] = useState("");
   //const [files, setFiles] = useState([]);
   const [droppedFile, setDroppedFile] = useState(null);
-  const [editorContentThree, setEditorContentThree] = useState("")
-  const { FileReaderSync } = window;
+  const [editorContentThree, setEditorContentThree] = useState("");
+  const { FileReader } = window;
+  const [bytesImageData, setBytesImageData] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [change, setChange] = useState(true);
+  const [imageUrls, setImageUrls] = useState({});
 
   const toProjectAdd = () => {
     setAdminFormState("PROJECT_ADD")
@@ -519,8 +524,17 @@ const Manager = () => {
 
   const handleDrop = (acceptedFiles) => {
     //setFiles([...files, ...acceptedFiles]);
-    setDroppedFile(acceptedFiles[0])
-    console.log(URL.createObjectURL(acceptedFiles[0]))
+    setDroppedFile(acceptedFiles[0]);
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const bytes = new Uint8Array(event.target.result)
+      setBytesImageData(bytes)
+      //console.log(bytes)
+    }
+    reader.readAsArrayBuffer(file);
+    //console.log(URL.createObjectURL(acceptedFiles[0]))
+    //console.log(bytesImageData)
   }
 
   const handleProjectAdd = (e) => {
@@ -529,17 +543,18 @@ const Manager = () => {
     const editorData = editorRefThree.current.editor;
     const content = editorData.getData();
     const option = document.getElementById("project-category-add").value;
-    const reader = new FileReaderSync();
     const data = {
       name: projectTitle,
       link: projectLink,
       category: option,
-      image: reader.readAsDataURL(droppedFile),
+      image: bytesImageData ? Array.from(bytesImageData): null,
       description: content
     }
 
-    console.log(data.image)
+    // console.log(bytesImageData)
+    //console.log(data.image)
 
+    
     if (projectTitle === "" || content === ""){
       console.log("Null data failure to run")
     } else {
@@ -553,11 +568,13 @@ const Manager = () => {
       .then((res) => res.json())
       .then((res) => {
         console.log(res)
+        setChange(true)
       })
       .catch(error => {
         console.log(error)
       })
     }
+    
   }
 
   const projectAddForm = () => {
@@ -630,6 +647,8 @@ const Manager = () => {
                 </Dropzone>
               </div>
 
+              <button type="button" className='Add-Button' onClick={() => setDroppedFile(null)}>Clear Image</button>
+
               <div className="RTE-WRAPPER">
                 <div className="Editor-Wrapper">
                   <CKEditor
@@ -653,7 +672,111 @@ const Manager = () => {
 
   const toProjectEdits = () => {
     setAdminFormState("PROJECT_DELETE")
-    setAdminFormState("PROJECT_EDIT")
+    // setAdminFormState("PROJECT_EDIT")
+  }
+
+  useEffect(() => {
+    if (change) {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/project/GetAll");
+        const data = await response.json();
+        //console.log(data)
+        setProjects(data);
+        setIsloading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProjects();
+    //console.log(projects)
+    setChange(false)
+    }
+  }, [change, projects])
+
+  
+  const projectRecords = projects.map(project => {
+    const PlainText = project.description.replaceAll('&lt;/p&gt;', '</p>').replaceAll('&lt;p&gt;','<p>').replaceAll('&lt;h4&gt;',"<h3>").replaceAll('&lt;/h4&gt;',"</h3>").replaceAll('&lt;figure class="table"&gt;', "<figure class='table'>").replaceAll('&lt;/figure&gt;', '</figure>').replaceAll('&lt;table&gt;', '<table>').replaceAll('&lt;/table&gt;', '</table>').replaceAll('&lt;tbody&gt;', '<tbody>').replaceAll('&lt;/tbody&gt;', '</tbody>').replaceAll('&lt;tr&gt;', '<tr>').replaceAll('&lt;/tr&gt;', '</tr>').replaceAll('&lt;td&gt;', '<td>').replaceAll('&lt;/td&gt;', '</td>').replaceAll('.&lt;br&gt;','<br>');
+    const splitText = PlainText.split(' ').slice(0, 15);
+    if (splitText[0].startsWith("<p>") && splitText[splitText.length - 1] !== "</p>") {
+      splitText.push('</p>')
+    }
+    if (splitText[splitText.length - 1].includes("<p>")){
+      splitText.push('</p>')
+    }
+    if (splitText[0].startsWith("<h3>")) {
+      splitText.push('</p>')
+      splitText.unshift('<p>')
+    }
+
+    const combinedText = splitText.join(' ')
+    let newlyparsedDescription = HtmlReactParser(combinedText)
+
+    let imageurl = '';
+
+    // Check if the image URL is already in state, and use it if it is.
+    if (imageUrls[project.id]) {
+      imageurl = imageUrls[project.id];
+    } else {
+      const base64Data = String(project.image);
+      const imageData = Buffer.from(base64Data, 'base64');
+      const bytes = new Uint8Array(imageData);
+      const blob = new Blob([bytes], {type: 'image/jpeg,image/png,image/svg+xml'});
+      const file = new File([blob], `${project.id}image.jpg`, {type: 'image/jpeg'});
+      imageurl = URL.createObjectURL(file);
+      setImageUrls(prevState => ({
+        ...prevState,
+        [project.id]: imageurl
+      }));
+    }
+    
+    //console.log(imageurl)
+
+    //console.log(project.image)
+
+    return (
+      <div key={project.id} className="Project-Object">
+        <div className="Project-Title-Link-Category-Wrapper">
+          <div className="Project-Title">
+            <h1>{project.title}</h1>
+          </div>
+
+          <div className="Project-Link">
+            <p>{project.link}</p>
+          </div>
+
+          <div className="Project-Category">
+            <p>{project.category}</p>
+          </div>
+        </div>
+
+        <div className="Project-Img-Wrapper">
+          <img src={imageurl} alt=""/>
+        </div>
+
+        <div className="Project-Description-Wrapper">
+          <div className="Description">
+            {newlyparsedDescription}
+          </div>
+        </div>
+      </div>
+    )
+  })
+
+  const projectsEditsFormComp = () => {
+    return [
+      <React.Fragment key="Project-Edits-Form">
+        <div className="Wrapper-For-Project-Edits">
+          <div className="Title">
+            <h1>Project Edits</h1>
+          </div>
+
+          <div className="TheProjects-Wrapper">
+            {projectRecords}
+          </div>
+        </div>
+      </React.Fragment>
+    ]
   }
 
   /*
@@ -785,7 +908,7 @@ const Manager = () => {
       <div className="Manager-Container">
 
         <div className="Form-Wrapper">
-          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : adminFormState === "BLOG_DELETE" ? deleteBlogComp() : adminFormState === "PROJECT_ADD" ? projectAddForm(): null}
+          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : adminFormState === "BLOG_DELETE" ? deleteBlogComp() : adminFormState === "PROJECT_ADD" ? projectAddForm(): adminFormState === "PROJECT_DELETE" ? projectsEditsFormComp() :null}
         </div>
 
         <div className="Manager-Buttons-Wrapper">
