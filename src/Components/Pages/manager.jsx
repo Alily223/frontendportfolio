@@ -684,6 +684,8 @@ const Manager = () => {
         //console.log(data)
         setProjects(data);
         setIsloading(false);
+        //console.log("data varaible", data);
+        
       } catch (error) {
         console.error(error);
       }
@@ -693,6 +695,10 @@ const Manager = () => {
     setChange(false)
     }
   }, [change, projects])
+
+  useEffect(() => {
+    console.log("state call" ,projects.map(project => {return project.image}));
+  },[projects, setProjects])
 
   
   const projectRecords = projects.map(project => {
