@@ -387,3 +387,59 @@
         }
     }
 }
+
+.Wrapper-For-Project-Edits {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .TheProjects-Wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+
+        .RenderForProjects{
+            width: 726px;
+            height: 700px;
+            overflow-y: scroll;
+            border: 1px solid black;
+
+            .Project-Object{
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                border: 1px solid black;
+
+                .Project-Title-Link-Category-Wrapper{
+                    width: 200px;
+                    height: 200px;
+                    border: 1px solid black;
+                }
+
+                .Project-Img-Wrapper{
+                    width: 200px;
+                    height: 200px;
+                    border: 1px solid black;
+
+                    img{
+                        width: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                .Project-Description-Wrapper{
+                    width: 200px;
+                    height: 200px;
+                    border: 1px solid black;
+                }
+
+                .Buttons-For-Project{
+                    width: 100px;
+                    height: 200px;
+                    border: 1px solid black;
+                }
+            }
+        }
+    }
+}

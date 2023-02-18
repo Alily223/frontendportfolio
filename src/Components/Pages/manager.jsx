@@ -759,6 +759,11 @@ const Manager = () => {
             {newlyparsedDescription}
           </div>
         </div>
+
+        <div className="Buttons-For-Project">
+          <button type="button">Delete</button>
+          <button type="button">Edit</button>
+        </div>
       </div>
     )
   })
@@ -772,7 +777,13 @@ const Manager = () => {
           </div>
 
           <div className="TheProjects-Wrapper">
-            {projectRecords}
+            <div className="RenderForProjects">
+              {projectRecords}
+            </div>
+            
+            <div className="EditFormForProjects">
+              <h1>Edit Form</h1>
+            </div>
           </div>
         </div>
       </React.Fragment>
