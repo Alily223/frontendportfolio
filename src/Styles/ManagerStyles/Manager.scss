@@ -307,6 +307,16 @@
                     justify-content: center;
                     align-items: center;
 
+                    .ProjectIDfef{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                    }
+
                     .Title{
                         width: fit-content;
                         text-align: center;
@@ -412,12 +422,21 @@
                 border: 1px solid black;
 
                 .Project-Title-Link-Category-Wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
                     width: 200px;
                     height: 200px;
                     border: 1px solid black;
+                    overflow-x: hidden;
                 }
 
                 .Project-Img-Wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
                     width: 200px;
                     height: 200px;
                     border: 1px solid black;
@@ -429,15 +448,63 @@
                 }
 
                 .Project-Description-Wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
                     width: 200px;
                     height: 200px;
                     border: 1px solid black;
                 }
 
                 .Buttons-For-Project{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
                     width: 100px;
                     height: 200px;
                     border: 1px solid black;
+
+                    button {
+                        height: 30px;
+                        width: 80px;
+                        color: $text-bright-color;
+                        background-color: black;
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                        margin-left: 8px;
+                        border-radius: 20px;
+                        box-shadow: 0 0 5px white;
+                        transition: 2s;
+
+                        &:hover {
+                            box-shadow: 0 0 5px red;
+                            height: 35px;
+                            width: 85px;
+                            font-size: 1.1em;
+                            font-weight: bolder;
+                        }
+                    }
+
+                    .edit-project-button{
+                        height: 30px;
+                        width: 80px;
+                        color: $text-bright-color;
+                        background-color: black;
+                        margin-left: 8px;
+                        border-radius: 20px;
+                        box-shadow: 0 0 5px white;
+                        transition: 2s;
+
+                        &:hover {
+                            box-shadow: 0 0 5px green;
+                            height: 35px;
+                            width: 85px;
+                            font-size: 1.1em;
+                            font-weight: bolder;
+                        }
+                    }
                 }
             }
         }

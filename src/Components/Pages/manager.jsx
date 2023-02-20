@@ -502,17 +502,22 @@ const Manager = () => {
   
   */
   const editorRefThree = useRef(null);
+  const editorRefFour = useRef(null);
   const [projectTitle, setProjectTitle] = useState("");
   //const [projectCategory, setProjectCategory] = useState("");
   const [projectLink, setProjectLink] = useState("");
   //const [files, setFiles] = useState([]);
   const [droppedFile, setDroppedFile] = useState(null);
   const [editorContentThree, setEditorContentThree] = useState("");
+  const [editorContentFour, setEditorContentFour] = useState("");
   const { FileReader } = window;
   const [bytesImageData, setBytesImageData] = useState(null);
   const [projects, setProjects] = useState([]);
   const [change, setChange] = useState(true);
   const [imageUrls, setImageUrls] = useState({});
+  const [projectId, setProjectID] = useState("")
+  const [projectCategory, setProjectCategory] = useState("")
+  const [editProjectStateChange,setEditProjectStateChange] = useState("")
 
   const toProjectAdd = () => {
     setAdminFormState("PROJECT_ADD")
@@ -522,10 +527,17 @@ const Manager = () => {
     setEditorContentThree(editor.getData());
   }
 
+  const handleEditorChangeFour = (e, editor) => {
+    setEditorContentFour(editor.getData());
+  }
+
   const handleDrop = (acceptedFiles) => {
     //setFiles([...files, ...acceptedFiles]);
+    setDroppedFile(null)
     setDroppedFile(acceptedFiles[0]);
+    //console.log(droppedFile)
     const file = acceptedFiles[0];
+    //console.log(acceptedFiles[0])
     const reader = new FileReader();
     reader.onload = (event) => {
       const bytes = new Uint8Array(event.target.result)
@@ -694,14 +706,93 @@ const Manager = () => {
     //console.log(projects)
     setChange(false)
     }
-  }, [change, projects])
+  }, [change])
 
   useEffect(() => {
-    console.log("state call" ,projects.map(project => {return project.image}));
+    //console.log("state call" ,projects.map(project => {return project.image}));
   },[projects, setProjects])
 
-  
+  const editProject = (id, title, link, category, imagefile, description) => {
+    setAdminDualFormState("PROJECT_EDIT");
+    setProjectID(id)
+    setProjectTitle(title);
+    setProjectLink(link);
+    setProjectCategory(category);
+    //console.log("this is the imagefile", imagefile);
+    const imageData = Buffer.from(imagefile, 'base64');
+    //console.log(imageData)
+    const bytes = new Uint8Array(imageData);
+    //console.log(bytes)
+    const blob = new Blob([bytes], {type: 'image/jpeg,image/png,image/svg+xml'});
+    const file = new File([blob], `${id}image.jpg`, {type: 'image/jpeg'});
+    handleDrop([file]);
+
+    const eek = JSON.stringify(description)
+
+    //console.log(JSON.stringify(description))
+
+    const looasa= JSON.parse(eek)
+
+    //console.log(looasa)
+
+    setTimeout(() => {editorRefFour.current.editor.setData(looasa.replaceAll('&lt;/p&gt;', '</p>').replaceAll('&lt;p&gt;','<p>').replaceAll('&lt;h4&gt;',"<h3>").replaceAll('&lt;/h4&gt;',"</h3>").replaceAll('&lt;figure class="table"&gt;', "<figure class='table'>").replaceAll('&lt;/figure&gt;', '</figure>').replaceAll('&lt;table&gt;', '<table>').replaceAll('&lt;/table&gt;', '</table>').replaceAll('&lt;tbody&gt;', '<tbody>').replaceAll('&lt;/tbody&gt;', '</tbody>').replaceAll('&lt;tr&gt;', '<tr>').replaceAll('&lt;/tr&gt;', '</tr>').replaceAll('&lt;td&gt;', '<td>').replaceAll('&lt;/td&gt;', '</td>').replaceAll('.&lt;br&gt;','<br>'));}, 500)
+
+    
+  }
+
+  const deleteProject = async (e, projectId) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/project/${projectId}`, {
+        method: 'DELETE',
+      });
+      const data= await response.json();
+      console.log(data);
+      setProjects(projects.filter(project => project.id !== projectId));
+    }catch (error){
+      console.error(error)
+    }
+  }
+
+  const handleProjectEdit = (e) => {
+    e.preventDefault();
+
+    const editorData = editorRefFour.current.editor;
+    const content = editorData.getData();
+    const option = projectCategory;
+    const data = {
+      name: blogTitle,
+      link: projectLink,
+      category: option,
+      image: bytesImageData ? Array.from(bytesImageData): null,
+      description: content
+    }
+
+    console.log(blogTitle)
+    console.log(content)
+    console.log(option)
+
+    fetch(`http://127.0.0.1:5000/projectsupdate/${projectId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setEditProjectStateChange("CHANGE");
+        if (editProjectStateChange === "CHANGE"){
+          setTimeout(() => {setEditProjectStateChange("")}, 500)
+          setChange(true)
+        }
+        })
+      .catch(error => console.error(error));
+  }
+
   const projectRecords = projects.map(project => {
+    //console.log(count)
     const PlainText = project.description.replaceAll('&lt;/p&gt;', '</p>').replaceAll('&lt;p&gt;','<p>').replaceAll('&lt;h4&gt;',"<h3>").replaceAll('&lt;/h4&gt;',"</h3>").replaceAll('&lt;figure class="table"&gt;', "<figure class='table'>").replaceAll('&lt;/figure&gt;', '</figure>').replaceAll('&lt;table&gt;', '<table>').replaceAll('&lt;/table&gt;', '</table>').replaceAll('&lt;tbody&gt;', '<tbody>').replaceAll('&lt;/tbody&gt;', '</tbody>').replaceAll('&lt;tr&gt;', '<tr>').replaceAll('&lt;/tr&gt;', '</tr>').replaceAll('&lt;td&gt;', '<td>').replaceAll('&lt;/td&gt;', '</td>').replaceAll('.&lt;br&gt;','<br>');
     const splitText = PlainText.split(' ').slice(0, 15);
     if (splitText[0].startsWith("<p>") && splitText[splitText.length - 1] !== "</p>") {
@@ -725,11 +816,15 @@ const Manager = () => {
       imageurl = imageUrls[project.id];
     } else {
       const base64Data = String(project.image);
+      //console.log(base64Data)
       const imageData = Buffer.from(base64Data, 'base64');
+      //console.log(imageData)
       const bytes = new Uint8Array(imageData);
+      //console.log(bytes)
       const blob = new Blob([bytes], {type: 'image/jpeg,image/png,image/svg+xml'});
       const file = new File([blob], `${project.id}image.jpg`, {type: 'image/jpeg'});
       imageurl = URL.createObjectURL(file);
+      //console.log(imageurl)
       setImageUrls(prevState => ({
         ...prevState,
         [project.id]: imageurl
@@ -767,12 +862,116 @@ const Manager = () => {
         </div>
 
         <div className="Buttons-For-Project">
-          <button type="button">Delete</button>
-          <button type="button">Edit</button>
+          <button type="button" onClick={(e) => deleteProject(e, project.id)}>Delete</button>
+          <button type="button" className="edit-project-button" onClick={() => editProject(project.id ,project.title, project.link, project.category, String(project.image), project.description)}>Edit</button>
         </div>
       </div>
     )
   })
+
+  const projectEditForm = () => {
+
+    const customConfig = {
+      extraAllowedContent: 'h1 h2 h3 p strong em'
+    };
+
+    return [
+      <React.Fragment key="project-add-form">
+        <div className="Form">
+          <div className="Form-Title">
+            <h1>Project Edit Form</h1>
+          </div>
+
+          <div className="Form-Wrapper">
+            <form className='Form-Box' onSubmit={(e) => handleProjectEdit(e)}>
+
+              <div className="Inputs-Wrapper-WS">
+
+                <input 
+                 type="text"
+                 placeholder="ID"
+                 className="ProjectIDfef"
+                 value={projectId}
+                 name="proejctId"
+                 onChange={(e) => setProjectID(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Title"
+                  className="Title"
+                  value={projectTitle}
+                  name="projecttitle"
+                  onChange={(e) => setProjectTitle(e.target.value)}
+                />
+
+                <input
+                  type="text"
+                  placeholder="Link"
+                  className="Link"
+                  value={projectLink}
+                  name="projectlink"
+                  onChange={(e) => setProjectLink(e.target.value)}
+                />
+
+                <select id="project-category-add">
+                  <option className="Option" value="Blog Website">Blog Website</option>
+                  <option className="Option" value="Buisness Website">Buisness Website</option>
+                  <option className="Option" value="E-commerce Website">E-commerce Website</option>
+                  <option className="Option" value="Portfolio Website">Portfolio Website</option>
+                  <option className="Option" value="Educational Website">Educational Website</option>
+                  <option className="Option" value="Social Network Website">Social Network Website</option>
+                  <option className="Option" value="News Website">News Website</option>
+                  <option className="Option" value="Magazine Website">Magazine Website</option>
+                  <option className="Option" value="Forum Website">Forum Website</option>
+                  <option className="Option" value="Community Website">Community Website</option>
+                  <option className="Option" value="Gaming Website">Gaming Website</option>
+                  <option className="Option" value="Humor Website">Humor Website</option>
+                  <option className="Option" value="Music Website">Music Website</option>
+                  <option className="Option" value="Art Website">Art Website</option>
+                  <option className="Option" value="Photography Website">Photography Website</option>
+                  <option className="Option" value="Travel Website">Travel Website</option>
+                  <option className="Option" value="Food Website">Food Website</option>
+                </select>
+              </div>
+
+              <div className="dropzone-wrapper">
+                <Dropzone onDrop={handleDrop}>
+                  {({getRootProps, getInputProps}) => (
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()}/>
+                      {droppedFile ? (
+                        <img src={URL.createObjectURL(droppedFile)} alt="" style={{height: '400px', width: '400px'}}/>
+                      ) : (
+                        <p>Add Image Here</p>
+                      )}
+                    </div>
+                  )}
+                </Dropzone>
+              </div>
+
+              <button type="button" className='Add-Button' onClick={() => setDroppedFile(null)}>Clear Image</button>
+
+              <div className="RTE-WRAPPER">
+                <div className="Editor-Wrapper">
+                  <CKEditor
+                    ref={editorRefFour}
+                    name="descriptionone"
+                    editor={ClassicEditor}
+                    data={editorContentFour}
+                    onChange={handleEditorChangeFour}
+                    config={customConfig}
+                  />
+                </div>
+              </div>
+
+              <button type="submit" className='Add-Button'>Edit Project</button>
+            </form>
+          </div>
+        </div>
+      </React.Fragment>
+    ]
+  }
 
   const projectsEditsFormComp = () => {
     return [
@@ -788,7 +987,7 @@ const Manager = () => {
             </div>
             
             <div className="EditFormForProjects">
-              <h1>Edit Form</h1>
+              {adminDualFormState === "PROJECT_EDIT" ? projectEditForm() : null}
             </div>
           </div>
         </div>
