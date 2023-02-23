@@ -14,11 +14,9 @@ const Manager = () => {
   const [isLoading, setIsloading]= useState(true)
 
   /*
-  
-  -----------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------
   Blogs Code Starts Here
   -----------------------------------------------------------------------------------
-  
   */
   const editorRef = useRef(null);
   const editorRefTwo = useRef(null);
@@ -1006,34 +1004,6 @@ const Manager = () => {
   /*
   
   -----------------------------------------------------------------------------------
-  In-Progress Projects Code Starts Here
-  -----------------------------------------------------------------------------------
-  
-  */
-
-  const toInProgressAdd = () => {
-    setAdminFormState("IN_PROJRESS_ADD")
-  }
-
-  const toInProgressDelete = () => {
-    setAdminFormState("IN_PROJRESS_DELETE")
-  }
-
-  const toInProgressEdit = () => {
-    setAdminFormState("IN_PROJRESS_EDIT")
-  }
-
-  /*
-  
-  -----------------------------------------------------------------------------------
-  In-Progress Projects Code Ends Here
-  -----------------------------------------------------------------------------------
-  
-  */
-
-  /*
-  
-  -----------------------------------------------------------------------------------
   Certificates Code Starts Here
   -----------------------------------------------------------------------------------
   
@@ -1095,15 +1065,8 @@ const Manager = () => {
   
   */
 
-  const toTestimonialsAdd = () => {
-    setAdminFormState("TESTIMONIALS_ADD")
-  }
-
-  const toTestimonialsDelete = () => {
+  const toTestimonialsEdits = () => {
     setAdminFormState("TESTIMONIALS_DELETE")
-  }
-
-  const toTestimonialsEdit = () => {
     setAdminFormState("TESTIMONIALS_EDIT")
   }
 
@@ -1154,21 +1117,6 @@ const Manager = () => {
           </div>
 
           <div className="Buttons-Wrapper">
-            <h2>In-Progress Projects</h2>
-            <div className="buttons">
-              <div className="button-item">
-                <button type="button" onClick={() => toInProgressAdd()}>In-Progress Add</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toInProgressDelete()}>In-Progress Delete</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toInProgressEdit()}>In-Progress Edit</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="Buttons-Wrapper">
             <h2>Certificates</h2>
             <div className="buttons">
               <div className="button-item">
@@ -1202,13 +1150,7 @@ const Manager = () => {
             <h2>Testimonials</h2>
             <div className="buttons">
               <div className="button-item">
-                <button type="button" onClick={() => toTestimonialsAdd()}>Testimonials Add</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toTestimonialsDelete()}>Testimonials Delete</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toTestimonialsEdit()}>Testimonials Edit</button>
+                <button type="button" onClick={() => toTestimonialsEdits()}>Testimonials Edits</button>
               </div>
               <div className="button-item">
                 <button type="button" onClick={() => toTestimonialsUserKeyAdd()}>Testimonials Create User Key</button>

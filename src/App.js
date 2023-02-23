@@ -13,7 +13,6 @@ import Hireforwork from './Components/Pages/hireforwork';
 import Manager from './Components/Pages/manager';
 import Projects from './Components/Pages/projects';
 import Testimonials from './Components/Pages/testimonials';
-import Unfinishedprojects from './Components/Pages/unfinishedprojects';
 import Usermanager from './Components/Pages/usermanager';
 import Navigation from './Components/Navigation/navigation';
 import Nomatch from './Components/Pages/nomatch';
@@ -89,7 +88,7 @@ function App() {
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/unfinishedprojects" element={<Unfinishedprojects />} />
+
             <Route exact path="*" element={<Nomatch />} />
           </Routes>
         ): userLogInStatus === "LOGGED_IN" || adminLogInStatus === "LOGGED_IN" ? (
@@ -101,7 +100,7 @@ function App() {
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/unfinishedprojects" element={<Unfinishedprojects />} />
+
 
             <Route path="/createtestimonial" element={<Createtestimonial />} />
             <Route path="/hireforwork" element={<Hireforwork />} />
@@ -120,7 +119,6 @@ function App() {
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/unfinishedprojects" element={<Unfinishedprojects />} />
 
             <Route path="/createtestimonial" element={<Createtestimonial />} />
             <Route path="/hireforwork" element={<Hireforwork />} />
@@ -136,7 +134,6 @@ function App() {
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/unfinishedprojects" element={<Unfinishedprojects />} />
             <Route exact path="*" element={<Nomatch />} />
           </Routes>
         )}

@@ -52,11 +52,6 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                             </Link>
                         </div>
                         <div className="navigation-item">
-                            <Link className='nav-link' to="/unfinishedprojects">
-                                In-progress
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
                             <Link className='nav-link' to="/certificates">
                                 Certificates
                             </Link>
@@ -100,11 +95,6 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                             </Link>
                         </div>
                         <div className="navigation-item">
-                            <Link className='nav-link' to="/unfinishedprojects">
-                                In-progress
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
                             <Link className='nav-link' to="/certificates">
                                 Certificates
                             </Link>
@@ -139,11 +129,6 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                         <div className="navigation-item">
                             <Link className='nav-link' to="/projects">
                                 Projects
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/unfinishedprojects">
-                                In-progress
                             </Link>
                         </div>
                         <div className="navigation-item">
