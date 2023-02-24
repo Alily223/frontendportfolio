@@ -38,6 +38,19 @@
                 background-color: black;
                 border-radius: 20px;
                 box-shadow: 0 0 7px white;
+
+                .Resume-link{
+                    button{
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        border-radius: 20px;
+                        transition: 1s ease-in-out;
+                        &:hover{
+                            box-shadow: 0 0 7px white;
+                        }
+                    }
+                }
             }
 
             .Logo{

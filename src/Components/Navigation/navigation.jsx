@@ -39,7 +39,7 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                     <div className="User-Name-Insert">
                         {username !== "" && userLogInStatus === "LOGGED_IN" ? (
                             <div className="User-Name">{username}</div>
-                        ): <div className="User-Name">GUEST</div>}
+                        ): <div className="User-Name">{username}</div>}
                     </div>
                 </div>
 

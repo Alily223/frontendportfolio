@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Createtestimonial = () => {
+const Createtestimonial = ({username, twelvedigitcode}) => {
   return (
     <div className="Page-Wrapper">
-      Create testimonial
+      {twelvedigitcode} and {username}
     </div>
   )
 }

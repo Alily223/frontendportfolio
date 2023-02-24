@@ -16,6 +16,7 @@ import Testimonials from './Components/Pages/testimonials';
 import Usermanager from './Components/Pages/usermanager';
 import Navigation from './Components/Navigation/navigation';
 import Nomatch from './Components/Pages/nomatch';
+import Resume from './Components/Pages/resume';
 
 
 
@@ -26,6 +27,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("")
   const [message, setMessage] = useState("")
   const [username, setUsername] = useState("")
+  const [twelvedigitcode, settwelvedigitcode] = useState("")
 
   useEffect(() => {
   const token = localStorage.getItem("token");
@@ -87,7 +89,8 @@ function App() {
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/testimonials" element={<Testimonials username={username} twelvedigitcode={twelvedigitcode} settwelvedigitcode={settwelvedigitcode}/>} />
+            <Route path="/resume" element={<Resume/>}/>
 
             <Route exact path="*" element={<Nomatch />} />
           </Routes>
@@ -99,16 +102,18 @@ function App() {
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/testimonials" element={<Testimonials username={username} twelvedigitcode={twelvedigitcode} settwelvedigitcode={settwelvedigitcode}/>} />
+            <Route path="/resume" element={<Resume/>}/>
 
 
-            <Route path="/createtestimonial" element={<Createtestimonial />} />
+            <Route path="/createtestimonial" element={<Createtestimonial username={username} twelvedigitcode={twelvedigitcode}/>} />
             <Route path="/hireforwork" element={<Hireforwork />} />
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/manager" element={<Manager />} />
             <Route path="/usermanager" element={<Usermanager />} />
             <Route exact path="*" element={<Nomatch />} />
+  
           </Routes>
         ):userLogInStatus === "LOGGED_IN" ? (
           <Routes>
@@ -118,9 +123,10 @@ function App() {
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/testimonials" element={<Testimonials username={username} twelvedigitcode={twelvedigitcode} settwelvedigitcode={settwelvedigitcode}/>} />
+            <Route path="/resume" element={<Resume/>}/>
 
-            <Route path="/createtestimonial" element={<Createtestimonial />} />
+            <Route path="/createtestimonial" element={<Createtestimonial username={username} twelvedigitcode={twelvedigitcode}/>} />
             <Route path="/hireforwork" element={<Hireforwork />} />
             <Route path="/contact" element={<Contact />} />
             <Route exact path="*" element={<Nomatch />} />
@@ -133,7 +139,8 @@ function App() {
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/hackerrank" element={<Hackerrank />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/testimonials" element={<Testimonials username={username} twelvedigitcode={twelvedigitcode} settwelvedigitcode={settwelvedigitcode}/>} />
+            <Route path="/resume" element={<Resume/>}/>
             <Route exact path="*" element={<Nomatch />} />
           </Routes>
         )}
