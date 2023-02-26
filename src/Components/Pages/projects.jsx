@@ -51,22 +51,23 @@ const Projects = () => {
     let imageurl = '';
 
     // Check if the image URL is already in state, and use it if it is.
-    if (imageUrls[project.id]) {
-      imageurl = imageUrls[project.id];
+    if (imageUrls[project.project_id]) {
+      imageurl = imageUrls[project.project_id];
     } else {
-      const base64Data = String(project.image);
-      //console.log(base64Data)
+      const projectObject = JSON.parse(project.image)
+      const base64Data = projectObject.ImageBytes;
+      console.log(base64Data)
       const imageData = Buffer.from(base64Data, 'base64');
       //console.log(imageData)
       const bytes = new Uint8Array(imageData);
       //console.log(bytes)
       const blob = new Blob([bytes], {type: 'image/jpeg,image/png,image/svg+xml'});
-      const file = new File([blob], `${project.id}image.jpg`, {type: 'image/jpeg'});
+      const file = new File([blob], `${project.project_id}image.jpg`, {type: 'image/jpeg'});
       imageurl = URL.createObjectURL(file);
       //console.log(imageurl)
       setImageUrls(prevState => ({
         ...prevState,
-        [project.id]: imageurl
+        [project.project_id]: imageurl
       }));
     }
     

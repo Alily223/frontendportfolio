@@ -106,7 +106,7 @@ function App() {
             <Route path="/resume" element={<Resume/>}/>
 
 
-            <Route path="/createtestimonial" element={<Createtestimonial username={username} twelvedigitcode={twelvedigitcode}/>} />
+            <Route path="/createtestimonial" element={<Createtestimonial username={username} twelvedigitcode={twelvedigitcode} settwelvedigitcode={settwelvedigitcode}/>} />
             <Route path="/hireforwork" element={<Hireforwork />} />
             <Route path="/contact" element={<Contact />} />
 
@@ -126,7 +126,7 @@ function App() {
             <Route path="/testimonials" element={<Testimonials username={username} twelvedigitcode={twelvedigitcode} settwelvedigitcode={settwelvedigitcode}/>} />
             <Route path="/resume" element={<Resume/>}/>
 
-            <Route path="/createtestimonial" element={<Createtestimonial username={username} twelvedigitcode={twelvedigitcode}/>} />
+            <Route path="/createtestimonial" element={<Createtestimonial username={username} twelvedigitcode={twelvedigitcode} settwelvedigitcode={settwelvedigitcode}/>} />
             <Route path="/hireforwork" element={<Hireforwork />} />
             <Route path="/contact" element={<Contact />} />
             <Route exact path="*" element={<Nomatch />} />

@@ -553,15 +553,16 @@ const Manager = () => {
     const editorData = editorRefThree.current.editor;
     const content = editorData.getData();
     const option = document.getElementById("project-category-add").value;
+    const imageData = bytesImageData ? Array.from(bytesImageData): null;
     const data = {
       name: projectTitle,
       link: projectLink,
       category: option,
-      image: bytesImageData ? Array.from(bytesImageData): null,
+      image: imageData,
       description: content
     }
 
-    // console.log(bytesImageData)
+    //console.log(bytesImageData)
     //console.log(data.image)
 
     
@@ -716,8 +717,9 @@ const Manager = () => {
     setProjectTitle(title);
     setProjectLink(link);
     setProjectCategory(category);
-    //console.log("this is the imagefile", imagefile);
-    const imageData = Buffer.from(imagefile, 'base64');
+
+    const imageBase64Jparse = JSON.parse(imagefile)
+    const imageData = Buffer.from(imageBase64Jparse.ImageBytes, 'base64');
     //console.log(imageData)
     const bytes = new Uint8Array(imageData);
     //console.log(bytes)
@@ -734,7 +736,8 @@ const Manager = () => {
     //console.log(looasa)
 
     setTimeout(() => {editorRefFour.current.editor.setData(looasa.replaceAll('&lt;/p&gt;', '</p>').replaceAll('&lt;p&gt;','<p>').replaceAll('&lt;h4&gt;',"<h3>").replaceAll('&lt;/h4&gt;',"</h3>").replaceAll('&lt;figure class="table"&gt;', "<figure class='table'>").replaceAll('&lt;/figure&gt;', '</figure>').replaceAll('&lt;table&gt;', '<table>').replaceAll('&lt;/table&gt;', '</table>').replaceAll('&lt;tbody&gt;', '<tbody>').replaceAll('&lt;/tbody&gt;', '</tbody>').replaceAll('&lt;tr&gt;', '<tr>').replaceAll('&lt;/tr&gt;', '</tr>').replaceAll('&lt;td&gt;', '<td>').replaceAll('&lt;/td&gt;', '</td>').replaceAll('.&lt;br&gt;','<br>'));}, 500)
-
+    const element = document.getElementById('project-category-add');
+    element.value = projectCategory;
     
   }
 
@@ -745,8 +748,8 @@ const Manager = () => {
         method: 'DELETE',
       });
       const data= await response.json();
-      console.log(data);
-      setProjects(projects.filter(project => project.id !== projectId));
+      console.log("DELETED", data);
+      setProjects(projects.filter(project => project.project_id !== projectId));
     }catch (error){
       console.error(error)
     }
@@ -758,17 +761,18 @@ const Manager = () => {
     const editorData = editorRefFour.current.editor;
     const content = editorData.getData();
     const option = projectCategory;
+    const imageData = bytesImageData ? Array.from(bytesImageData): null;
     const data = {
-      name: blogTitle,
+      name: projectTitle,
       link: projectLink,
       category: option,
-      image: bytesImageData ? Array.from(bytesImageData): null,
+      image: imageData,
       description: content
     }
 
-    console.log(blogTitle)
-    console.log(content)
-    console.log(option)
+    //console.log(blogTitle)
+    //console.log(content)
+    //console.log(option)
 
     fetch(`http://127.0.0.1:5000/projectsupdate/${projectId}`, {
       method: "POST",
@@ -810,22 +814,23 @@ const Manager = () => {
     let imageurl = '';
 
     // Check if the image URL is already in state, and use it if it is.
-    if (imageUrls[project.id]) {
-      imageurl = imageUrls[project.id];
+    if (imageUrls[project.project_id]) {
+      imageurl = imageUrls[project.project_id];
     } else {
-      const base64Data = String(project.image);
+      const projectObject = JSON.parse(project.image)
+      const base64Data = projectObject.ImageBytes;
       //console.log(base64Data)
       const imageData = Buffer.from(base64Data, 'base64');
       //console.log(imageData)
       const bytes = new Uint8Array(imageData);
       //console.log(bytes)
       const blob = new Blob([bytes], {type: 'image/jpeg,image/png,image/svg+xml'});
-      const file = new File([blob], `${project.id}image.jpg`, {type: 'image/jpeg'});
+      const file = new File([blob], `${project.project_id}image.jpg`, {type: 'image/jpeg'});
       imageurl = URL.createObjectURL(file);
       //console.log(imageurl)
       setImageUrls(prevState => ({
         ...prevState,
-        [project.id]: imageurl
+        [project.project_id]: imageurl
       }));
     }
     
@@ -834,7 +839,7 @@ const Manager = () => {
     //console.log(project.image)
 
     return (
-      <div key={project.id} className="Project-Object">
+      <div key={project.project_id} className="Project-Object">
         <div className="Project-Title-Link-Category-Wrapper">
           <div className="Project-Title">
             <h1>{project.title}</h1>
@@ -860,8 +865,8 @@ const Manager = () => {
         </div>
 
         <div className="Buttons-For-Project">
-          <button type="button" onClick={(e) => deleteProject(e, project.id)}>Delete</button>
-          <button type="button" className="edit-project-button" onClick={() => editProject(project.id ,project.title, project.link, project.category, String(project.image), project.description)}>Edit</button>
+          <button type="button" onClick={(e) => deleteProject(e, project.project_id)}>Delete</button>
+          <button type="button" className="edit-project-button" onClick={() => editProject(project.project_id ,project.title, project.link, project.category, project.image, project.description)}>Edit</button>
         </div>
       </div>
     )
