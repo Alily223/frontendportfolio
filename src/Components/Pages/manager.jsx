@@ -1070,13 +1070,71 @@ const Manager = () => {
   
   */
 
+  const [testimonialTitle, setTestimonialTitle] = useState("")
+  const [testimonialProjectId, setTestimonialProjectId] = useState(0)
+  const [testimonialStars, setTestimonialStars] = useState(0)
+  const [testimonialUsername, setTestimonialUsername] = useState("")
+  const [testimonialTwelveDigitCode, setTestimonialTwelveDigitCode] = useState("")
+
   const toTestimonialsEdits = () => {
-    setAdminFormState("TESTIMONIALS_DELETE")
-    setAdminFormState("TESTIMONIALS_EDIT")
+    setAdminFormState("TESTIMONIALS_EDITS")
+    //setAdminFormState("TESTIMONIALS_DELETE")
   }
 
-  const toTestimonialsUserKeyAdd = () => {
-    setAdminFormState("TESTIMONIALS_USER_KEY_ADD")
+  const formForAddTestimonial = () => {
+    // const customConfig = {
+    //   extraAllowedContent: 'h1 h2 h3 p strong em'
+    // };
+
+    return [
+      <React.Fragment key="Testimonial_Add_Form">
+        <div className="Form-Wrapper-For-Testimonial-Add">
+          <h1>Add Testimonial For User</h1>
+          <form>
+            <div className="Top-bar-inputs-wrapper">
+              <input
+                type="text"
+                placeholder="Title"
+                className="Title"
+                value={testimonialTitle}
+                name="testimonialtitle"
+                onChange={(e) => setTestimonialTitle(e.target.value)}
+              />
+
+              <input 
+                type="text"
+                placeholder="Project Id"
+                className="Testimonial-ProjectId"
+                value={testimonialProjectId}
+                name="testimonialprojectid"
+                onChange={(e) => setTestimonialProjectId(e.target.value)}
+              />
+
+              <div className="Star-Review-Button">
+                {[1,2,3,4,5].map((i) => {
+                  return (<span key={i} className={`fas fa-star${testimonialStars >= i ? " checked" : ""}`} onClick={() => setTestimonialStars(i)}></span>)
+                })}
+              </div>
+            </div>
+          </form>
+        </div>
+      </React.Fragment>
+    ]
+  }
+
+  const theCompLoaderForTestimonialEdits = () => {
+    return [
+      <React.Fragment key="The-Comp-For-Testimonial-Manager">
+        <div className="Testimonial-Comp-Render-Admin-Manager">
+          <div className="TheTestimonialForm">
+            {formForAddTestimonial()}
+          </div>
+          <div className="TheGridRenderForTestimonials">
+            <p>Grid Render</p>
+          </div>
+        </div>
+      </React.Fragment>
+    ]
   }
 
   /*
@@ -1092,7 +1150,7 @@ const Manager = () => {
       <div className="Manager-Container">
 
         <div className="Form-Wrapper">
-          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : adminFormState === "BLOG_DELETE" ? deleteBlogComp() : adminFormState === "PROJECT_ADD" ? projectAddForm(): adminFormState === "PROJECT_DELETE" ? projectsEditsFormComp() :null}
+          {adminFormState === "BLOG_ADD" ? formForBlogAdd() : adminFormState === "BLOG_DELETE" ? deleteBlogComp() : adminFormState === "PROJECT_ADD" ? projectAddForm(): adminFormState === "PROJECT_DELETE" ? projectsEditsFormComp() : adminFormState === "TESTIMONIALS_EDITS" ? theCompLoaderForTestimonialEdits() :null}
         </div>
 
         <div className="Manager-Buttons-Wrapper">
@@ -1156,9 +1214,6 @@ const Manager = () => {
             <div className="buttons">
               <div className="button-item">
                 <button type="button" onClick={() => toTestimonialsEdits()}>Testimonials Edits</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toTestimonialsUserKeyAdd()}>Testimonials Create User Key</button>
               </div>
             </div>
           </div>
