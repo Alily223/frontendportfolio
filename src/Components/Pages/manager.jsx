@@ -4,6 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import HtmlReactParser from 'html-react-parser';
 import Dropzone from 'react-dropzone';
 import { Buffer } from 'buffer';
+import he from 'he';
 
 const Manager = () => {
   const [adminFormState , setAdminFormState] = useState("EMPTY")
@@ -1069,54 +1070,272 @@ const Manager = () => {
   -----------------------------------------------------------------------------------
   
   */
-
+  const editorRefFive = useRef(null);
   const [testimonialTitle, setTestimonialTitle] = useState("")
   const [testimonialProjectId, setTestimonialProjectId] = useState(0)
   const [testimonialStars, setTestimonialStars] = useState(0)
   const [testimonialUsername, setTestimonialUsername] = useState("")
   const [testimonialTwelveDigitCode, setTestimonialTwelveDigitCode] = useState("")
+  const [editorContentFive, setEditorContentFive] = useState("");
+  const [testimonials, setTestimonials] = useState([])
+
+  useEffect(() => {
+    if (change) {
+      const fetchTestimonials = async () => {
+        try {
+          const response = await fetch("http://127.0.0.1:5000/testimonialunpublished/getall");
+          const data = await response.json();
+          //console.log(data)
+          setTestimonials(data);
+          setIsloading(false);
+          //console.log("data varaible", data);
+          
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchTestimonials();
+      setChange(false);
+    }
+    
+    console.log(testimonials);
+  }, [testimonials,setTestimonials, change])
+
+  const handleTestimonialDelete = async (e, identification) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/testimonialunpublished/delete/${identification}`, {
+        method: 'DELETE',
+      });
+      const data= await response.json();
+      console.log("DELETED", data);
+      setTestimonials(testimonials.filter(testimonial => testimonial.id !== identification));
+    }catch (error){
+      console.error(error)
+    }
+  }
+
+  const TestimonialsElements = testimonials.map(testimonial => {
+
+    const review = he.decode(testimonial.review)
+
+    const splitText = review.split(' ').slice(0, 15);
+    if (splitText[0].startsWith("<p>") && splitText[splitText.length - 1] !== "</p>") {
+      splitText.push('</p>')
+    }
+    if (splitText[splitText.length - 1].includes("<p>")){
+      splitText.push('</p>')
+    }
+    if (splitText[0].startsWith("<h3>")) {
+      splitText.push('</p>')
+      splitText.unshift('<p>')
+    }
+    const combinedText = splitText.join(' ')
+    const parsedDescription = HtmlReactParser(combinedText)
+
+    return (
+      <div key={testimonial.id} className="Testimonial-Wrapper">
+        <div className="Testimonial-Left-Box-Wrapper">
+          <div className="Testimonal-Title">
+            Title : {testimonial.testimonial_title}
+          </div>
+          <div className="Testimonial-Project-Id">
+            Project Id : {testimonial.testimonialprojectid}
+          </div>
+        </div>
+        <div className="Testimonial-Middle-Box-Wrapper">
+          <div className="Testimonial-Stars-Wrapper">
+            Stars : {testimonial.stars}
+          </div>
+          <div className="Testimonial-Review-Wrapper">
+            Review: {parsedDescription}
+          </div>
+        </div>
+        <div className="Testimonial-Right-Box-Wrapper">
+          <div className="Testimonial-Username">
+            Username: {testimonial.testimonial_username}
+          </div>
+          <div className="Testimonial-Twelve-Dig-Code">
+            Code: {testimonial.twelvedigitcode}
+          </div>
+        </div>
+        <div className="Testimonial-Buttons-Wrapper-OBJ">
+          <button className="Delete-Button" onClick={(e) => handleTestimonialDelete(e, testimonial.id)}>Delete</button>
+          <button className="Edit-Button">Edit</button>
+        </div>
+        
+      </div>
+    )
+  })
 
   const toTestimonialsEdits = () => {
     setAdminFormState("TESTIMONIALS_EDITS")
     //setAdminFormState("TESTIMONIALS_DELETE")
   }
 
+  const handleEditorChangeFive = (e, editor) => {
+    setEditorContentFive(editor.getData());
+  }
+
+  const twelveDigitCodeGenerator = () => {
+    function GenerateCode() {
+      let code = '';
+      const characters = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      for (let i = 0; i < 12; i++) {
+        if (i === 4 || i === 8) {
+          code += '-';
+        }
+        const index = Math.floor(Math.random() * characters.length);
+        code += characters[index];
+      }
+      return code;
+    }
+    const twelvedigitcode = GenerateCode()
+    setTestimonialTwelveDigitCode(twelvedigitcode)
+  }
+
+  const handleTestimonialAdd = (e) => {
+    e.preventDefault();
+    console.log("Title :", testimonialTitle)
+    console.log("ProjectId :", testimonialProjectId)
+    console.log("Stars Given :", testimonialStars)
+    console.log("Username :", testimonialUsername)
+    console.log("Twelve Digit Code :", testimonialTwelveDigitCode)
+    console.log("RTE Text :", editorContentFive)
+
+    const editorData = editorRefFive.current.editor;
+    const content = editorData.getData();
+    const data = {
+      title: testimonialTitle,
+      pid: testimonialProjectId,
+      stars: testimonialStars,
+      username: testimonialUsername,
+      code: testimonialTwelveDigitCode,
+      description: content
+    }
+
+    fetch('http://127.0.0.1:5000/testimonialunpblished/add', {
+      method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setTestimonialTitle("")
+      setTestimonialProjectId("")
+      setTestimonialStars(0)
+      setTestimonialUsername("")
+      setTestimonialTwelveDigitCode("")
+      setEditorContentFive("")
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
+
+  
+
   const formForAddTestimonial = () => {
-    // const customConfig = {
-    //   extraAllowedContent: 'h1 h2 h3 p strong em'
-    // };
+    const customConfig = {
+      extraAllowedContent: 'h1 h2 h3 p strong em'
+    };
 
     return [
       <React.Fragment key="Testimonial_Add_Form">
         <div className="Form-Wrapper-For-Testimonial-Add">
           <h1>Add Testimonial For User</h1>
-          <form>
+          <form className="True-testimonal-form" onSubmit={(e) => handleTestimonialAdd(e)} >
             <div className="Top-bar-inputs-wrapper">
-              <input
-                type="text"
-                placeholder="Title"
-                className="Title"
-                value={testimonialTitle}
-                name="testimonialtitle"
-                onChange={(e) => setTestimonialTitle(e.target.value)}
-              />
 
-              <input 
-                type="text"
-                placeholder="Project Id"
-                className="Testimonial-ProjectId"
-                value={testimonialProjectId}
-                name="testimonialprojectid"
-                onChange={(e) => setTestimonialProjectId(e.target.value)}
-              />
+              <div className="Title-Wrapper">
+                <label htmlFor='testimonialtitle'>Title :</label>
+                <input
+                  type="text"
+                  placeholder="Title"
+                  className="Title"
+                  value={testimonialTitle}
+                  name="testimonialtitle"
+                  onChange={(e) => setTestimonialTitle(e.target.value)}
+                />
+              </div>
+              
+              <div className="Id-Wrapper">
+                <label htmlFor='testimonialprojectid'>ProjectID :</label>
+                <input 
+                  type="text"
+                  placeholder="Project Id"
+                  className="Testimonial-ProjectId"
+                  value={testimonialProjectId}
+                  name="testimonialprojectid"
+                  onChange={(e) => setTestimonialProjectId(e.target.value)}
+                />
+              </div>
+              
+              <div className="Username-Wrapper">
+                <label>Username:</label>
+                <input 
+                  type="text"
+                  placeholder="Filler Username For User"
+                  className="Testimonial-Username"
+                  value={testimonialUsername}
+                  name="testimonialusername"
+                  onChange={(e) => setTestimonialUsername(e.target.value)}
+                />
+              </div>
 
+            </div>
+
+            <div className="Star-Review-Wrapper">
               <div className="Star-Review-Button">
-                {[1,2,3,4,5].map((i) => {
-                  return (<span key={i} className={`fas fa-star${testimonialStars >= i ? " checked" : ""}`} onClick={() => setTestimonialStars(i)}></span>)
-                })}
+                  <label>Star Review:</label>
+                  {[1,2,3,4,5].map((i) => {
+                    return (<span key={i} className={`fas fa-star${testimonialStars >= i ? " checked" : ""}`} onClick={() => setTestimonialStars(i)}></span>)
+                  })}
               </div>
             </div>
+            
+
+            <div className="Testimonial-Code-Gen">
+              <label>Code Generator</label>
+              <input 
+                type="Text"
+                placeholder="Generate 12 Digit Code Here"
+                className="Testimonial-Twelve-Digit-Code-Gen"
+                value={testimonialTwelveDigitCode}
+                name="testimonialtwelvedigitcode"
+                onChange={(e)=> setTestimonialTwelveDigitCode(e.target.value)}
+                readOnly={true}
+              />
+              <button type="button" onClick={() => twelveDigitCodeGenerator()}>Generate</button>
+            </div>
+
+            <div className="RTE-WRAPPER">
+                <div className="Editor-Wrapper">
+                  <CKEditor
+                    ref={editorRefFive}
+                    name="descriptionone"
+                    editor={ClassicEditor}
+                    data={editorContentFive}
+                    onChange={handleEditorChangeFive}
+                    config={customConfig}
+                  />
+                </div>
+            </div>
+
+            <button className="Testimonial-Form-Button-Submit" type="submit">Submit</button>
           </form>
+        </div>
+      </React.Fragment>
+    ]
+  }
+
+  const GridRenderForTestimonials = () => {
+    return [
+      <React.Fragment key="The-Grid-For-Testimonials">
+        <div className="Grid-Wrapper-Testimonials">
+          {TestimonialsElements}
         </div>
       </React.Fragment>
     ]
@@ -1130,7 +1349,7 @@ const Manager = () => {
             {formForAddTestimonial()}
           </div>
           <div className="TheGridRenderForTestimonials">
-            <p>Grid Render</p>
+            {GridRenderForTestimonials()}
           </div>
         </div>
       </React.Fragment>

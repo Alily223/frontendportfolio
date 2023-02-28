@@ -4,13 +4,208 @@
             .Testimonial-Comp-Render-Admin-Manager{
                 .TheTestimonialForm{
                     .Form-Wrapper-For-Testimonial-Add{
-                        .Top-bar-inputs-wrapper{
-                            .Star-Review-Button{
-                                .checked {
-                                    color: orange;
-                                  }
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        border: 1px solid black;
+                        .True-testimonal-form{
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            border: 1px solid black;
+                            padding: 10px;
+                            .RTE-WRAPPER{
+                                .Editor-Wrapper{
+                                    margin: 5px;
+                                    .ck-editor__editable_inline {
+                                        background-color: black !important;
+                                        color: $text-bright-color !important;
+                                    }
+                                    
+                                    .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+                                        background-color: black !important;
+                                    }
+                                }
+                            }
+
+                            .Top-bar-inputs-wrapper{
+                                display: grid;
+                                grid-template-columns: repeat(3, 1fr);
+
+                                .Title{
+                                    width: fit-content;
+                                    text-align: center;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    box-shadow: 0 0 5px white;
+                                    margin-right: 10px;
+                                    margin-left: 10px;
+                                }
+
+                                .Testimonial-ProjectId{
+                                    width: fit-content;
+                                    text-align: center;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    box-shadow: 0 0 5px white;
+                                    margin-right: 10px;
+                                    margin-left: 10px;
+                                }
+
+                                .Testimonial-Username{
+                                    width: fit-content;
+                                    text-align: center;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    box-shadow: 0 0 5px white;
+                                    margin-right: 10px;
+                                    margin-left: 10px;
+                                }
+                            }
+
+                            .Star-Review-Wrapper{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                .Star-Review-Button{
+                                    
+                                    padding: 10px;
+                                    span{
+                                        font-size: 1.5em;
+                                    }
+                                    .checked {
+                                        color: orange;
+                                      }
+                                }
+                            }
+                            
+                            
+                            .Testimonial-Code-Gen{
+                                input{
+                                    width: fit-content;
+                                    text-align: center;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    box-shadow: 0 0 5px white;
+                                    margin-right: 10px;
+                                    margin-left: 10px;
+                                }
+
+                                button{
+                                    width: fit-content;
+                                    text-align: center;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    box-shadow: 0 0 5px white;
+                                    margin-right: 10px;
+                                    margin-left: 10px;
+                                }
+                            }
+
+                            .Testimonial-Form-Button-Submit{
+                                width: fit-content;
+                                text-align: center;
+                                color: $text-bright-color;
+                                background-color: black;
+                                box-shadow: 0 0 5px white;
+                                margin-right: 10px;
+                                margin-left: 10px;
                             }
                         }
+                       
+                    }
+                }
+
+                .TheGridRenderForTestimonials{
+                    .Grid-Wrapper-Testimonials{
+                        border: 1px solid black;
+                        height: 500px;
+                        width: 1000px;
+                        overflow-y: scroll;
+
+                        .Testimonial-Wrapper{
+                            display: grid;
+                            grid-template-columns: repeat(4, 1fr);
+                            border: 1px solid black;
+
+                            .Testimonial-Left-Box-Wrapper{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                border: 1px solid black;
+                            }
+
+                            .Testimonial-Middle-Box-Wrapper{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: flex-start;
+                                align-items: center;
+                                height: 150px;
+                                overflow-y: scroll;
+                                border: 1px solid black;
+                            }
+
+                            .Testimonial-Right-Box-Wrapper{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                border: 1px solid black;
+                            }
+
+                            .Testimonial-Buttons-Wrapper-OBJ{
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                border: 1px solid black;
+                                .Delete-Button{
+                                    height: 30px;
+                                    width: 80px;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    margin-top: 20px;
+                                    margin-bottom: 20px;
+                                    margin-left: 8px;
+                                    border-radius: 20px;
+                                    box-shadow: 0 0 5px white;
+                                    transition: 2s;
+            
+                                    &:hover {
+                                        box-shadow: 0 0 5px red;
+                                        height: 35px;
+                                        width: 85px;
+                                        font-size: 1.1em;
+                                        font-weight: bolder;
+                                    }
+                                }
+            
+                                .Edit-Button{
+                                    height: 30px;
+                                    width: 80px;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    margin-left: 8px;
+                                    border-radius: 20px;
+                                    box-shadow: 0 0 5px white;
+                                    transition: 2s;
+            
+                                    &:hover {
+                                        box-shadow: 0 0 5px green;
+                                        height: 35px;
+                                        width: 85px;
+                                        font-size: 1.1em;
+                                        font-weight: bolder;
+                                    }
+                                }
+                            }
+                        }
+                        
+
                     }
                 }
             }
