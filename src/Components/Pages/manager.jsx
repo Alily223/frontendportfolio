@@ -1071,13 +1071,17 @@ const Manager = () => {
   
   */
   const editorRefFive = useRef(null);
+  const editorRefSix = useRef(null);
   const [testimonialTitle, setTestimonialTitle] = useState("")
   const [testimonialProjectId, setTestimonialProjectId] = useState(0)
   const [testimonialStars, setTestimonialStars] = useState(0)
   const [testimonialUsername, setTestimonialUsername] = useState("")
   const [testimonialTwelveDigitCode, setTestimonialTwelveDigitCode] = useState("")
   const [editorContentFive, setEditorContentFive] = useState("");
-  const [testimonials, setTestimonials] = useState([])
+  const [editorContentSix, setEditorContentSix] = useState("");
+  const [testimonials, setTestimonials] = useState([]);
+  const [testimonialEditFormState, setTestimonialEditFormState]= useState("Add");
+  const [testimonialSelfIdentification, setTestimonialSelfIdentification]= useState(0);
 
   useEffect(() => {
     if (change) {
@@ -1113,6 +1117,20 @@ const Manager = () => {
     }catch (error){
       console.error(error)
     }
+  }
+
+  const toTestimonialEditForm = (identification, title, projectid, stars, review, username, twelvedigitcode) => {
+    setTestimonialEditFormState("Edit");
+    setTestimonialSelfIdentification(identification);
+    setTestimonialTitle(title);
+    setTestimonialProjectId(projectid);
+    setTestimonialStars(stars);
+    setTestimonialUsername(username);
+    setTestimonialTwelveDigitCode(twelvedigitcode);
+    console.log(identification);
+    
+
+    setTimeout(() => {editorRefSix.current.editor.setData(review)}, 500)
   }
 
   const TestimonialsElements = testimonials.map(testimonial => {
@@ -1161,7 +1179,7 @@ const Manager = () => {
         </div>
         <div className="Testimonial-Buttons-Wrapper-OBJ">
           <button className="Delete-Button" onClick={(e) => handleTestimonialDelete(e, testimonial.id)}>Delete</button>
-          <button className="Edit-Button">Edit</button>
+          <button className="Edit-Button" onClick={() => toTestimonialEditForm(testimonial.id,testimonial.testimonial_title, testimonial.testimonialprojectid, testimonial.stars, he.decode(testimonial.review), testimonial.testimonial_username, testimonial.twelvedigitcode)}>Edit</button>
         </div>
         
       </div>
@@ -1196,12 +1214,12 @@ const Manager = () => {
 
   const handleTestimonialAdd = (e) => {
     e.preventDefault();
-    console.log("Title :", testimonialTitle)
-    console.log("ProjectId :", testimonialProjectId)
-    console.log("Stars Given :", testimonialStars)
-    console.log("Username :", testimonialUsername)
-    console.log("Twelve Digit Code :", testimonialTwelveDigitCode)
-    console.log("RTE Text :", editorContentFive)
+    // console.log("Title :", testimonialTitle)
+    // console.log("ProjectId :", testimonialProjectId)
+    // console.log("Stars Given :", testimonialStars)
+    // console.log("Username :", testimonialUsername)
+    // console.log("Twelve Digit Code :", testimonialTwelveDigitCode)
+    // console.log("RTE Text :", editorContentFive)
 
     const editorData = editorRefFive.current.editor;
     const content = editorData.getData();
@@ -1331,6 +1349,139 @@ const Manager = () => {
     ]
   }
 
+  const handleEditorChangeSix = (e, editor) => {
+    setEditorContentSix(editor.getData());
+  }
+
+  const handleTestimonialEdit = (e) => {
+    e.preventDefault();
+
+    const editorData = editorRefSix.current.editor;
+    const content = editorData.getData();
+    const data = {
+      title: testimonialTitle,
+      pid: testimonialProjectId,
+      stars: testimonialStars,
+      username: testimonialUsername,
+      code: testimonialTwelveDigitCode,
+      description: content
+    }
+
+    fetch(`http://127.0.0.1:5000/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
+      method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      // setTestimonialTitle("");
+      // setTestimonialProjectId("");
+      // setTestimonialStars(0);
+      // setTestimonialUsername("");
+      // setTestimonialTwelveDigitCode("");
+      // setEditorContentFive("");
+      setChange(true);
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
+
+  const formForTestimonialEdits = () => {
+    const customConfig = {
+      extraAllowedContent: 'h1 h2 h3 p strong em'
+    };
+
+    return [
+      <React.Fragment key="Testimonial_Add_Form">
+        <div className="Form-Wrapper-For-Testimonial-Add">
+          <h1>Edit Testimonial For User</h1>
+          <form className="True-testimonal-form" onSubmit={(e) => handleTestimonialEdit(e)} >
+            <div className="Top-bar-inputs-wrapper">
+
+              <div className="Title-Wrapper">
+                <label htmlFor='testimonialtitle'>Title :</label>
+                <input
+                  type="text"
+                  placeholder="Title"
+                  className="Title"
+                  value={testimonialTitle}
+                  name="testimonialtitle"
+                  onChange={(e) => setTestimonialTitle(e.target.value)}
+                />
+              </div>
+              
+              <div className="Id-Wrapper">
+                <label htmlFor='testimonialprojectid'>ProjectID :</label>
+                <input 
+                  type="text"
+                  placeholder="Project Id"
+                  className="Testimonial-ProjectId"
+                  value={testimonialProjectId}
+                  name="testimonialprojectid"
+                  onChange={(e) => setTestimonialProjectId(e.target.value)}
+                />
+              </div>
+              
+              <div className="Username-Wrapper">
+                <label>Username:</label>
+                <input 
+                  type="text"
+                  placeholder="Filler Username For User"
+                  className="Testimonial-Username"
+                  value={testimonialUsername}
+                  name="testimonialusername"
+                  onChange={(e) => setTestimonialUsername(e.target.value)}
+                />
+              </div>
+
+            </div>
+
+            <div className="Star-Review-Wrapper">
+              <div className="Star-Review-Button">
+                  <label>Star Review:</label>
+                  {[1,2,3,4,5].map((i) => {
+                    return (<span key={i} className={`fas fa-star${testimonialStars >= i ? " checked" : ""}`} onClick={() => setTestimonialStars(i)}></span>)
+                  })}
+              </div>
+            </div>
+            
+
+            <div className="Testimonial-Code-Gen">
+              <label>Code Generator</label>
+              <input 
+                type="Text"
+                placeholder="Generate 12 Digit Code Here"
+                className="Testimonial-Twelve-Digit-Code-Gen"
+                value={testimonialTwelveDigitCode}
+                name="testimonialtwelvedigitcode"
+                onChange={(e)=> setTestimonialTwelveDigitCode(e.target.value)}
+                readOnly={true}
+              />
+            </div>
+
+            <div className="RTE-WRAPPER">
+                <div className="Editor-Wrapper">
+                  <CKEditor
+                    ref={editorRefSix}
+                    name="descriptionone"
+                    editor={ClassicEditor}
+                    data={editorContentSix}
+                    onChange={handleEditorChangeSix}
+                    config={customConfig}
+                  />
+                </div>
+            </div>
+
+            <button className="Testimonial-Form-Button-Submit" type="submit">Submit</button>
+          </form>
+        </div>
+      </React.Fragment>
+    ]
+  }
+
   const GridRenderForTestimonials = () => {
     return [
       <React.Fragment key="The-Grid-For-Testimonials">
@@ -1346,7 +1497,7 @@ const Manager = () => {
       <React.Fragment key="The-Comp-For-Testimonial-Manager">
         <div className="Testimonial-Comp-Render-Admin-Manager">
           <div className="TheTestimonialForm">
-            {formForAddTestimonial()}
+            {testimonialEditFormState === "Add" ? formForAddTestimonial() : testimonialEditFormState === "Edit" ? formForTestimonialEdits(): null}
           </div>
           <div className="TheGridRenderForTestimonials">
             {GridRenderForTestimonials()}
