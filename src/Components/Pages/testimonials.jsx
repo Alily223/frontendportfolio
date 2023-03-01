@@ -88,6 +88,10 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
           </div>
           
         </div>
+
+        <div className="PublishedTestimonialsPage">
+          
+        </div>
       </div>
     </div>
   )

@@ -168,12 +168,12 @@
                                     width: 80px;
                                     color: $text-bright-color;
                                     background-color: black;
-                                    margin-top: 20px;
+                                    margin-top: 5px;
                                     margin-bottom: 20px;
                                     margin-left: 8px;
                                     border-radius: 20px;
                                     box-shadow: 0 0 5px white;
-                                    transition: 2s;
+                                    transition: 1s;
             
                                     &:hover {
                                         box-shadow: 0 0 5px red;
@@ -189,13 +189,33 @@
                                     width: 80px;
                                     color: $text-bright-color;
                                     background-color: black;
+                                    margin-bottom: 20px;
                                     margin-left: 8px;
                                     border-radius: 20px;
                                     box-shadow: 0 0 5px white;
-                                    transition: 2s;
+                                    transition: 1s;
             
                                     &:hover {
                                         box-shadow: 0 0 5px green;
+                                        height: 35px;
+                                        width: 85px;
+                                        font-size: 1.1em;
+                                        font-weight: bolder;
+                                    }
+                                }
+
+                                .Publish-Button{
+                                    height: 30px;
+                                    width: 80px;
+                                    color: $text-bright-color;
+                                    background-color: black;
+                                    margin-left: 8px;
+                                    border-radius: 20px;
+                                    box-shadow: 0 0 5px white;
+                                    transition: 1s;
+            
+                                    &:hover {
+                                        box-shadow: 0 0 5px purple;
                                         height: 35px;
                                         width: 85px;
                                         font-size: 1.1em;

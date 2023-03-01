@@ -1119,6 +1119,31 @@ const Manager = () => {
     }
   }
 
+  const sendToPublisedTestimonials = (pubtitle, pubprojectid, pubstars, pubreview, pubusername, pubtwelvedigitcode) => {
+    const data = {
+      title: pubtitle,
+      pid: pubprojectid,
+      stars: pubstars,
+      username: pubusername,
+      code: pubtwelvedigitcode,
+      description: pubreview
+    }
+
+    fetch('http://127.0.0.1:5000/sendtopublishedtestimonials/add', {
+      method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
+
   const toTestimonialEditForm = (identification, title, projectid, stars, review, username, twelvedigitcode) => {
     setTestimonialEditFormState("Edit");
     setTestimonialSelfIdentification(identification);
@@ -1127,7 +1152,7 @@ const Manager = () => {
     setTestimonialStars(stars);
     setTestimonialUsername(username);
     setTestimonialTwelveDigitCode(twelvedigitcode);
-    console.log(identification);
+    //console.log(identification);
     
 
     setTimeout(() => {editorRefSix.current.editor.setData(review)}, 500)
@@ -1180,6 +1205,7 @@ const Manager = () => {
         <div className="Testimonial-Buttons-Wrapper-OBJ">
           <button className="Delete-Button" onClick={(e) => handleTestimonialDelete(e, testimonial.id)}>Delete</button>
           <button className="Edit-Button" onClick={() => toTestimonialEditForm(testimonial.id,testimonial.testimonial_title, testimonial.testimonialprojectid, testimonial.stars, he.decode(testimonial.review), testimonial.testimonial_username, testimonial.twelvedigitcode)}>Edit</button>
+          <button className="Publish-Button" onClick={() => sendToPublisedTestimonials(testimonial.testimonial_title, testimonial.testimonialprojectid, testimonial.stars, testimonial.review, testimonial.testimonial_username, testimonial.twelvedigitcode)}>Publish</button>
         </div>
         
       </div>
