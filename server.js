@@ -10,9 +10,9 @@ app.use(cors());
 
 app.use(express.static(distPath));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+// app.all('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '.\dist', '\index.html'));
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
