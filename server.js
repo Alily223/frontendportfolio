@@ -9,7 +9,7 @@ app.use(express.static(distPath));
 
 app.all('/favicon.ico', (req, res) => res.status(204));
 
-app.get('*', (req, res) => {
+app.all('*', (req, res) => {
   res.sendFile(indexPath);
 });
 
