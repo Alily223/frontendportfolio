@@ -1,8 +1,12 @@
 const express = require('express');
+const cors = require('cors');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 8080;
-const path = require('path');
+
 const distPath = path.join(__dirname, 'dist');
+
+app.use(cors());
 
 app.use(express.static(distPath));
 
