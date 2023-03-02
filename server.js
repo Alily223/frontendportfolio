@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 8080;
 const path = require('path');
-const distPath = path.join(__dirname, '/dist/');
+const distPath = path.join(__dirname, '/dist');
 const indexPath = path.join(distPath, 'index.html');
 
 app.use(express.static(distPath));
 
-app.all('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(indexPath);
 });
 
