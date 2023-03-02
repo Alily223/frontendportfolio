@@ -6,22 +6,8 @@ const port = process.env.PORT || 8080;
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, '/dist/')));
-
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '/dist/index.html'));
-});
+app.use(express.static(path.join(__dirname, '/dist')));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-const webpack = require('webpack');
-const config = require('./webpack.config.js');
-const compiler = webpack(config);
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: config.output.publicPath,
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
