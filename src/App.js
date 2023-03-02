@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './Styles/main.scss';
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import Home from './Components/Pages/home';
 import Authentication from './Components/Pages/authentication';
