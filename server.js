@@ -7,8 +7,6 @@ const indexPath = path.join(distPath, 'index.html');
 
 app.use(express.static(distPath));
 
-app.all('/favicon.ico', (req, res) => res.status(204));
-
 app.get('*', (req, res) => {
   res.sendFile(indexPath);
 });
