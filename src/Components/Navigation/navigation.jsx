@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { menuItems } from '../../menuItems.js';
 import MenuItems from './MenuItems.jsx';
