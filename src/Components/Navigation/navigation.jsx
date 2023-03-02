@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { menuItems } from '../../menuItems';
-import MenuItems from './MenuItems';
-import { menuadminItems } from '../../menuadminitem';
-import MenuAdminItems from './MenuAdminItems';
+import { menuItems } from '../../menuItems.js';
+import MenuItems from './MenuItems.jsx';
+import { menuadminItems } from '../../menuadminitem.js';
+import MenuAdminItems from './MenuAdminItems.jsx';
 import PowerIconImg from '../../assests/PowerIcon.png';
 
 const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, setAdminLogInStatus, username, setUsername}) => {

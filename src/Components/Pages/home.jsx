@@ -1,7 +1,7 @@
 import React from 'react';
-import Aboutme from '../HomeFeatures/Aboutme';
-import HomeDashboard from '../HomeFeatures/HomeDashboard';
-import MoreFacts from '../HomeFeatures/MoreFacts';
+import Aboutme from '../HomeFeatures/Aboutme.jsx';
+import HomeDashboard from '../HomeFeatures/HomeDashboard.jsx';
+import MoreFacts from '../HomeFeatures/MoreFacts.jsx';
 
 
 const Home = () => {

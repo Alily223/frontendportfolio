@@ -1,4 +1,4 @@
-import AdminDropdown from './AdminDropdown';
+import AdminDropdown from './AdminDropdown.jsx';
 
 const MenuAdminItems = ({items}) => {
     return (

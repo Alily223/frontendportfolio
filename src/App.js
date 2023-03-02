@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './Styles/main.scss';
 
-import Home from './Components/Pages/home';
-import Authentication from './Components/Pages/authentication';
-import Blog from './Components/Pages/blog';
-import Certificates from './Components/Pages/certificates';
-import Contact from './Components/Pages/contact';
-import Createtestimonial from './Components/Pages/createtestimonial';
-import Hackerrank from './Components/Pages/hackerrank';
-import Hireforwork from './Components/Pages/hireforwork';
-import Manager from './Components/Pages/manager';
-import Projects from './Components/Pages/projects';
-import Testimonials from './Components/Pages/testimonials';
-import Usermanager from './Components/Pages/usermanager';
-import Navigation from './Components/Navigation/navigation';
-import Nomatch from './Components/Pages/nomatch';
-import Resume from './Components/Pages/resume';
+import Home from './Components/Pages/home.jsx';
+import Authentication from './Components/Pages/authentication.jsx';
+import Blog from './Components/Pages/blog.jsx';
+import Certificates from './Components/Pages/certificates.jsx';
+import Contact from './Components/Pages/contact.jsx';
+import Createtestimonial from './Components/Pages/createtestimonial.jsx';
+import Hackerrank from './Components/Pages/hackerrank.jsx';
+import Hireforwork from './Components/Pages/hireforwork.jsx';
+import Manager from './Components/Pages/manager.jsx';
+import Projects from './Components/Pages/projects.jsx';
+import Testimonials from './Components/Pages/testimonials.jsx';
+import Usermanager from './Components/Pages/usermanager.jsx';
+import Navigation from './Components/Navigation/navigation.jsx';
+import Nomatch from './Components/Pages/nomatch.jsx';
+import Resume from './Components/Pages/resume.jsx';
 
 
 
