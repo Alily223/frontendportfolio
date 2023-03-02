@@ -52,18 +52,8 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                             </Link>
                         </div>
                         <div className="navigation-item">
-                            <Link className='nav-link' to="/certificates">
-                                Certificates
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
                             <Link className='nav-link' to="/blog">
                                 Blog
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/hackerrank">
-                                Hacker Ranks
                             </Link>
                         </div>
                         <div className="navigation-item">
@@ -95,18 +85,8 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                             </Link>
                         </div>
                         <div className="navigation-item">
-                            <Link className='nav-link' to="/certificates">
-                                Certificates
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
                             <Link className='nav-link' to="/blog">
                                 Blog
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/hackerrank">
-                                Hacker Ranks
                             </Link>
                         </div>
                         <div className="navigation-item">
@@ -132,18 +112,8 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                             </Link>
                         </div>
                         <div className="navigation-item">
-                            <Link className='nav-link' to="/certificates">
-                                Certificates
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
                             <Link className='nav-link' to="/blog">
                                 Blog
-                            </Link>
-                        </div>
-                        <div className="navigation-item">
-                            <Link className='nav-link' to="/hackerrank">
-                                Hacker Ranks
                             </Link>
                         </div>
                         <div className="navigation-item">
