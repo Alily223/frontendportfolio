@@ -7,7 +7,10 @@ const indexPath = path.join(distPath, 'index.html');
 
 app.use(express.static(distPath));
 
-app.get('/favicon.ico', (req, res) => res.status(204));
+app.get('/favicon.ico', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.status(204).send();
+  });
 
 app.get('*', (req, res) => {
   res.sendFile(indexPath);
