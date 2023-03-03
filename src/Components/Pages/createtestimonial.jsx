@@ -44,7 +44,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/testimonialpublished/grabforuser/${twelvedigitcode}`);
+        const response = await fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/testimonialpublished/grabforuser/${twelvedigitcode}`);
         const data = await response.json();
         //console.log(data)
         setTestimonials(data);
@@ -85,7 +85,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/project/GetAll");
+        const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/project/GetAll");
         const data = await response.json();
         //console.log(data)
         setProjects(data);
@@ -233,7 +233,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
       description: content
     }
 
-    fetch(`http://127.0.0.1:5000/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
+    fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -279,7 +279,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
 
     console.log(data)
 
-    fetch('http://127.0.0.1:5000/testimonialunpblished/add', {
+    fetch('https://backend-for-lilygrenportfolio.herokuapp.com/testimonialunpblished/add', {
       method: "POST",
         headers: {
           "Content-Type": "application/json"

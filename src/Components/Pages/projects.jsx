@@ -13,7 +13,7 @@ const Projects = () => {
     if (change) {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/project/GetAll");
+        const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/project/GetAll");
         const data = await response.json();
         //console.log(data)
         setProjects(data);
