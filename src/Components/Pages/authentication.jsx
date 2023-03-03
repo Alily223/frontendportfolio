@@ -17,7 +17,7 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
       setError(true);
       setErrorMessage("Error: All fields must be completed");
     } else {
-      fetch("http://127.0.0.1:5000/users/login", {
+      fetch("https://backend-for-lilygrenportfolio.herokuapp.com/users/login", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -85,7 +85,7 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
       setError(true);
       setErrorMessage("Error: the passwords must match");
     } else {
-      fetch("http://127.0.0.1:5000/users/signup", {
+      fetch("https://backend-for-lilygrenportfolio.herokuapp.com/users/signup", {
         method: "POST",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({
