@@ -1,3 +1,4 @@
+import React from 'react';
 import AdminDropdown from './AdminDropdown.jsx';
 
 const MenuAdminItems = ({items}) => {
