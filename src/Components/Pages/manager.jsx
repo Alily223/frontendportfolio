@@ -59,7 +59,7 @@ const Manager = () => {
       setError(true);
       setErrorMessage("can not post empty blogs try again, check the blog title, content, and category");
     } else {
-      fetch('http://127.0.0.1:5000/blog/postblog', {
+      fetch('https://backend-for-lilygrenportfolio.herokuapp.com/blog/postblog', {
         method: "POST",
         headers: {"content-type": "application/json"},
         body: JSON.stringify(data)
@@ -182,7 +182,7 @@ const Manager = () => {
     console.log(content)
     console.log(option)
 
-    fetch(`http://127.0.0.1:5000/updateblog/${blogId}`, {
+    fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/updateblog/${blogId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -275,7 +275,7 @@ const Manager = () => {
   const getAllBlogsForDelete = async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
+        const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/blog/getblogs");
         const data = await response.json();
         setBlogs(data);
         setIsloading(false)
@@ -287,7 +287,7 @@ const Manager = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
+        const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/blog/getblogs");
         const data = await response.json();
         setBlogs(data);
         setIsloading(false);
@@ -301,7 +301,7 @@ const Manager = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
+        const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/blog/getblogs");
         const data = await response.json();
         setBlogs(data);
         setIsloading(false);
@@ -315,7 +315,7 @@ const Manager = () => {
   const deleteBlog = async (e, blogId) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://127.0.0.1:5000/blog/${blogId}`, {
+      const response = await fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/blog/${blogId}`, {
         method: 'DELETE',
       });
       const data= await response.json();
@@ -570,7 +570,7 @@ const Manager = () => {
     if (projectTitle === "" || content === ""){
       console.log("Null data failure to run")
     } else {
-      fetch(`http://127.0.0.1:5000/project/Add`, {
+      fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/project/Add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -691,7 +691,7 @@ const Manager = () => {
     if (change) {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/project/GetAll");
+        const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/project/GetAll");
         const data = await response.json();
         //console.log(data)
         setProjects(data);
@@ -745,7 +745,7 @@ const Manager = () => {
   const deleteProject = async (e, projectId) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://127.0.0.1:5000/project/${projectId}`, {
+      const response = await fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/project/${projectId}`, {
         method: 'DELETE',
       });
       const data= await response.json();
@@ -775,7 +775,7 @@ const Manager = () => {
     //console.log(content)
     //console.log(option)
 
-    fetch(`http://127.0.0.1:5000/projectsupdate/${projectId}`, {
+    fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/projectsupdate/${projectId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1087,7 +1087,7 @@ const Manager = () => {
     if (change) {
       const fetchTestimonials = async () => {
         try {
-          const response = await fetch("http://127.0.0.1:5000/testimonialunpublished/getall");
+          const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/testimonialunpublished/getall");
           const data = await response.json();
           //console.log(data)
           setTestimonials(data);
@@ -1108,7 +1108,7 @@ const Manager = () => {
   const handleTestimonialDelete = async (e, identification) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://127.0.0.1:5000/testimonialunpublished/delete/${identification}`, {
+      const response = await fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/testimonialunpublished/delete/${identification}`, {
         method: 'DELETE',
       });
       const data= await response.json();
@@ -1129,7 +1129,7 @@ const Manager = () => {
       description: pubreview
     }
 
-    fetch('http://127.0.0.1:5000/sendtopublishedtestimonials/add', {
+    fetch('https://backend-for-lilygrenportfolio.herokuapp.com/sendtopublishedtestimonials/add', {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1258,7 +1258,7 @@ const Manager = () => {
       description: content
     }
 
-    fetch('http://127.0.0.1:5000/testimonialunpblished/add', {
+    fetch('https://backend-for-lilygrenportfolio.herokuapp.com/testimonialunpblished/add', {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1393,7 +1393,7 @@ const Manager = () => {
       description: content
     }
 
-    fetch(`http://127.0.0.1:5000/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
+    fetch(`https://backend-for-lilygrenportfolio.herokuapp.com/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
