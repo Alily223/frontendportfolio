@@ -11,7 +11,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/blog/getblogs");
+        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
         const data = await response.json();
         setBlogs(data);
         setIsLoading(false);
@@ -150,7 +150,7 @@ const Blog = () => {
     } else {
       const fetchBlogs = async () => {
         try {
-          const response = await fetch("https://backend-for-lilygrenportfolio.herokuapp.com/blog/getblogs");
+          const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
           const data = await response.json();
           setBlogs(data);
           setIsLoading(false);
