@@ -5,6 +5,7 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
   const [message, setMessage] = useState("")
   const [countdownthingy , setCountdownThingy] = useState(0)
   const [countdownthingy2 , setCountdownThingy2] = useState(0)
+  const [publishedTestimonials, setPublishedTestimonials] = useState([])
   
 
   const navigate = useNavigate();
