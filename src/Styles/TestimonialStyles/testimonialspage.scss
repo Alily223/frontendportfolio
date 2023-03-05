@@ -1,0 +1,114 @@
+.Page-Wrapper {
+    .Testimonial-Page-Wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .Form-For-Users-To-Add-A-Review{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            .For-Commisoners{
+                margin: 10px;
+                background-color: black;
+                border-radius: 20px;
+                padding: 20px;
+
+                form{
+                    input{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                    }
+                    button{
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        border-radius: 20px;
+                        transition: 1s ease-in-out;
+                            &:hover{
+                                color:blue;
+                            }
+                    }
+                }
+            }
+
+            .For-Guests{
+                margin: 10px;
+                background-color: black;
+                border-radius: 20px;
+                padding: 20px;
+                button{
+                    color: $text-bright-color;
+                    background-color: black;
+                    box-shadow: 0 0 5px white;
+                    border-radius: 20px;
+                    transition: 1s ease-in-out;
+                        &:hover{
+                            color:blue;
+                        }
+                }
+            }
+        }
+
+        .PublishedTestimonialsPage {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            justify-content: center;
+            align-items: center;
+
+            .Testimonial-Wrapper{
+                margin: 10px;
+                background-color: black;
+                border-radius: 20px;
+                padding: 20px;
+                .Testimonial-Left-Box-Wrapper{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    .Testimonial-Project-Id{
+                        button{
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            border-radius: 20px;
+                            transition: 1s ease-in-out;
+                                &:hover{
+                                    color:blue;
+                                }
+                        }
+                    }
+                }
+
+                .Testimonial-Middle-Box-Wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .Testimonial-Stars-Wrapper{
+                        .checked{
+                            color: orange;
+                        }
+                    }
+                }
+
+                .Testimonial-Right-Box-Wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .Testimonial-Username{
+                        background-color: $background-page-color;
+                        padding :10px;
+                        border-radius: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

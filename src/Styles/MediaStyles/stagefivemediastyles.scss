@@ -1,4 +1,4 @@
-@media screen and (max-width:390px) {
+@media screen and (max-width:1199px) {
     //Core Start -----------------------------------------------------
 
 
@@ -51,14 +51,14 @@
         justify-content: space-between;
         padding: 10px;
         height: 84px;
-        width: 850px;
+        width: 1180px;
         background-color: black;
     
         .Left-side-menu{
             @include navigation-item-wrap-css();
     
             .User-Name-Insert{
-                font-size: 1.1em;
+                font-size: 1em;
                 margin-left: 5px;
                 color: $text-bright-color;
             }
@@ -115,7 +115,7 @@
         position: relative;
         overflow-y: scroll;
         overflow-x: hidden;
-        width: 900px;
+        width: 1199px;
 
         .Home-Page-Wrapper{
             display: flex;
@@ -123,14 +123,14 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            width: 900px;
+            width: 1180px;
 
             .About-Me-Wrapper{
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                width: 900px;
+                width: 1100px;
 
                 .Image-Wrapper{
                     display: flex;
@@ -142,8 +142,8 @@
                     background-color: black;
                     border-radius: 20px;
                     box-shadow: 0 0 7px white;
-                    height: 200px;
-                    width: 200px;
+                    height: 300px;
+                    width: 300px;
                     overflow-x: hidden;
                     overflow-y: hidden;
                     img {
@@ -183,8 +183,8 @@
                 }
 
                 .Logo{
-                    height: 150px;
-                    width: 150px;
+                    height: 220px;
+                    width: 310px;
                     align-self: center;
                     margin: 20px;
                     padding: 20px;
@@ -203,24 +203,26 @@
 
             .More-Facts-About-Me-Grid-Wrapper {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 justify-content: center;
                 align-items: center;
 
                 .Skills-Wrapper{
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
+                    justify-content: flex-start;
+                    align-items: flex-start;
                     background-color: black;
                     border-radius: 20px;
                     margin: 10px;
                     box-shadow: 0 0 7px white;
-                    width: 700px;
+                    width: 33%;
+                    height: 540px;
+                    overflow-y: scroll;
 
                     .Skill-bar-confidence-wrapper{
                         display: grid;
-                        grid-template-columns: repeat(2 , 1fr);
+                        grid-template-columns: repeat(1 , 1fr);
 
                         .Skill-Item-wrapper{
                             display: flex;
@@ -309,8 +311,8 @@
                     background-color: black;
                     border-radius: 20px;
                     margin: 10px;
+                    height: 540px;
                     padding: 10px;
-                    height: 560px;
                     box-shadow: 0 0 7px white;
 
                     .Hobbies-list-wrapper{
@@ -330,7 +332,7 @@
                     border-radius: 20px;
                     margin: 10px;
                     height: 540px;
-                    width: 600px;
+                    width: 30%;
                     padding: 10px;
                     box-shadow: 0 0 7px white;
 
@@ -366,7 +368,7 @@
 
             .HomeDashboard-Wrapper{
                 display: grid;
-                grid-template-columns: repeat(1, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 justify-content: center;
                 align-items: center;
 
@@ -378,7 +380,7 @@
                     border-radius: 20px;
                     margin: 10px;
                     height: 200px;
-                    width: 600px;
+                    width: 300px;
                     box-shadow: 0 0 7px white;
 
                     .Dashboard-Object-Material{

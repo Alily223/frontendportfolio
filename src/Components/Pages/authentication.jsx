@@ -127,23 +127,30 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
           <div className="Login-Form-Wrapper">
             <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
 
-              <input 
-              type="text"
-              placeholder="Username"
-              className="loginInput"
-              value={username}
-              name="username"
-              onChange={(e) => setUsername(e.target.value)}
-              />
-
-              <input
-              type="password"
-              placeholder="Password"
-              className="loginInput"
-              value={password}
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="Login-Username">
+                <label>Username :</label>
+                <input 
+                  type="text"
+                  placeholder="Username"
+                  className="loginInput"
+                  value={username}
+                  name="username"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              
+              <div className="Login-Password">
+                <label>Password :</label>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="loginInput"
+                  value={password}
+                  name="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              
 
               <button type="submit" className="loginButton">
                 Log-In
@@ -185,32 +192,42 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
           <div className="Signup-Form-Wrapper">
             <form className="loginBox" onSubmit={(e) => handleSubmitUser(e)}>
 
-              <input 
-              type="text"
-              placeholder="Username"
-              className="SignupInput"
-              value={username}
-              name="username"
-              onChange={(e) => setUsername(e.target.value)}
-              />
-
-              <input
-              type="password"
-              placeholder="Password"
-              className="SignupInput"
-              value={password}
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-              />
-
-              <input
-              type="password"
-              placeholder="Confirm Password"
-              className="SignupInput"
-              value={confirmPassword}
-              name="confirmPassword"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+              <div className="Signup-username">
+                <label>Username :</label>
+                <input 
+                  type="text"
+                  placeholder="Username"
+                  className="SignupInput"
+                  value={username}
+                  name="username"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              
+              <div className="Signup-password">
+                <label>Password :</label>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="SignupInput"
+                  value={password}
+                  name="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              
+              <div className="Signup-confirm-password">
+                <label>Confirm Password:</label>
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  className="SignupInput"
+                  value={confirmPassword}
+                  name="confirmPassword"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
+              
 
               <button type="submit" className="SignupButton">
                 Sign-Up

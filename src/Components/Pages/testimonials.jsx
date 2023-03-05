@@ -68,7 +68,7 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
             <h2>{testimonial.publishedtitle}</h2>
           </div>
           <div className="Testimonial-Project-Id">
-            <p>Project Id : {testimonial.publishedprojectid}</p>
+            <p>Project Id: {testimonial.publishedprojectid}</p>
             <button>Go to Project</button>
           </div>
         </div>
@@ -131,6 +131,7 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
           <div className="For-Commisoners">
             <p>I've Requested A website and would Like to add a review</p>
             <form onSubmit={(e) => FormCodeInputForReview(e)}>
+              <label>Insert 12-Digit Code :</label>
               <input
                 type="text"
                 placeholder="12 - DIGIT CODE"

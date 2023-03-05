@@ -1,4 +1,4 @@
-@media screen and (max-width:390px) {
+@media screen and (max-width:991px) {
     //Core Start -----------------------------------------------------
 
 
@@ -51,14 +51,14 @@
         justify-content: space-between;
         padding: 10px;
         height: 84px;
-        width: 850px;
+        width: 971px;
         background-color: black;
     
         .Left-side-menu{
             @include navigation-item-wrap-css();
     
             .User-Name-Insert{
-                font-size: 1.1em;
+                font-size: 1em;
                 margin-left: 5px;
                 color: $text-bright-color;
             }
@@ -115,7 +115,7 @@
         position: relative;
         overflow-y: scroll;
         overflow-x: hidden;
-        width: 900px;
+        width: 991px;
 
         .Home-Page-Wrapper{
             display: flex;
@@ -123,7 +123,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            width: 900px;
+            width: 990px;
 
             .About-Me-Wrapper{
                 display: flex;

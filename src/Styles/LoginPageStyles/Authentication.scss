@@ -1,0 +1,177 @@
+.Page-Wrapper{
+    .Forms-Wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-size: 1.3em;
+        
+        .Login-Form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            box-shadow: 0 0 7px white;
+            border-radius: 20px;
+            padding: 10px;
+
+            .Login-Form-Wrapper{
+                .loginBox{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    .Login-Username{
+                        margin-bottom: 10px;
+                        input{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                        }
+                    }
+
+                    .Login-Password{
+                        margin-bottom: 10px;
+                        input{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                        }
+                    }
+
+                    button{
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        border-radius: 20px;
+                        transition: 1s ease-in-out;
+                        &:hover{
+                            color:green;
+                        }
+                    }
+                }
+            }
+
+            .Sign-up-wrapper{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                .Sign-Up-Button{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    align-content: center;
+                    align-self: center;
+                    button{
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        border-radius: 20px;
+                        transition: 1s ease-in-out;
+                        &:hover{
+                            color:green;
+                        }
+                    }
+                }
+            }
+        }
+
+        .Signup-Form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            box-shadow: 0 0 7px white;
+            border-radius: 20px;
+            padding: 10px;
+            .loginBox{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .Signup-username{
+                    margin-bottom: 10px;
+                    input{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                    }
+                }
+
+                .Signup-password{
+                    margin-bottom: 10px;
+                    input{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                    }
+                }
+
+                .Signup-confirm-password{
+                    margin-bottom: 10px;
+                    input{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                    }
+                }
+
+                button{
+                    color: $text-bright-color;
+                    background-color: black;
+                    box-shadow: 0 0 5px white;
+                    border-radius: 20px;
+                    transition: 1s ease-in-out;
+                        &:hover{
+                            color:green;
+                        }
+                }
+            }
+        }
+
+        .Log-In-wrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            .Log-In-Button{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                align-self: center;
+                button{
+                    color: $text-bright-color;
+                    background-color: black;
+                    box-shadow: 0 0 5px white;
+                    border-radius: 20px;
+                    transition: 1s ease-in-out;
+                        &:hover{
+                            color:green;
+                        }
+                }
+            }
+        }
+        
+    }
+}

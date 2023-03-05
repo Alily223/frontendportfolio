@@ -14,8 +14,8 @@
         text-align: center;
 
         .About-Me-Wrapper{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            display: flex;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
 
@@ -29,8 +29,8 @@
                 background-color: black;
                 border-radius: 20px;
                 box-shadow: 0 0 7px white;
-                height: 400px;
-                width: 400px;
+                height: 300px;
+                width: 300px;
                 overflow-x: hidden;
                 overflow-y: hidden;
                 img {
@@ -250,7 +250,7 @@
 
         .HomeDashboard-Wrapper{
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             justify-content: center;
             align-items: center;
 
