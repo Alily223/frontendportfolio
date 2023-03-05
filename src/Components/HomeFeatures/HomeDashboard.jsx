@@ -1,15 +1,24 @@
 import React, { useState , useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import LinkedIn from "../../assests/Linked-in.png";
 import Github from "../../assests/github-mark-white.png";
 
 const HomeDashboard = () => {
 
-  const[blogs, setBlogs] = useState([])
-  const[blogsCount, setBlogsCount] = useState("")
+  const [blogs, setBlogs] = useState([])
+  const [blogsCount, setBlogsCount] = useState("")
+  const [projects, setProjects] = useState([])
+  const [projectsCount, setProjectsCount] = useState("")
+  const [testimonials, setTestimonials] = useState([])
+  const [testimonialsCount, setTestimonialsCount] = useState("")
+
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
+
+  const navigate = useNavigate();
 
   const getAllBlogs = async () => {
     try {
-        const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/blog/getblogs");
+        const response = await fetch(`${tobackend}/blog/getblogs`);
         const data = await response.json();
         setBlogs(data);
       } catch (error) {
@@ -17,14 +26,52 @@ const HomeDashboard = () => {
       }
   }
 
+  const getAllProjects = async () => {
+    try {
+        const response = await fetch(`${tobackend}/project/GetAll`);
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error(error);
+      }
+  }
+
+  const getAllTestimonials = async () => {
+    try {
+        const response = await fetch(`${tobackend}/truepublishedtestimonials/getall`);
+        const data = await response.json();
+        setTestimonials(data);
+      } catch (error) {
+        console.error(error);
+      }
+  }
+
+  useEffect(() => {
+    getAllProjects();
+  } , [])
+
   useEffect(() => {
     getAllBlogs();
   }, [])
 
   useEffect(() => {
+   getAllTestimonials(); 
+  }, [])
+
+  useEffect(() => {
+    let numberoftestimonials = testimonials.length
+    setTestimonialsCount(numberoftestimonials)
+  }, [testimonials,setTestimonialsCount])
+
+  useEffect(() => {
     let numberofblogs = blogs.length
     setBlogsCount(numberofblogs)
-  }, [blogs,blogsCount])
+  }, [blogs,setBlogsCount])
+
+  useEffect(() => {
+    let numberofprojects = projects.length
+    setProjectsCount(numberofprojects)
+  }, [projects,setProjectsCount])
 
   return (
     <div className="HomeDashboard-Wrapper">
@@ -33,10 +80,10 @@ const HomeDashboard = () => {
           <h2>Projects</h2>
         </div>
         <div className="Dashboard-Object-Material">
-          <p>0</p>
+          <p>{projectsCount}</p>
         </div>
         <div className="Dashboard-Object-Link">
-          LINK
+          <button onClick={() => navigate("/projects")}>Go To</button>
         </div>
       </div>
 
@@ -44,11 +91,8 @@ const HomeDashboard = () => {
         <div className="Dashboard-Object-Name">
           <h2>Certificates</h2>
         </div>
-        <div className="Dashboard-Object-Material">
-          <p>0</p>
-        </div>
-        <div className="Dashboard-Object-Link">
-          LINK
+        <div className="COMING-SOON">
+          <p>~COMING SOON~</p>
         </div>
       </div>
 
@@ -57,34 +101,10 @@ const HomeDashboard = () => {
           <h2>Testimonials</h2>
         </div>
         <div className="Dashboard-Object-Material">
-          <p>0</p>
+          <p>{testimonialsCount}</p>
         </div>
         <div className="Dashboard-Object-Link">
-          LINK
-        </div>
-      </div>
-
-      <div className="Object-Wrapper">
-        <div className="Dashboard-Object-Name">
-          <h2>Hacker Ranks</h2>
-        </div>
-        <div className="Dashboard-Object-Material">
-          <p>0</p>
-        </div>
-        <div className="Dashboard-Object-Link">
-          LINK
-        </div>
-      </div>
-
-      <div className="Object-Wrapper">
-        <div className="Dashboard-Object-Name">
-          <h2>In-Progress</h2>
-        </div>
-        <div className="Dashboard-Object-Material">
-          <p>0</p>
-        </div>
-        <div className="Dashboard-Object-Link">
-          LINK
+          <button onClick={() => navigate("/testimonials")}>Go To</button>
         </div>
       </div>
 
@@ -94,9 +114,6 @@ const HomeDashboard = () => {
         </div>
         <div className="Dashboard-Object-Material">
           <p>6.2</p>
-        </div>
-        <div className="Dashboard-Object-Link">
-          LINK
         </div>
       </div>
 
@@ -108,7 +125,7 @@ const HomeDashboard = () => {
           <p>{blogsCount}</p>
         </div>
         <div className="Dashboard-Object-Link">
-          LINK
+          <button onClick={() => navigate("/blog")}>Go To</button>
         </div>
       </div>
 
@@ -120,12 +137,12 @@ const HomeDashboard = () => {
           <div className="Wrapper-For-Images">
             <div className="LinkSocial">
               <img src={LinkedIn} alt="LinkOne"/>
-              <a href="https://www.linkedin.com/in/austin-lilygren-7a2257141/">Linked-In</a>
+              <a href="https://www.linkedin.com/in/austin-lilygren-7a2257141/" target="_blank">Linked-In</a>
             </div>
             
             <div className="LinkSocial">
               <img src={Github} alt="LinkTwo"/>
-              <a href="https://github.com/Alily223">Github</a>
+              <a href="https://github.com/Alily223" target="_blank">Github</a>
             </div>
           </div>
           

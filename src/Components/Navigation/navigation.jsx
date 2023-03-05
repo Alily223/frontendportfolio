@@ -1,12 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { menuItems } from '../../menuItems.js';
-import MenuItems from './MenuItems.jsx';
-import { menuadminItems } from '../../menuadminitem.js';
-import MenuAdminItems from './MenuAdminItems.jsx';
 import PowerIconImg from '../../assests/PowerIcon.png';
 
 const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, setAdminLogInStatus, username, setUsername}) => {
+    const [navigationSelection, setNavigationSelection] = useState("")
     const navigate = useNavigate();
 
     const signOut = () => {
@@ -15,6 +12,11 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
         setUsername("")
         localStorage.setItem("token", null);
         navigate("/")
+    }
+
+    const handlenavigationSelection = (event) => {
+        setNavigationSelection(event.target.value);
+        navigate(event.target.value);
     }
 
   return (
@@ -61,20 +63,29 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                                 Testimonials
                             </Link>
                         </div>
-                        <ul className="user-menu">
-                            {menuItems.map((menu, index) => {
-                                return (
-                                    <MenuItems items={menu} key={index} />
-                                )
-                            }) }
-                        </ul>
-                        <ul className="admin-user-menu">
-                            {menuadminItems.map((menu, index) => {
-                                return (
-                                    <MenuAdminItems items={menu} key={index} />
-                                )
-                            }) }
-                        </ul>
+
+                        <div className="navigation-item">
+
+                            <select value={navigationSelection} onChange={handlenavigationSelection}>
+                                <option value="/">User Services</option>
+                                <option value="/createtestimonial">Create Review</option>
+                                <option value="/hireforwork">Hire For Work</option>
+                                <option value="/contact">Contact</option>
+                            </select>
+
+                        </div>
+                        
+
+                        <div className="navigation-item">
+                            
+                            <select value={navigationSelection} onChange={handlenavigationSelection}>
+                                <option value="/">Admin Services</option>
+                                <option value="/manager">Manager</option>
+                                <option value="/usermanager">User Manager</option>
+                            </select>
+                           
+                        </div>
+                        
                     
                     </div>
                     ): userLogInStatus === "LOGGED_IN" ? (
@@ -95,13 +106,16 @@ const Navigation = ({userLogInStatus, setUserLogInStatus , adminLogInStatus, set
                             </Link>
                         </div>
                         
-                        <ul className="user-menu">
-                            {menuItems.map((menu, index) => {
-                                return (
-                                    <MenuItems items={menu} key={index} />
-                                )
-                            }) }
-                        </ul>
+                        <div className="navigation-item">
+                            
+                            <select value={navigationSelection} onChange={handlenavigationSelection}>
+                                <option value="/">User Services</option>
+                                <option value="/createtestimonial">Create Review</option>
+                                <option value="/hireforwork">Hire For Work</option>
+                                <option value="/contact">Contact</option>
+                            </select>
+                             
+                        </div>
                     
                     </div>
                     ): (

@@ -22,6 +22,8 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
   const [clickedReviewbutton, setClickedReviewbutton] = useState(false);
   const [counter, setCounter] = useState(0)
 
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
+
   const FormCodeInputForReview = (e) => {
     e.preventDefault();
     settwelvedigitcode(twelvedigitcode);
@@ -44,7 +46,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await fetch(`https://backendforlilygrenportfolio.herokuapp.com/testimonialpublished/grabforuser/${twelvedigitcode}`);
+        const response = await fetch(`${tobackend}/testimonialpublished/grabforuser/${twelvedigitcode}`);
         const data = await response.json();
         //console.log(data)
         setTestimonials(data);
@@ -85,7 +87,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/project/GetAll");
+        const response = await fetch(`${tobackend}/project/GetAll`);
         const data = await response.json();
         //console.log(data)
         setProjects(data);
@@ -233,7 +235,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
       description: content
     }
 
-    fetch(`https://backendforlilygrenportfolio.herokuapp.com/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
+    fetch(`${tobackend}/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -279,7 +281,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
 
     console.log(data)
 
-    fetch('https://backendforlilygrenportfolio.herokuapp.com/testimonialunpblished/add', {
+    fetch(`${tobackend}/testimonialunpblished/add`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json"

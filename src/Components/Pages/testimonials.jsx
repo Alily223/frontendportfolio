@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import he from 'he';
+import HtmlReactParser from 'html-react-parser';
 
 const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
   const [message, setMessage] = useState("")
   const [countdownthingy , setCountdownThingy] = useState(0)
   const [countdownthingy2 , setCountdownThingy2] = useState(0)
   const [publishedTestimonials, setPublishedTestimonials] = useState([])
+  const [change , setChange] = useState(true)
+  const [isLoading,setIsloading] = useState(true)
   
-
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
   const navigate = useNavigate();
 
   const TheBeginningOfReview = () =>{
@@ -28,6 +32,65 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
       }, 1000)
     }
   }
+
+  useEffect(() => {
+    if (change) {
+      const fetchpublishedTestimonials = async () => {
+        try {
+          const response = await fetch(`${tobackend}/truepublishedtestimonials/getall`);
+          const data = await response.json();
+          //console.log(data)
+          setPublishedTestimonials(data);
+          setIsloading(false);
+          //console.log("data varaible", data);
+          
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchpublishedTestimonials();
+      //console.log(projects)
+      setChange(false)
+      }
+  }, [change])
+
+  const PublishedTestimonialsElements = publishedTestimonials.map(testimonial => {
+    const review = he.decode(testimonial.review)
+
+    const parsedDescription = HtmlReactParser(review)
+
+    console.log(testimonial)
+
+    return (
+      <div key={testimonial.id} className="Testimonial-Wrapper">
+        <div className="Testimonial-Left-Box-Wrapper">
+          <div className="Testimonal-Title">
+            <h2>{testimonial.publishedtitle}</h2>
+          </div>
+          <div className="Testimonial-Project-Id">
+            <p>Project Id : {testimonial.publishedprojectid}</p>
+            <button>Go to Project</button>
+          </div>
+        </div>
+        <div className="Testimonial-Middle-Box-Wrapper">
+          <div className="Testimonial-Stars-Wrapper">
+            {[1,2,3,4,5].map((i) => {
+              return (<span key={i} className={`fas fa-star${testimonial.stars >= i ? " checked" : ""}`}></span>)
+            })}
+          </div>
+          <div className="Testimonial-Review-Wrapper">
+            {parsedDescription}
+          </div>
+        </div>
+        <div className="Testimonial-Right-Box-Wrapper">
+          <div className="Testimonial-Username">
+            <p>BY: {testimonial.testimonial_username}</p>
+          </div>
+        </div>
+        
+      </div>
+    )
+  })
 
   const FormCodeInputForReview = (e) => {
     e.preventDefault();
@@ -91,7 +154,7 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
         </div>
 
         <div className="PublishedTestimonialsPage">
-          
+          {PublishedTestimonialsElements}
         </div>
       </div>
     </div>

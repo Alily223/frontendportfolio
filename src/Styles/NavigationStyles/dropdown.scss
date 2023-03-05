@@ -1,132 +1,20 @@
-.user-menu {
-    position: relative;
-    list-style: none;
-    margin-left: 20px;
-    padding: 0;
-  
-    .menu-items {
-      display: flex;
-      align-items: center;
-      margin-left: -20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      width:auto;
-  
-      a {
-        text-decoration: none;
+.Navigation-Wrapper {
+  .Middle-menu {
+    .navigation-item{
+      select{
+        width:max-content;
+        height:max-content;
+        background-color: rgba(0,0,0,0);
         color: $text-bright-color;
-      }
-  
-      button {
-        font-size: 1.1em;
-        background-color: $background-tile-color;
         border: none;
-        cursor: pointer;
-        color: $text-bright-color;
-        margin-left: 10px;
-        margin-right: 10px;
-        border: 1px solid transparent;
-        background-color: $background-tile-color;
-        padding: 5px;
-        border-radius: 0px 10px 10px 10px;
-        box-shadow: 0 0 5px white;
-        transition: 1s ease-in-out;
-      }
-  
-      .dropdown {
-        display: none;
-        text-align: left;
-        position: absolute;
-        top: 48px;
-        width: 100px;
-        background: $background-tile-color;
-        border-radius: 0px 10px 10px 10px;
-        box-shadow: 0 0 5px white;
-        z-index: 1;
-  
-        .menu-items {
-          width: auto;
-          .Menu-Item {
-            font-size: 0.9em;
-            font-weight: bolder;
-            color: $text-bright-color;
-            text-decoration: none;
-            text-align: center;
-           
+          option{
+            background-color: $background-page-color;
+            height: 20px;
           }
-        }
-      }
-  
-      &:hover {
-        .dropdown {
-          display: block;
-        }
+          option:hover{
+            background-color: transparent;
+          }
       }
     }
   }
-
-.admin-user-menu {
-    position: relative;
-    list-style: none;
-    margin-left: 20px;
-    padding: 0;
-  
-    .menu-items {
-      display: flex;
-      align-items: center;
-      margin-left: -20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      width:auto;
-  
-      a {
-        text-decoration: none;
-        color: $text-bright-color;
-      }
-  
-      button {
-        font-size: 1.1em;
-        background-color: $background-tile-color;
-        border: none;
-        cursor: pointer;
-        color: $text-bright-color;
-        margin-left: 10px;
-        margin-right: 10px;
-        border: 1px solid transparent;
-        background-color: $background-tile-color;
-        padding: 5px;
-        border-radius: 0px 10px 10px 10px;
-        box-shadow: 0 0 5px white;
-        transition: 1s ease-in-out;
-      }
-  
-      .dropdown {
-        display: none;
-        text-align: left;
-        position: absolute;
-        top: 48px;
-        width: 100px;
-        background: $background-tile-color;
-        border-radius: 0px 10px 10px 10px;
-        box-shadow: 0 0 5px white;
-        z-index: 1;
-  
-        .menu-items {
-          width: auto;
-          .Menu-Item {
-            font-size: 0.9em;
-            font-weight: bolder;
-            color: $text-bright-color;
-            text-decoration: none;
-            text-align: center;
-          }
-        }
-      }
-  
-      &:hover {
-        .dropdown {
-          display: block;
-        }
-      }
-    }
-  }
+}

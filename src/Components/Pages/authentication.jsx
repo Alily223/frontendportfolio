@@ -10,6 +10,8 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
   const [formState, setFormState] = useState("LOG_IN")
   const [confirmPassword, setConfirmPassword] = useState("")
 
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
+
   const handleSubmit = (e) => {
     e.preventDefault();
   
@@ -17,7 +19,7 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
       setError(true);
       setErrorMessage("Error: All fields must be completed");
     } else {
-      fetch("https://backendforlilygrenportfolio.herokuapp.com/users/login", {
+      fetch(`${tobackend}/users/login`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -85,7 +87,7 @@ const Authentication = ({setUserLogInStatus, setAdminLogInStatus, setUsername, u
       setError(true);
       setErrorMessage("Error: the passwords must match");
     } else {
-      fetch("https://backendforlilygrenportfolio.herokuapp.com/users/signup", {
+      fetch(`${tobackend}/users/signup`, {
         method: "POST",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({

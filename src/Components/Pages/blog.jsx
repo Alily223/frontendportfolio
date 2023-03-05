@@ -6,12 +6,13 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [offset, setOffset]= useState(0);
-  
 
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
+  
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/blog/getblogs");
+        const response = await fetch(`${tobackend}/blog/getblogs`);
         const data = await response.json();
         setBlogs(data);
         setIsLoading(false);
@@ -150,7 +151,7 @@ const Blog = () => {
     } else {
       const fetchBlogs = async () => {
         try {
-          const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/blog/getblogs");
+          const response = await fetch(`${tobackend}/blog/getblogs`);
           const data = await response.json();
           setBlogs(data);
           setIsLoading(false);

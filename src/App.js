@@ -27,6 +27,8 @@ function App() {
   const [username, setUsername] = useState("")
   const [twelvedigitcode, settwelvedigitcode] = useState("")
 
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
+
   useEffect(() => {
   const token = localStorage.getItem("token");
   //console.log(token)
@@ -34,7 +36,7 @@ function App() {
   //console.log(localStorage.getItem("token"))
 
   if (token) {
-    fetch("https://backendforlilygrenportfolio.herokuapp.com/users/login", {
+    fetch(`${tobackend}/users/login`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

@@ -1,10 +1,119 @@
+@media only screen and (min-width: 1225px) and (max-width:1600) {
+    //Core Start -----------------------------------------------------
 
-.Page-Wrapper{
+
+
+    // Core Finish ----------------------------------------------------
+
+
+
+    // Navigation Start -----------------------------------------------
+
+    @keyframes shadow-aniamtion {
+        0% {
+            box-shadow: 0 0 6px white;
+        }
+        10%{
+            box-shadow: 0 1px 7px white;
+        }
+        20%{
+            box-shadow: 1px 1px 8px white;
+        }
+        30%{
+            box-shadow: 0 -1px 9px white;
+        }
+        40%{
+            box-shadow: -1px -1px 10px white;
+        }
+        50%{
+            box-shadow: 0 1px 11px white;
+        }
+        60%{
+            box-shadow: 1px 1px 10px white;
+        }
+        70%{
+            box-shadow: 0 -1px 9px white;
+        }
+        80%{
+            box-shadow: -1px -1px 8px white;
+        }
+        90%{
+            box-shadow: 0 1px 7px white;
+        }
+        100%{
+            box-shadow: 0 0 6px white;
+        }
+    }
+    
+    .Navigation-Wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        height: 84px;
+        background-color: black;
+    
+        .Left-side-menu{
+            @include navigation-item-wrap-css();
+    
+            .User-Name-Insert{
+                font-size: 1.1em;
+                margin-left: 5px;
+                color: $text-bright-color;
+            }
+        }
+    
+        .Middle-menu{
+            @include navigation-item-wrap-css();
+    
+            .navigation-item{
+            &:hover {animation: shadow-aniamtion 5s ease-in-out infinite;}
+            }
+    
+        }
+    
+        .Right-side-menu{
+            @include navigation-item-wrap-css();
+            align-self: flex-end;
+            .Sign-out-wrapper{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .Power-Icon{
+                    height: 50px;
+                    width: 50px;
+                    background-size: contain;
+                    filter:brightness(130%);
+                    filter:contrast(100%);
+                    border-radius: 200px;
+                    box-shadow: 0 0 5px white;
+                    transition: 1s ease-in-out;
+                    &:hover {
+                        box-shadow: 0 0 10px red;
+                        filter:contrast(130%);
+                    }
+                }
+                .Text-for-power{
+                    font-size: 1.2em;
+                    color: $text-bright-color;
+                }
+            }
+        }
+    }
+
+    // Navigation Finish ----------------------------------------------
+
+
+
+    // HomePage Start -------------------------------------------------
+
+    .Page-Wrapper{
     height: calc(97.8vh - 84px);
     background-color: $background-page-color;
     color: $text-bright-color;
     position: relative;
     overflow-y: scroll;
+    width: 1225px;
 
     .Home-Page-Wrapper{
         display: flex;
@@ -12,12 +121,14 @@
         align-items: center;
         justify-content: center;
         text-align: center;
+        width: 1225px;
 
         .About-Me-Wrapper{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             justify-content: center;
             align-items: center;
+            width: 800px;
 
             .Image-Wrapper{
                 display: flex;
@@ -30,7 +141,7 @@
                 border-radius: 20px;
                 box-shadow: 0 0 7px white;
                 height: 400px;
-                width: 400px;
+                width: 200px;
                 overflow-x: hidden;
                 overflow-y: hidden;
                 img {
@@ -46,7 +157,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                width: 800px;
+                width: 300px;
                 margin: 20px;
                 padding: 20px;
                 background-color: black;
@@ -80,8 +191,8 @@
                 box-shadow: 0 0 7px white;
 
                 img{
-                    height: 100%;
-                    width: 100%;
+                    height: 50%;
+                    width: 50%;
                     object-fit: cover;
                     align-self: center;
                 }
@@ -336,4 +447,7 @@
             }
         }
     }
+}
+
+    // HomePage Finish ------------------------------------------------
 }

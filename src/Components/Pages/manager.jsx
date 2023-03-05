@@ -14,6 +14,8 @@ const Manager = () => {
   const [message, setMessage] = useState("")
   const [isLoading, setIsloading]= useState(true)
 
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
+
   /*
   ----------------------------------------------------------------------------------
   Blogs Code Starts Here
@@ -59,7 +61,7 @@ const Manager = () => {
       setError(true);
       setErrorMessage("can not post empty blogs try again, check the blog title, content, and category");
     } else {
-      fetch('https://backendforlilygrenportfolio.herokuapp.com/blog/postblog', {
+      fetch(`${tobackend}/blog/postblog`, {
         method: "POST",
         headers: {"content-type": "application/json"},
         body: JSON.stringify(data)
@@ -182,7 +184,7 @@ const Manager = () => {
     console.log(content)
     console.log(option)
 
-    fetch(`https://backendforlilygrenportfolio.herokuapp.com/updateblog/${blogId}`, {
+    fetch(`${tobackend}/updateblog/${blogId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -275,7 +277,7 @@ const Manager = () => {
   const getAllBlogsForDelete = async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/blog/getblogs");
+        const response = await fetch(`${tobackend}/blog/getblogs`);
         const data = await response.json();
         setBlogs(data);
         setIsloading(false)
@@ -287,7 +289,7 @@ const Manager = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/blog/getblogs");
+        const response = await fetch(`${tobackend}/blog/getblogs`);
         const data = await response.json();
         setBlogs(data);
         setIsloading(false);
@@ -301,7 +303,7 @@ const Manager = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/blog/getblogs");
+        const response = await fetch(`${tobackend}/blog/getblogs`);
         const data = await response.json();
         setBlogs(data);
         setIsloading(false);
@@ -315,7 +317,7 @@ const Manager = () => {
   const deleteBlog = async (e, blogId) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://backendforlilygrenportfolio.herokuapp.com/blog/${blogId}`, {
+      const response = await fetch(`${tobackend}/blog/${blogId}`, {
         method: 'DELETE',
       });
       const data= await response.json();
@@ -570,7 +572,7 @@ const Manager = () => {
     if (projectTitle === "" || content === ""){
       console.log("Null data failure to run")
     } else {
-      fetch(`https://backendforlilygrenportfolio.herokuapp.com/project/Add`, {
+      fetch(`${tobackend}/project/Add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -691,7 +693,7 @@ const Manager = () => {
     if (change) {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/project/GetAll");
+        const response = await fetch(`${tobackend}/project/GetAll`);
         const data = await response.json();
         //console.log(data)
         setProjects(data);
@@ -718,6 +720,8 @@ const Manager = () => {
     setProjectTitle(title);
     setProjectLink(link);
     setProjectCategory(category);
+    const element = document.getElementById('project-category-add');
+    element.value = projectCategory;
 
     const imageBase64Jparse = JSON.parse(imagefile)
     const imageData = Buffer.from(imageBase64Jparse.ImageBytes, 'base64');
@@ -737,15 +741,14 @@ const Manager = () => {
     //console.log(looasa)
 
     setTimeout(() => {editorRefFour.current.editor.setData(looasa.replaceAll('&lt;/p&gt;', '</p>').replaceAll('&lt;p&gt;','<p>').replaceAll('&lt;h4&gt;',"<h3>").replaceAll('&lt;/h4&gt;',"</h3>").replaceAll('&lt;figure class="table"&gt;', "<figure class='table'>").replaceAll('&lt;/figure&gt;', '</figure>').replaceAll('&lt;table&gt;', '<table>').replaceAll('&lt;/table&gt;', '</table>').replaceAll('&lt;tbody&gt;', '<tbody>').replaceAll('&lt;/tbody&gt;', '</tbody>').replaceAll('&lt;tr&gt;', '<tr>').replaceAll('&lt;/tr&gt;', '</tr>').replaceAll('&lt;td&gt;', '<td>').replaceAll('&lt;/td&gt;', '</td>').replaceAll('.&lt;br&gt;','<br>'));}, 500)
-    const element = document.getElementById('project-category-add');
-    element.value = projectCategory;
+    
     
   }
 
   const deleteProject = async (e, projectId) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://backendforlilygrenportfolio.herokuapp.com/project/${projectId}`, {
+      const response = await fetch(`${tobackend}/project/${projectId}`, {
         method: 'DELETE',
       });
       const data= await response.json();
@@ -775,7 +778,7 @@ const Manager = () => {
     //console.log(content)
     //console.log(option)
 
-    fetch(`https://backendforlilygrenportfolio.herokuapp.com/projectsupdate/${projectId}`, {
+    fetch(`${tobackend}/projectsupdate/${projectId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1010,62 +1013,6 @@ const Manager = () => {
   /*
   
   -----------------------------------------------------------------------------------
-  Certificates Code Starts Here
-  -----------------------------------------------------------------------------------
-  
-  */
-
-  const toCertificatesAdd = () => {
-    setAdminFormState("CERTIFICATES_ADD")
-  }
-
-  const toCertificatesDelete = () => {
-    setAdminFormState("CERTIFICATES_DELETE")
-  }
-
-  const toCertificatesEdit = () => {
-    setAdminFormState("CERTIFICATES_EDIT")
-  }
-
-  /*
-  
-  -----------------------------------------------------------------------------------
-  Certificates Code Ends Here
-  -----------------------------------------------------------------------------------
-  
-  */
-
-  /*
-  
-  -----------------------------------------------------------------------------------
-  Hacker Ranks Code Starts Here
-  -----------------------------------------------------------------------------------
-  
-  */
-
-  const toHackerRanksAdd = () => {
-    setAdminFormState("HACKER_RANKS_ADD")
-  }
-
-  const toHackerRanksDelete = () => {
-    setAdminFormState("HACKER_RANKS_DELETE")
-  }
-
-  const toHackerRanksEdit = () => {
-    setAdminFormState("HACKER_RANKS_EDIT")
-  }
-
-  /*
-  
-  -----------------------------------------------------------------------------------
-  Hacker Ranks Code Ends Here
-  -----------------------------------------------------------------------------------
-  
-  */
-
-  /*
-  
-  -----------------------------------------------------------------------------------
   Testimonials Code Starts Here
   -----------------------------------------------------------------------------------
   
@@ -1087,7 +1034,7 @@ const Manager = () => {
     if (change) {
       const fetchTestimonials = async () => {
         try {
-          const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/testimonialunpublished/getall");
+          const response = await fetch(`${tobackend}/testimonialunpublished/getall`);
           const data = await response.json();
           //console.log(data)
           setTestimonials(data);
@@ -1108,7 +1055,7 @@ const Manager = () => {
   const handleTestimonialDelete = async (e, identification) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://backendforlilygrenportfolio.herokuapp.com/testimonialunpublished/delete/${identification}`, {
+      const response = await fetch(`${tobackend}/testimonialunpublished/delete/${identification}`, {
         method: 'DELETE',
       });
       const data= await response.json();
@@ -1129,7 +1076,14 @@ const Manager = () => {
       description: pubreview
     }
 
-    fetch('https://backendforlilygrenportfolio.herokuapp.com/sendtopublishedtestimonials/add', {
+    console.log(pubtitle)
+    console.log(pubprojectid)
+    console.log(pubstars)
+    console.log(pubusername)
+    console.log(pubtwelvedigitcode)
+    console.log(pubreview)
+
+    fetch(`${tobackend}/sendtopublishedtestimonials/add`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1258,7 +1212,7 @@ const Manager = () => {
       description: content
     }
 
-    fetch('https://backendforlilygrenportfolio.herokuapp.com/testimonialunpblished/add', {
+    fetch(`${tobackend}/testimonialunpblished/add`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1393,7 +1347,7 @@ const Manager = () => {
       description: content
     }
 
-    fetch(`https://backendforlilygrenportfolio.herokuapp.com/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
+    fetch(`${tobackend}/testimonialpublished/grabforedit/${testimonialSelfIdentification}`, {
       method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1571,36 +1525,6 @@ const Manager = () => {
               </div>
               <div className="button-item">
                 <button type="button" onClick={() => toProjectEdits()}>Project Edits</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="Buttons-Wrapper">
-            <h2>Certificates</h2>
-            <div className="buttons">
-              <div className="button-item">
-                <button type="button" onClick={() => toCertificatesAdd()}>Certificates Add</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toCertificatesDelete()}>Certificates Delete</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toCertificatesEdit()}>Certificates Edit</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="Buttons-Wrapper">
-            <h2>Hacker Ranks</h2>
-            <div className="buttons">
-              <div className="button-item">
-                <button type="button" onClick={() => toHackerRanksAdd()}>Hacker Ranks Add</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toHackerRanksDelete()}>Hacker Ranks Delete</button>
-              </div>
-              <div className="button-item">
-                <button type="button" onClick={() => toHackerRanksEdit()}>Hacker Ranks Edit</button>
               </div>
             </div>
           </div>

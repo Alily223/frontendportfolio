@@ -9,11 +9,13 @@ const Projects = () => {
   const [imageUrls, setImageUrls] = useState({});
   const [change, setChange] = useState(true);
 
+  const tobackend = "https://backendforlilygrenportfolio.herokuapp.com"
+
   useEffect(() => {
     if (change) {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("https://backendforlilygrenportfolio.herokuapp.com/project/GetAll");
+        const response = await fetch(`${tobackend}/project/GetAll`);
         const data = await response.json();
         //console.log(data)
         setProjects(data);
