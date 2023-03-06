@@ -1,0 +1,85 @@
+.Page-Wrapper{
+    .Hire-For-Work-Page-Wrapper{
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .Commission-A-Site{
+            .Types-Of-Sites-To-Commission{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: black;
+                border-radius: 20px;
+                box-shadow: 0 0 7px white;
+
+                ul{
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    justify-content: center;
+                    align-items: center;
+
+                    li{
+                        margin-top:5px;
+                        margin-bottom:5px;
+                    }
+                }
+            }
+
+            .Availability-Schedule{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: black;
+                border-radius: 20px;
+                box-shadow: 0 0 7px white;
+                margin-top: 20px;
+
+                .Slots-Wrapper{
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    justify-content: center;
+                    align-items: center;
+
+                    .Slot{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: $background-page-color;
+                        box-shadow: 0 0 7px white;
+                        border-radius: 20px;
+                        padding: 10px;
+                        margin: 20px;
+                    }
+                }
+            }
+            .Contact-Me-About-Hiring{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+                button{
+                    width: 100px;
+                    height: 50px;
+                    background-color: black;
+                    border-radius: 20px;
+                    color: $text-bright-color;
+                    box-shadow: 0 0 7px white;
+                    transition: 1s ease-in-out;
+
+                    &:hover{
+                        cursor: pointer;
+                        box-shadow: 0 0 13px lightblue;
+                    }
+
+                }
+            }
+        }
+    }
+}

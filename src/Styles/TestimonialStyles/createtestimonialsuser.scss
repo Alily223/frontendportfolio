@@ -3,12 +3,96 @@
         .Section-For-Commisioners{
             .Form-Wrapper-For-Testimonial-Add{
                 .True-testimonal-form{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 10px;
+                    .RTE-WRAPPER{
+                        .Editor-Wrapper{
+                            margin: 5px;
+                            .ck-editor__editable_inline {
+                                background-color: black !important;
+                                color: $text-bright-color !important;
+                            }
+                            
+                            .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+                                background-color: black !important;
+                            }
+                        }
+                    }
+
+                    .Top-bar-inputs-wrapper{
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+
+                        .Title{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+
+                        .Testimonial-ProjectId{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+
+                        .Testimonial-Username{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+                    }
                     .Star-Review-Wrapper{
                         .Star-Review-Button{
                             .checked {
                                 color: orange;
                               }
                         }
+                    }
+                    .Testimonial-Code-Gen{
+                        input{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+
+                        button{
+                            width: fit-content;
+                            text-align: center;
+                            color: $text-bright-color;
+                            background-color: black;
+                            box-shadow: 0 0 5px white;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                        }
+                    }
+
+                    .Testimonial-Form-Button-Submit{
+                        width: fit-content;
+                        text-align: center;
+                        color: $text-bright-color;
+                        background-color: black;
+                        box-shadow: 0 0 5px white;
+                        margin-right: 10px;
+                        margin-left: 10px;
                     }
                 }
             }

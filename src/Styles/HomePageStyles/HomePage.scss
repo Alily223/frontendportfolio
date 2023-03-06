@@ -1,6 +1,6 @@
 
 .Page-Wrapper{
-    height: calc(97.8vh - 84px);
+    height: calc(98.1vh - 84px);
     background-color: $background-page-color;
     color: $text-bright-color;
     position: relative;
@@ -55,6 +55,7 @@
 
                 .Resume-link{
                     button{
+                        cursor: pointer;
                         color: $text-bright-color;
                         background-color: black;
                         box-shadow: 0 0 5px white;

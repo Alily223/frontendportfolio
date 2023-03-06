@@ -1,0 +1,82 @@
+.Page-Wrapper{
+    .Contact-Page-Wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .Email-Form-Wrapper{
+            form{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: black;
+                box-shadow: 0 0 7px white;
+                border-radius: 20px;
+                width: 500px;
+                padding: 10px;
+
+                .Name-Wrapper{
+                    margin-top:5px;
+                    margin-bottom:5px;
+                    input{
+                        background-color: $background-page-color;
+                        color: $text-bright-color;
+                        width: 300px;
+                    }
+                }
+
+                .Email-Wrapper{
+                    margin-top:5px;
+                    margin-bottom:5px;
+                    input{
+                        background-color: $background-page-color;
+                        color: $text-bright-color;
+                        width: 300px;
+                    }
+                }
+
+                .Subject-Wrapper{
+                    margin-top:5px;
+                    margin-bottom:5px;
+                    input{
+                        background-color: $background-page-color;
+                        color: $text-bright-color;
+                        width: 300px;
+                    }
+                }
+
+                .Message-Wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 20px;
+                    textarea{
+                        background-color: $background-page-color;
+                        color: $text-bright-color;
+                        width: 500px;
+                        height: 100px;
+                    }
+                }
+
+                button{
+                    width: 100px;
+                    height: 50px;
+                    background-color: black;
+                    border-radius: 20px;
+                    color: $text-bright-color;
+                    box-shadow: 0 0 7px white;
+                    transition: 1s ease-in-out;
+
+                    &:hover{
+                        cursor: pointer;
+                        box-shadow: 0 0 13px lightblue;
+                    }
+
+                }
+            }
+        }
+    }
+    
+}
