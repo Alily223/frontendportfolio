@@ -75,6 +75,8 @@ const Manager = () => {
             setError(false);
             setErrorMessage("");
             setMessage(`succesfully created blog titled ${blogTitle}`)
+            setBlogTitle("")
+            setEditorContentOne("")
           }
         })
         .catch((error) => {
@@ -195,8 +197,11 @@ const Manager = () => {
       .then(data => {
         console.log(data)
         setEditBlogStateChange("CHANGE");
-        setTimeout(() => {setEditBlogStateChange("")}, 500)
+        setTimeout(() => {setEditBlogStateChange("")}, 500);
+        setBlogTitle("");
+        setEditorContentTwo("");
         })
+        
       .catch(error => console.error(error));
 
   }
@@ -581,8 +586,11 @@ const Manager = () => {
       })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
-        setChange(true)
+        console.log(res);
+        setChange(true);
+        setProjectTitle("");
+        setProjectLink("");
+        setEditorContentThree("")
       })
       .catch(error => {
         console.log(error)
