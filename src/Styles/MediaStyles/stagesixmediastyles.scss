@@ -53,7 +53,7 @@
         justify-content: space-between;
         padding: 10px;
         height: 84px;
-        width: 1340px;
+        width: 100%;
         background-color: black;
         overflow-y: hidden;
     
@@ -123,7 +123,7 @@
         position: relative;
         overflow-y: scroll;
         overflow-x: hidden;
-        width: 1360px;
+        width: 100%;
 
         .Home-Page-Wrapper{
             display: flex;
@@ -131,14 +131,14 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            width: 1340px;
+            width: 100%;
 
             .About-Me-Wrapper{
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                width: 1350px;
+                width: 100%;
 
                 .Image-Wrapper{
                     display: flex;

@@ -51,7 +51,7 @@
         justify-content: space-between;
         padding: 30px;
         height: 84px;
-        width: 820px;
+        width: 100%;
         background-color: black;
     
         .Left-side-menu{
@@ -115,7 +115,7 @@
         position: relative;
         overflow-y: scroll;
         overflow-x: hidden;
-        width: 900px;
+        width: 100%;
 
         .Home-Page-Wrapper{
             display: flex;
@@ -123,14 +123,14 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            width: 900px;
+            width: 100%;
 
             .About-Me-Wrapper{
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                width: 900px;
+                width: 100%;
 
                 .Image-Wrapper{
                     display: flex;
