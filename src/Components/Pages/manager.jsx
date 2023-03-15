@@ -1202,12 +1202,6 @@ const Manager = () => {
 
   const handleTestimonialAdd = (e) => {
     e.preventDefault();
-    // console.log("Title :", testimonialTitle)
-    // console.log("ProjectId :", testimonialProjectId)
-    // console.log("Stars Given :", testimonialStars)
-    // console.log("Username :", testimonialUsername)
-    // console.log("Twelve Digit Code :", testimonialTwelveDigitCode)
-    // console.log("RTE Text :", editorContentFive)
 
     const editorData = editorRefFive.current.editor;
     const content = editorData.getData();
@@ -1365,12 +1359,6 @@ const Manager = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      // setTestimonialTitle("");
-      // setTestimonialProjectId("");
-      // setTestimonialStars(0);
-      // setTestimonialUsername("");
-      // setTestimonialTwelveDigitCode("");
-      // setEditorContentFive("");
       setChange(true);
     }).catch((error) => {
       console.error(error)

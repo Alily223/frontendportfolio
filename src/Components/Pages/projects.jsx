@@ -58,24 +58,17 @@ const Projects = () => {
     } else {
       const projectObject = JSON.parse(project.image)
       const base64Data = projectObject.ImageBytes;
-      console.log(base64Data)
       const imageData = Buffer.from(base64Data, 'base64');
-      //console.log(imageData)
       const bytes = new Uint8Array(imageData);
-      //console.log(bytes)
       const blob = new Blob([bytes], {type: 'image/jpeg,image/png,image/svg+xml'});
       const file = new File([blob], `${project.project_id}image.jpg`, {type: 'image/jpeg'});
       imageurl = URL.createObjectURL(file);
-      //console.log(imageurl)
       setImageUrls(prevState => ({
         ...prevState,
         [project.project_id]: imageurl
       }));
     }
     
-    //console.log(imageurl)
-
-    //console.log(project.image)
 
     return (
       <div key={project.id} className="Project-Object">

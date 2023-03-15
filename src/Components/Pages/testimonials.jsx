@@ -96,7 +96,6 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
     e.preventDefault();
     settwelvedigitcode(twelvedigitcode);
     if (username !== "" && twelvedigitcode !== ""){
-      //console.log("This will send you direct to create review page")
       navigate("/createtestimonial")
     }else {
 
@@ -105,7 +104,6 @@ const Testimonials = ({username, twelvedigitcode, settwelvedigitcode}) => {
         let countdown = 10
         const countdownTimer = setInterval(() => {
         countdown--;
-        //console.log(countdown)
         setCountdownThingy2(countdown)
         if(countdown === 0){
           clearInterval(countdownTimer);

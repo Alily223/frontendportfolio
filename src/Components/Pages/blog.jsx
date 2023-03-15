@@ -27,12 +27,9 @@ const Blog = () => {
     const id = "B-I-" + identity;
     const element = document.getElementById(id);
 
-    //console.log(identity)
-
     const filterButtonNameArray = ["Normal", "Code", "Update", "News", "Opinon","Error","Job","Personal","Test","All"]
 
     filterButtonNameArray.forEach(item => {
-      console.log(item);
       const elementId = item + "-Blog";
       const element = document.getElementById(elementId);
       if(element.className.includes(" Unfocused-Filter-Button")){
@@ -141,7 +138,6 @@ const Blog = () => {
 
       if (filteredBlogs.length !== 0){
         setBlogs(filteredBlogs);
-        //console.log(filteredBlogs)
       } else {
         setBlogs([
           {category: 'NO BLOGS', description: "&lt;p&gt;NO BLOGS WITH CATEGORY.&lt;/p&gt;", id: 120302, title: 'NO BLOGS'}])

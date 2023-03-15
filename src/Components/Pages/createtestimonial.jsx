@@ -48,10 +48,8 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
       try {
         const response = await fetch(`${tobackend}/testimonialpublished/grabforuser/${twelvedigitcode}`);
         const data = await response.json();
-        //console.log(data)
         setTestimonials(data);
-        //setIsloading(false);
-        //console.log("data varaible", data);
+
         
       } catch (error) {
         console.error(error);
@@ -89,10 +87,7 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
       try {
         const response = await fetch(`${tobackend}/project/GetAll`);
         const data = await response.json();
-        //console.log(data)
         setProjects(data);
-        //console.log(data)
-        //console.log("data varaible", data);
         
       } catch (error) {
         console.error(error);
@@ -133,7 +128,6 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
   }
 
   const projectRecords = projects.map(project => {
-    //console.log(count)
     const PlainText = he.decode(project.description);
     const splitText = PlainText.split(' ').slice(0, 15);
     if (splitText[0].startsWith("<p>") && splitText[splitText.length - 1] !== "</p>") {
@@ -158,24 +152,17 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
     } else {
       const projectObject = JSON.parse(project.image)
       const base64Data = projectObject.ImageBytes;
-      //console.log(base64Data)
       const imageData = Buffer.from(base64Data, 'base64');
-      //console.log(imageData)
       const bytes = new Uint8Array(imageData);
-      //console.log(bytes)
+
       const blob = new Blob([bytes], {type: 'image/jpeg,image/png,image/svg+xml'});
       const file = new File([blob], `${project.project_id}image.jpg`, {type: 'image/jpeg'});
       imageurl = URL.createObjectURL(file);
-      //console.log(imageurl)
       setImageUrls(prevState => ({
         ...prevState,
         [project.project_id]: imageurl
       }));
     }
-    
-    //console.log(imageurl)
-
-    //console.log(project.image)
 
     return (
       <div key={project.project_id} className="Project-Object">
@@ -245,13 +232,6 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
     .then(res => res.json())
     .then(data => {
       console.log(data);
-      // setTestimonialTitle("");
-      // setTestimonialProjectId("");
-      // setTestimonialStars(0);
-      // setTestimonialUsername("");
-      // setTestimonialTwelveDigitCode("");
-      // setEditorContentFive("");
-      //setChange(true);
     }).catch((error) => {
       console.error(error)
     })
@@ -261,12 +241,6 @@ const Createtestimonial = ({username, twelvedigitcode, settwelvedigitcode}) => {
 
   const handleTestimonialAdd = (e) => {
     e.preventDefault();
-    // console.log("Title :", testimonialTitle)
-    // console.log("ProjectId :", testimonialProjectId)
-    // console.log("Stars Given :", testimonialStars)
-    // console.log("Username :", testimonialUsername)
-    // console.log("Twelve Digit Code :", testimonialTwelveDigitCode)
-    // console.log("RTE Text :", editorContentFive)
     const idproject = testimonialProjectId
     const editorData = editorRefEight.current.editor;
     const content = editorData.getData();
